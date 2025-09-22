@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - PicassoPDF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-page">
+        <!-- Header with Logo -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>PicassoPDF</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <!-- Signup Form Section -->
+            <div class="form-section">
+                <div class="form-container">
+                    <h1 class="form-title">Create Account</h1>
+                    
+                    <form class="login-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                placeholder="Full name"
+                                formControlName="name"
+                                [class.error]="signupForm.get('name')?.invalid && signupForm.get('name')?.touched"
+                                (input)="clearError()"
+                            >
+                        </div>
+                        
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                placeholder="Company name"
+                                formControlName="companyName"
+                                [class.error]="signupForm.get('companyName')?.invalid && signupForm.get('companyName')?.touched"
+                                (input)="clearError()"
+                            >
+                        </div>
+                        
+                        <div class="input-group">
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                placeholder="Email"
+                                formControlName="email"
+                                [class.error]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+                                (input)="clearError()"
+                            >
+                        </div>
+                        
+                        <div class="input-group password-group">
+                            <input 
+                                [type]="showPassword ? 'text' : 'password'" 
+                                class="form-input" 
+                                placeholder="Password"
+                                formControlName="password"
+                                [class.error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                                (input)="clearError()"
+                            >
+                            <button 
+                                type="button" 
+                                class="password-toggle" 
+                                (click)="togglePasswordVisibility()"
+                            >
+                                <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="terms-text">
+                            By signing in or creating an account, you agree with our 
+                            <a href="#" class="terms-link">Terms of Service</a> and 
+                            <a href="#" class="terms-link">Privacy Policy</a>.
+                        </div>
+                        
+                        <button type="submit" class="signin-btn" [disabled]="signupForm.invalid || isLoading || isSuccess">
+                            <div class="btn-content">
+                                <i *ngIf="isLoading" class="fas fa-spinner fa-spin" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+                                <i *ngIf="isSuccess" class="fas fa-check" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+                                <span *ngIf="!isLoading && !isSuccess">Create account</span>
+                                <span *ngIf="isLoading">Creating account</span>
+                                <span *ngIf="isSuccess">Account created</span>
+                            </div>
+                        </button>
+                        
+                        <div class="error-message" *ngIf="errorMessage">
+                            {{ errorMessage }}
+                        </div>
+                        <div class="error-message" *ngIf="userAlreadyExists">
+                            Email already in use
+                        </div>
+                        <div class="error-message" *ngIf="accountAlreadyExistsOnThisDevice">
+                            Only 1 account can be created per device
+                        </div>
+                    </form>
+                    
+                    <div class="signup-prompt">
+                        <p>Already have an account? <a routerLink="/login" class="signup-link">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,548 @@
+.integrations-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--background-peach);
+}
+
+/* Page Header */
+.page-header {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: black;
+  margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.primary-btn {
+  background: var(--primary-orange);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 122, 89, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 122, 89, 0.4);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Connected Stores Section */
+.connected-stores-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.stores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.store-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-orange);
+  }
+}
+
+.store-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.store-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.store-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  &.shopify {
+    background: linear-gradient(135deg, #95bf47 0%, #5e8e3e 100%);
+  }
+
+  &.woocommerce {
+    background: linear-gradient(135deg, #96588a 0%, #7c3aed 100%);
+  }
+
+  &.bigcommerce {
+    background: linear-gradient(135deg, #34313f 0%, #5a5a5a 100%);
+  }
+
+  svg {
+    color: white;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.store-details {
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .store-name {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 0.5rem 0;
+  }
+}
+
+.store-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .status-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+.store-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #666;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: var(--primary-orange);
+    color: var(--primary-orange);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.sync {
+    &:hover:not(:disabled) {
+      border-color: #16a34a;
+      color: #16a34a;
+    }
+  }
+
+  &.disconnect {
+    &:hover {
+      background: #fef2f2;
+      border-color: #dc2626;
+      color: #dc2626;
+    }
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.store-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.stat-item {
+  text-align: center;
+
+  .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+}
+
+.store-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+
+  .last-sync {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .view-details-btn {
+  background: none;
+  border: none;
+  color: var(--primary-orange);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--accent-cyan);
+  }
+}
+}
+
+/* Available Integrations Section */
+.available-integrations-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.integration-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 2rem;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+  }
+}
+
+.integration-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.integration-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  &.shopify {
+    background: linear-gradient(135deg, #95bf47 0%, #5e8e3e 100%);
+  }
+
+  &.woocommerce {
+    background: linear-gradient(135deg, #96588a 0%, #7c3aed 100%);
+  }
+
+  &.bigcommerce {
+    background: linear-gradient(135deg, #34313f 0%, #5a5a5a 100%);
+  }
+
+  svg {
+    color: white;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.integration-info {
+  flex: 1;
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
+  }
+
+  p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.integration-features {
+  margin-bottom: 1.5rem;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 0.5rem 0;
+    color: #666;
+    position: relative;
+    padding-left: 1.5rem;
+
+    &::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #16a34a;
+      font-weight: bold;
+    }
+  }
+}
+
+.integration-actions {
+  text-align: center;
+}
+
+.connect-btn {
+  background: var(--primary-orange);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 122, 89, 0.3);
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 122, 89, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Benefits Section */
+.benefits-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 1rem 0 0.75rem 0;
+  }
+
+  p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.benefit-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+
+  svg {
+    color: white;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .integrations-container {
+    padding: 1rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .stores-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .integrations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .store-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .store-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .store-stats {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .store-footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header,
+  .connected-stores-section,
+  .available-integrations-section,
+  .benefits-section {
+    padding: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .store-card,
+  .integration-card {
+    padding: 1rem;
+  }
+
+  .integration-header {
+    flex-direction: column;
+    text-align: center;
+  }
+} 

@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /
+
+# Allow only public pages
+Allow: /
+Allow: /home
+Allow: /docs
+
+# Sitemap location
+Sitemap: https://picassopdf.com/sitemap.xml

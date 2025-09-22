@@ -1,0 +1,106 @@
+<div class="pdf-logs-container">
+  <div class="content-wrapper">
+    <div class="header">
+    <div class="title-section">
+      <h1>PDF Logs</h1>
+      <p>All your PDF Logs & API requests.</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="custom-spinner"></div>
+      <p>Loading your logs...</p>
+    </div>
+    
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container">
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        {{ error }}
+        <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadLogs()">Retry</button>
+      </div>
+    </div>
+
+    <!-- Logs Table (only show when not loading) -->
+    <div *ngIf="!loading && !error" class="logs-table-container">
+      <div class="table-header">
+        <h3>Your PDF Logs</h3>
+                 <div class="table-actions">
+           <input type="text" placeholder="Search logs..." class="search-input" [(ngModel)]="searchTerm" (input)="onSearchChange()">
+                       <div class="custom-dropdown">
+              <button class="dropdown-toggle" (click)="toggleStatusDropdown()" type="button">
+                {{ statusFilter || 'All Status' }}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="dropdown-menu" [class.show]="showStatusDropdown">
+                <div class="dropdown-item" (click)="selectStatus('')">All Status</div>
+                <div class="dropdown-item" (click)="selectStatus('success')">Success</div>
+                <div class="dropdown-item" (click)="selectStatus('processing')">Processing</div>
+                <div class="dropdown-item" (click)="selectStatus('failed')">Failed</div>
+              </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="table-wrapper" (scroll)="onTableScroll($event)">
+        <table class="logs-table my-table" style="width:100%">
+                                                         <thead>
+                                           <tr>
+                        <th>Timestamp</th>
+                        <th>Request ID</th>
+                        <th>Status</th>
+                        <th>Output Size</th>
+                        <th>Credits Used</th>
+                        <th>API Endpoint</th>
+                        <th>Generation Time</th>
+                      </tr>
+                   </thead>
+          <tbody>
+                         <tr *ngFor="let log of paginatedLogs" class="log-row">
+               <td class="log-timestamp">{{ log.timestamp | date:'MMM dd, yyyy h:mm a' }}</td>
+               <td class="log-request-id">
+                 <div class="log-info">
+                   <div>
+                     <div class="log-title">{{ log.requestId }}</div>
+                     <!--<div class="log-user" *ngIf="log.userId">User: {{ log.userId }}</div>-->
+                   </div>
+                 </div>
+               </td>
+               <td class="log-status">
+                 <span class="status-badge" [ngClass]="'status-' + getStatusColor(log.status)">
+                   {{ getStatusText(log.status) }}
+                 </span>
+               </td>
+                       <td class="log-output-size">{{ log.outputSizeBytes ? formatFileSizeMB(log.outputSizeBytes) : '-' }}</td>
+               <td class="log-credits">{{ log.creditUsed }}</td>
+               <td class="log-endpoint">{{ log.apiEndpoint }}</td>
+               <td class="log-generation-time">{{ formatGenerationTimeSeconds(log.generationTimeMs) }}</td>
+             </tr>
+                         <!-- Loading/End Footer Row -->
+             <tr class="table-footer-row">
+               <td colspan="7" class="footer-content">
+                
+                <div *ngIf="!hasMoreData && !isLoadingMore && logs.length > 0" class="end-footer">
+                  <span>You've reached the end of your logs</span>
+                </div>
+                <div *ngIf="!hasMoreData && !isLoadingMore && logs.length === 0" class="empty-footer">
+                  <span>No logs have been generated yet</span>
+                </div>
+                <div *ngIf="hasMoreData && !isLoadingMore" class="blank-footer">
+                  <!-- Blank footer when more data is available but not loading -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</div>

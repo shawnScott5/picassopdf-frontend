@@ -1,0 +1,46 @@
+<div class="dropdown show form">
+    <div class="form-wrapper drag" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+        <div>
+            <h1 class="form-title">Add Filters</h1>
+        </div>
+        <div class="close-btn">
+            <button (click)="dialog.close(false)" type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+    </div>
+    <hr class="hr" />
+    <div class="filters-container">
+      <a class="btn btn-secondary dropdown-toggle date-created-button" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Date Created
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+        <div *ngFor="let list of influencerLists">
+            <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink1', list)">{{ list.name }}</a>
+        </div>
+      </div>
+
+      <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Date Updated
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+          <div *ngFor="let list of influencerLists">
+              <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink2', list)">{{ list.name }}</a>
+          </div>
+      </div>
+    </div>
+
+    <div class="save-button-container">
+        <div class="buttons-container">
+            <button (click)="dialog.close(false)" class="btn btn-secondary cancel-button" type="button" role="button">
+                Cancel
+            </button>
+            <button (click)="onSave()" class="btn btn-secondary send-button" type="button" role="button">
+                Add filters
+            </button>
+        </div>
+        <div class="loading-icon-wrapper">
+            <div *ngIf="isLoading" class="spinner-border spinner-border-md text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>  
+        </div>
+    </div>
+</div>

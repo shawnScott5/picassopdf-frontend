@@ -1,0 +1,32 @@
+<div class="parent" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div>
+        <form action="#" class="form">
+            <div class="form-wrapper">
+                <div>
+                    <h1 class="form-title">Cancel Membership</h1>
+                </div>
+                <div class="close-btn">
+                    <button (click)="dialog.close(false)" type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+            </div>
+            <hr class="hr" />
+         
+            <div class="form-confirmation">
+                <span>Are you sure you want to cancel your membership?</span>
+            </div>
+            <div class="buttons-container">
+                <!--
+                <button class="btn btn-secondary cancel-button" type="button" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cancel
+                </button>
+                -->
+                <button (click)="onCancel()" class="btn btn-secondary cancel-button" type="button" role="button">
+                    No
+                </button>
+                <button (click)="onCancelMembership()" class="btn btn-secondary delete-button" type="button" role="button">
+                    Yes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

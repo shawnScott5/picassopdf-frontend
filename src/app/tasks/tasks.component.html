@@ -1,0 +1,400 @@
+<div *ngIf="tasksForm" class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary parent">
+    <!-- Main content -->
+    <div class="h-screen flex-grow-1 main-container" (scroll)="onScroll($event)">
+        <!-- Header -->
+        <header class="bg-surface-primary border-bottom pt-6">
+            <div class="container-fluid">
+                <div class="mb-npx">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                            <!-- Title -->
+                            <h1 class="h2 mb-0 ls-tight">Tasks list</h1>
+                        </div>
+                        <!-- Actions -->
+                        <div class="col-sm-6 col-12 text-sm-end">
+                            <div class="mx-n1 download-title">
+                                <!--
+                                <a href="#" class="btn d-inline-flex btn-sm btn-secondary mx-1 action-button">
+                                    <span class="pe-2">
+                                        <i class="bi bi-box-arrow-up"></i>
+                                    </span>
+                                    <span>Download Tasks</span>
+                                </a>
+                                -->
+                                <!--
+                                <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                    <span class=" pe-2">
+                                        <i class="bi bi-box-arrow-down"></i>
+                                    </span>
+                                    <span>Upload Notes</span>
+                                </a>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs mt-4 overflow-x border-0">
+                        <!--
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link active">All files</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link font-regular">Shared</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link font-regular">File requests</a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <hr>
+        <!-- Main -->
+        <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+                <div class="row g-6 mb-6">
+                    <div class="container-fluid">
+                    <div class="card shadow border-0">
+                        <div class="card-body card-containers">
+                            <div class="dropdown show">
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" 
+                                       role="button" id="dropdownMenuLink" 
+                                       data-bs-toggle="dropdown" 
+                                       aria-haspopup="true" 
+                                       aria-expanded="false"
+                                       [ngClass]="{ 'option-selected': query.reminder ? 'option-selected': '' }">
+                                     Reminder
+                                    </a>
+                                  
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink', '15 mins before')">
+                                            <span class="dropdown-icon">15 mins before</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink', '30 mins before')">
+                                            <span class="dropdown-icon">30 mins before</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink', '1 hour before')">
+                                            <span class="dropdown-icon">1 hr before</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink', '1 day before')">
+                                            <span class="dropdown-icon">1 day before</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" 
+                                        role="button" id="dropdownMenuLink1"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                        [ngClass]="{ 'option-selected': query.priority ? 'option-selected': '' }">
+                                      Priority
+                                    </a>
+                                  
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink1', 'Low')">
+                                            <span class="dropdown-icon">Low</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink1', 'Medium')">
+                                            <span class="dropdown-icon">Medium</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink1', 'High')">
+                                            <span class="dropdown-icon">High</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" 
+                                       role="button" id="dropdownMenuLink2" 
+                                       data-bs-toggle="dropdown" 
+                                       aria-haspopup="true" 
+                                       aria-expanded="false"
+                                       [ngClass]="{ 'option-selected': query.status ? 'option-selected': '' }">
+                                      Status
+                                    </a>
+                                  
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink2', 'Open')">
+                                            <span class="dropdown-icon">Open</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink2', 'In-Progress')">
+                                            <span class="dropdown-icon">In-Progress</span>
+                                        </a>
+                                        <a class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink2', 'Done')">
+                                            <span class="dropdown-icon">Done</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" 
+                                       role="button" id="dropdownMenuLink3" 
+                                       data-bs-toggle="dropdown" 
+                                       aria-haspopup="true" 
+                                       aria-expanded="false"
+                                       [ngClass]="{ 'option-selected': query.flagged ? 'option-selected': '' }">
+                                      Flagged
+                                    </a>
+                                  
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                                      <a type="button" class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink3', 'Yes')">Yes</a>
+                                      <a type="button" class="dropdown-item" (click)="dropdownSelected('dropdownMenuLink3', 'No')">No</a>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown show">
+                                    <button (click)="onClearFilters()" class="btn btn-danger delete-button" title="Clear filters" type="button" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="reset-title">Reset</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-repeat clear-icon" viewBox="0 0 16 16">
+                                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="dropdown show right-container">
+                                <div class="dropdown show">
+                                    <div class="dropdown show">
+                                        <button  (click)="openCreateNewTaskModal()" class="btn btn-secondary results-button" type="button" role="button" aria-haspopup="true" aria-expanded="false">
+                                          <i class="bi bi-journal-check button-icon"></i> New Task
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div *ngIf="!isPageLoading && tasks.length" class="card shadow border-0 mb-7">
+                    <div class="card-header">
+                        <h5 class="mb-0 table-title">Tasks</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">{{'Due @'}}</th>
+                                    <th scope="col">Reminder</th>
+                                    <th scope="col">Priority</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Flagged</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let task of tasks">
+                                    <td class="text-start">
+                                        {{ task.createdDate | date: 'MM/dd/yyyy' }}
+                                    </td>
+                                    <td class="text-start title-field">
+                                        {{ task.title | truncate:45 }}
+                                    </td>
+                                    <td class="text-start">
+                                        {{ (task.dueDate | date: 'MM/dd/yyyy') || 'n/a' }}
+                                    </td>
+                                    <td class="text-start">
+                                        {{ task.convertedDueDateTime || 'n/a' }}
+                                    </td>
+                                    <td class="text-start">
+                                        {{ task.reminder || 'n/a' }}
+                                    </td>
+                                    <td class="text-start">
+                                        <span [ngClass]="{
+                                            'low-priority': task.priority == 'Low',
+                                            'medium-priority': task.priority == 'Medium',
+                                            'high-priority': task.priority == 'High'
+                                            }">
+                                            {{ task.priority || 'n/a' }}
+                                        </span>
+                                    <td class="text-start">
+                                        {{ task.status }}
+                                    </td>
+                                    <td class="text-start">
+                                        <span [ngClass]="{'flagged-color': task.flagged}">
+                                            {{ task.flagged ? 'Yes' : 'No' }}
+                                        </span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span>
+                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover action-button" title="Edit task" (click)="onUpdateTask(task)">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </span>
+                                        <span>
+                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover action-button" title="Delete task" (click)="onDeleteTask(task)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer border-0 py-5 d-flex justify-content-center">
+                        <span *ngIf="!isMoreLoading && !this.hasMoreData" class="text-muted text-sm end-of-list">{{ "You've reached the end of the list" }}</span>
+                        <div *ngIf="isMoreLoading" class="spinner-border spinner-border-sm text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>  
+                    </div>
+                </div>
+                <div *ngIf="!isPageLoading && !isLoading && !tasks.length" class="empty-list-container">
+                    <div class="empty-list">
+                        <div class="empty-list-img-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="250" fill="currentColor" class="bi bi-journal-check empty-list-img" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                              </svg>
+                        </div>
+                        <h5>You haven't created any Tasks yet</h5>
+                        <span class="empty-list-title">Create a New Task to get started</span>
+                        <div>
+                            <button (click)="openCreateNewTaskModal()" [disabled]="isPageLoading" class="btn btn-secondary empty-list-btn" type="button" role="button">
+                                <i class="bi bi-journal-check button-icon"></i> New Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="card-footer border-0 py-5 d-flex justify-content-center">
+            <div *ngIf="isPageLoading || isLoading" class="spinner-border spinner-border-md text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>  
+        </div>
+</div>
+
+<!--
+<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+    <div class="h-screen flex-grow-1">
+        <header class="bg-surface-primary border-bottom pt-6">
+            <div class="container-fluid">
+                <div class="mb-npx">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                            <h1 class="h2 mb-0 ls-tight">Tasks</h1>
+                        </div>
+                        <div class="col-sm-6 col-12 text-sm-end">
+                            <div class="mx-n1">
+                                <button (click)="openCreateNewTaskModal()" class="btn btn-secondary new-task-button empty-list-btn" type="button" role="button">
+                                    + New Task
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs mt-4 overflow-x border-0">
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link active">All files</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link font-regular">Shared</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link font-regular">File requests</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+            <div class="tasks-container">
+                <div class="row">
+                    <div style="height: 93vh" class="col-md-12">
+                        <div cdkDropListGroup>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="example-container">
+                                        <h2 class="header-title">TO DO <span *ngIf="tasks.length > 0">({{tasks.length}})</span></h2>
+                                        <div
+                                            cdkDropList
+                                            [cdkDropListData]="tasks"
+                                            class="example-list"
+                                            (cdkDropListDropped)="drop($event)">
+                                            <div *ngFor="let task of tasks; let i = index">
+                                                <div class="example-box" cdkDrag>
+                                                    {{task.name}}
+                                                    <div class="box">
+                                                        <span>
+                                                            <button (click)="editTask(task, i)" type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover" title="Edit task">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </button>
+                                                        </span>
+                                                        <span>
+                                                            <button (click)="deleteTask(task)" type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover" title="Delete task">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="example-container">
+                                        <h2 class="header-title">IN PROGRESS <span *ngIf="inProgress.length > 0">({{inProgress.length}})</span></h2>
+                                        <div
+                                        cdkDropList
+                                        [cdkDropListData]="inProgress"
+                                        class="example-list"
+                                        (cdkDropListDropped)="drop($event)">
+                                            <div *ngFor="let task of inProgress; let i = index">
+                                                <div class="example-box" cdkDrag>
+                                                    {{task.name}}
+                                                    <div class="box">
+                                                        <span>
+                                                            <button (click)="deleteTask(task)" type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover" title="Delete task">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="example-container">
+                                    <h2 class="header-title">DONE <span *ngIf="done.length > 0">({{done.length}})</span></h2>
+                                        <div
+                                            cdkDropList
+                                            [cdkDropListData]="done"
+                                            class="example-list"
+                                            (cdkDropListDropped)="drop($event)">
+                                            <div *ngFor="let task of done; let i = index">
+                                                <div class="example-box" cdkDrag>
+                                                    {{task.name}}
+                                                    <div class="box">
+                                                        <span>
+                                                            <button (click)="deleteTask(task)" type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover" title="Delete task">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </span>
+                                                        <span>
+                                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                                <i class="bi bi-check-circle"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+-->
+

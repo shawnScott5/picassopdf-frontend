@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="form-wrapper" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+        <div>
+            <h1 class="form-title">{{ isReportBug ? 'Report Bug' : 'Suggest New Feature' }}</h1>
+        </div>
+        <div class="close-btn">
+            <button (click)="dialog.close(false)" type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+    </div>
+    <hr class="hr" />
+    <form [formGroup]="editorForm">
+    <div data-mdb-input-init class="subject-line-container">
+        <input name="keywords" #keywordSearch formControlName="noteTitle" type="text" class="subject-line" placeholder="Title" />
+    </div>
+    <div class="email-editor">
+        <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor [editor]="editor" style="height: 500px !important;" formControlName="editorContent" [ngModel]="html" [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
+        </div>
+        <!--
+        <email-editor
+            #emailEditor
+            [minHeight]="'400px'"
+            (editorLoaded)="onEditorLoaded($event)"
+            (designUpdated)="onDesignUpdated($event)">
+        </email-editor>
+        -->
+    </div>
+    </form>
+    <div class="footer">
+        <div class="buttons-container">
+            <button (click)="dialog.close(false)" class="btn btn-secondary cancel-button" type="button" role="button">
+                <span class="cancel-title">Cancel</span>
+            </button>
+            <button (click)="onSend()" [disabled]="!isFormValid()" class="btn btn-secondary send-button" type="button" role="button">
+                <div class="send-button-container">
+                    <div *ngIf="isLoading" class="spinner-border spinner-border-sm text-success spinner-color" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div>
+                        Send to Support
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

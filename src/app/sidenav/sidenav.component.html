@@ -1,0 +1,26 @@
+<div class="sidebar" [class.collapsed]="collapsed">
+  <div class="sidebar-header">
+    <div class="logo">
+      <i class="fas fa-microphone"></i>
+      <span *ngIf="!collapsed" class="logo-text">PicassoPDF</span>
+    </div>
+    <button class="collapse-btn" (click)="collapsed = !collapsed">
+      <i [class]="collapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+    </button>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li *ngFor="let item of navData" class="nav-item">
+        <a 
+          [routerLink]="['/app', item.routeLink]" 
+          routerLinkActive="active"
+          class="nav-link"
+          [title]="collapsed ? item.label : ''">
+          <i [class]="item.icon"></i>
+          <span *ngIf="!collapsed" class="nav-label">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

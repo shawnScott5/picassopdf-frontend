@@ -1,0 +1,419 @@
+/* Webpixels CSS */
+/* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+/* URL: https://github.com/webpixels/css */
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #12e19f !important;
+    border-color: #12e19f !important;
+    color: black !important;
+}
+
+.end-of-list {
+    color: #12e19f !important;
+}
+
+.title-field {
+    width: 25em !important;
+    max-width: 25em !important;
+}
+
+.main-container {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: 100vh; /* Full viewport height */
+}
+
+.dark-banner-text {
+    color: black;
+}
+
+.banner-container {
+    width: 99.5%;
+    margin-left: 0.6rem;
+}
+
+.empty-title {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+}
+
+.empty-list-container {
+    margin-top: 12vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.influencer-list-img {
+    height: 125px;
+    width: 125px;
+    margin-bottom: 3vh;
+}
+
+.new-task-button {
+    color: black;
+    border-color: #12e19f !important;
+    background-color: white !important;
+    margin-left: 20px;
+    
+    &:hover {
+      box-shadow: 0 0 15px #12e19f !important;
+    }
+}
+
+.empty-list-btn {
+    color: white;
+    border-color: #12e19f !important;
+    background-color: black  !important;
+    margin-left: 25px;
+    width: 150px !important;
+    min-width: 150px !important;
+    transition: 1s;
+    padding: 12px 20px;
+    
+    &:hover {
+      padding: 12px 20px;
+      box-shadow: 0 0 15px #12e19f !important;
+      border-color: #12e19f !important;
+      color: #12e19f !important;
+      background-color: black  !important;
+      transform: scale(1.1) !important;
+    }
+}
+
+.delete-button {
+    color: red;
+    background-color: black !important;
+    border-color: red;
+    
+    &:hover {
+      box-shadow: 0 0 15px red !important;
+    }
+}
+
+.table-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: -0.5px;
+}
+
+.table-responsive {
+    overflow-x: hidden !important;
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.dropdown-item {
+    cursor: pointer;
+}
+
+button.dropdown-item:hover {
+    cursor: pointer;
+    background-color: #12e19f !important;
+}
+
+.dropdown-menu{
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #000;
+    box-shadow: 0 0 15px #12e19f;
+    border: 1px solid #12e19f !important
+}
+
+.dropdown-icon {
+    color: white !important;
+}
+
+.dropdown-icon:hover {
+    color: white !important;
+}
+
+.empty-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+}
+
+.button-icon {
+    margin-right: 5px;
+}
+
+h5 {
+    margin-left: -0.5em !important;
+    margin-bottom: 10px !important;
+    font-size: 20px;
+    font-weight: bold;
+    color: #12e19f;
+}
+
+.empty-list {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-list-title {
+    margin-top: 2rem !important;
+    margin-left: 2.4rem !important;
+    color: white !important;
+    font-size: 14px !important;
+}
+
+.empty-list-img {
+    margin-left: 3vw !important;
+    margin-bottom: 25px !important;
+    color: #12e19f !important;
+ }
+
+.empty-list-btn {
+    margin-top: 3rem;
+    margin-left: 4.4rem;
+}
+
+.empty-influencers {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-influencers-img {
+    margin-left: 8rem;
+ }
+
+.empty-influencers-btn {
+    margin-top: 1rem;
+    margin-left: 8rem;
+}
+
+.dropdown-menu > a {
+    color: white !important;
+}
+
+.dropdown-menu > a:hover {
+    background-image: none;
+    background-color: #12e19f !important;
+    color: white !important;
+}
+  
+.dropdown-menu > div > a:hover {
+    background-image: none;
+    background-color: #12e19f !important;
+    color: white !important;
+}
+
+::ng-deep .dropdown-toggle {
+    width: 160px !important;
+}
+
+::ng-deep .option-selected {
+    color: #12e19f !important;
+  }
+
+.influencer-img {
+    height: 30px;
+    width: 30px;
+}
+
+.empty-list-img-container {
+  margin-left: 1rem;
+  margin-bottom: -2rem;
+}
+
+.dropdown {
+    margin-right: 15px;
+  
+    :last-child {
+      margin-right: 0;
+    }
+}
+
+.results-button {
+    background-color: #12e19f !important;
+    color: black !important;
+    margin-left: 2em !important;
+    border: 1px solid black !important;
+    transition: 1s !important;
+    width: 140px !important;
+    min-width: 140px !important;
+    
+    &:hover {
+      border: 1px solid #12e19f !important;
+      box-shadow: 0 0 15px #12e19f !important;
+      background-color: black !important;
+      color: white !important;
+      transform: scale(1.1) !important;
+    }
+}
+
+.flagged-color {
+    font-weight: bold !important;
+    color: red !important;
+}
+
+.low-priority {
+    font-weight: bold !important;
+    color: #12e19f !important;
+}
+
+.medium-priority {
+    font-weight: bold;
+    color: orange !important;
+}
+
+.high-priority {
+    font-weight: bold !important;
+    color: red !important;
+}
+
+.card-containers {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.card {
+    border: 2px solid #12e19f !important;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #12e19f !important;
+}
+
+div.card-header {
+    background-color: #000 !important;
+}
+
+.card-containers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.new-list-button {
+    margin-left: 5em !important;
+}
+
+header {
+    background-color: #000 !important;
+}
+
+.card-title {
+    font-size: 12px !important;
+}
+
+.hr {
+    margin-top: -3px !important;
+}
+
+.card-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.card-body {
+    background-color: black !important;
+    box-shadow: 0 0 15px #12e19f !important;
+    border-radius: 12px !important;
+}
+
+main {
+    background-color: black !important;
+}
+
+.main-background {
+    background-color: black !important;
+}
+
+h1 {
+    color: #12e19f !important;
+}
+
+span.h3 {
+    color: white !important;
+}
+
+.container-fluid{
+    background-color: black !important;
+}
+
+.parent{
+    background-color: black !important;
+    height: 100vh !important;
+    overflow-x: hidden !important;
+}
+
+th {
+    background-color: black !important;
+    color: white !important;
+}
+
+td {
+    background-color: black !important;
+    color: white !important;
+}
+
+div.card-footer {
+    background-color: black !important;
+}
+
+.h-screen {
+    background-color: black !important;
+}
+
+span {
+    color: #fff !important;
+}
+
+.action-button {
+    background-color: black !important;
+    color: white !important;
+}
+
+.action-button:hover {
+    border-color: #12e19f !important;
+    color: #12e19f !important;
+}
+
+.download-title:hover {
+    color: #12e19f !important;
+
+    i {
+        color: #12e19f !important;
+    }
+
+    span {
+        color: #12e19f !important;
+    }
+}
+
+::ng-deep .btn-check:checked+.btn-secondary, .btn-check:active+.btn-secondary, .btn-secondary:active, .btn-secondary.active, .show>.btn-secondary.dropdown-toggle {
+    color: #fff !important;
+    background-color: #000 !important;
+    border-color: #12e19f !important;
+
+    &.option-selected {
+        color: #12e19f !important;
+    }
+}
+
+.reset-title {
+    margin-right: 8px !important;
+    margin-top: 5px !important;
+    color: red !important;
+  }

@@ -1,0 +1,117 @@
+<div *ngIf="!isLoading" class="membership-container">
+  <!-- Interactive Pricing Section -->
+  <section class="pricing-slider">
+    <div class="pricing-content">
+      <div class="pricing-header">
+        <h2>Only pay for what you need</h2>
+        <p class="credit-note-header">* 1 credit = 1 PDF page. Generate a 3-page PDF? That's 3 credits.</p>
+      </div>
+      
+             <div class="slider-section">
+         <div class="slider-container">
+           <div class="slider-label">
+             <span>I need to convert</span>
+             <input type="text" [value]="formatNumberWithCommas(monthlyConversions)" (input)="onInputChange($event)" (blur)="onInputBlur($event)" class="conversion-input">
+             <span>pages per month</span>
+             <span class="tooltip-icon">
+               ?
+               <span class="tooltip-text">Enterprise? For plans over 1M credits per month contact us</span>
+             </span>
+           </div>
+           <div class="preset-buttons">
+             <div class="preset-row">
+               <button class="preset-btn" (click)="setCredits(50)" [class.active]="monthlyConversions === 50">Free plan</button>
+               <button class="preset-btn" (click)="setCredits(1000)" [class.active]="monthlyConversions === 1000">1k Credits</button>
+               <button class="preset-btn" (click)="setCredits(5000)" [class.active]="monthlyConversions === 5000">5k Credits</button>
+               <button class="preset-btn" (click)="setCredits(10000)" [class.active]="monthlyConversions === 10000">10k Credits</button>
+               <button class="preset-btn" (click)="setCredits(25000)" [class.active]="monthlyConversions === 25000">25k Credits</button>
+             </div>
+             <div class="preset-row">
+               <button class="preset-btn" (click)="setCredits(50000)" [class.active]="monthlyConversions === 50000">50k Credits</button>
+               <button class="preset-btn" (click)="setCredits(100000)" [class.active]="monthlyConversions === 100000">100k Credits</button>
+               <button class="preset-btn" (click)="setCredits(250000)" [class.active]="monthlyConversions === 250000">250k Credits</button>
+               <button class="preset-btn" (click)="setCredits(500000)" [class.active]="monthlyConversions === 500000">500k Credits</button>
+               <button class="preset-btn" (click)="setCredits(750000)" [class.active]="monthlyConversions === 750000">750k Credits</button>
+               <button class="preset-btn" (click)="setCredits(1000000)" [class.active]="monthlyConversions === 1000000">1M Credits</button>
+             </div>
+           </div>
+         </div>
+       </div>
+       
+       <div class="current-plan-text">
+         <span>Current Plan: <span class="current-plan-value">{{currentPlan}}{{currentPlan === 'Free' ? ' (50 Credits)' : ''}}</span></span>
+       </div>
+       
+       <div class="pricing-bottom-row">
+         <div class="current-plan-badge" *ngIf="currentPlan !== 'Free'">
+           <span class="current-plan-label">Current Plan:</span>
+           <span class="current-plan-name">{{currentPlan}}</span>
+         </div>
+         
+        <div class="pricing-recommendation">
+           <div class="recommendation-card">
+            <div class="card-header">
+              <h3>Your Pricing</h3>
+            </div>
+            <div class="card-content">
+              <div class="credits">{{formatNumber(monthlyConversions)}} Credits</div>
+              <div class="price">{{getFormattedPrice() === 'Free' ? 'Free' : '$' + getFormattedPrice()}}</div>
+              <div class="included-features">
+                <div class="features-divider"></div>
+                <ul class="features-list">
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                      <span>Convert {{formatNumber(monthlyConversions)}} pages/month</span>
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                      <span>API + dashboard for full control</span>
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                      <span>Secure cloud storage + instant file links</span>
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                      <span>Batch & async processing for large jobs</span>
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                      <span>AI-powered HTML layout repair</span>
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                      <span>Priority support</span>
+                  </li>
+                </ul>
+                <div class="overage-info">
+                  <p>+$0.003 per extra page (billed at end of month)</p>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-large" (click)="startCustomSubscription()" [disabled]="isButtonDisabled()">
+                <span *ngIf="!isProcessingPayment && !isButtonDisabled()">Get Started</span>
+                <span *ngIf="!isProcessingPayment && isButtonDisabled()">Current Plan</span>
+                <span *ngIf="isProcessingPayment" style="display: flex; align-items: center; gap: 8px;">
+                  <div class="spinner"></div>
+                  Getting Started
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

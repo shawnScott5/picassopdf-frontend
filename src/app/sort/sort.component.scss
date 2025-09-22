@@ -1,0 +1,199 @@
+::ng-deep .close-btn .btn-close {
+    color: white !important;  /* Ensures the icon color is white */
+    background-color: transparent !important;  /* Removes default background */
+    filter: invert(1); /* Inverts colors (useful for Bootstrap btn-close) */
+    z-index: 9999; /* Ensures it is on top */
+    position: relative; /* Ensures z-index takes effect */
+}
+
+::ng-deep .custom-dialog-container {
+    box-shadow: 0 0 30px white !important; // Adjust as needed
+    border-radius: 8px !important; // Optional for rounded corners
+}
+
+.form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    cursor: grab;
+}
+
+.form {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 35px 25px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.form-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #12e19f;
+    padding-top: 15px;
+}
+
+.close-btn {
+    margin-left: 10px;
+}
+
+hr {
+    width: 150%;
+    margin-top: 0;
+    margin-left: -50px;
+    font-size: 1px;
+    color: lightgray;
+}
+
+.checkmark {
+    color: #12e19f !important;
+}
+
+.cross {
+    color: red !important;
+}
+
+.error-message {
+    color: red;
+}
+
+.drag {
+    cursor: grab;
+}
+
+.dropdown-menu > a:hover {
+    cursor: pointer;
+    background-image: none;
+    background-color: #12e19f !important;
+    color: #fff;
+}
+  
+.dropdown-menu > div > a:hover {
+    cursor: pointer;
+    background-image: none;
+    background-color: #12e19f !important;
+    color: #fff;
+}
+
+::ng-deep .btn-check:checked+.btn-secondary, .btn-check:active+.btn-secondary, .btn-secondary:active, .btn-secondary.active, .show>.btn-secondary.dropdown-toggle, .show>.filters-container>.btn-secondary.dropdown-toggle {
+    color: #fff !important;
+    background-color: #000 !important;
+    border-color: #12e19f !important;
+    width: 175px !important;
+}
+
+::ng-deep .btn-close {
+    margin-right: 5px !important;
+}
+
+.form-control {
+    border: 1px solid #12e19f !important;
+}
+
+.form-control:focus {
+    border-color: #12e19f !important;
+    box-shadow: 0 0 6px #12e19f !important;
+}
+
+.more-details {
+    margin-top: 30px;
+}
+
+.chevron-logo {
+    cursor: pointer;
+    color: #12e19f !important;
+}
+
+.hide-details {
+    margin-left: 5px;
+}
+
+.description-field {
+    margin-top: 10px;
+}
+
+.save-button-container {
+    margin-top: 20px;
+}
+
+.save-button{
+    width: 100%;
+    height: 40px;
+    background: #12e19f !important;
+    color: #000;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #12e19f !important;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 1s;
+    margin-top: 20px;
+}
+
+.save-button:hover{
+    background: transparent;
+    border: 2px solid #12e19f !important;
+    color: #000 !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #12e19f !important;
+}
+
+.loading-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.cancel-button {
+    background-color: black !important;
+    border-color: red !important;
+    margin-right: 15px;
+    width: 160px;
+    color: white !important;
+    transition: 1s !important;
+    
+    &:hover {
+        color: red !important;
+        background-color: black !important;
+        border-color: red !important;
+        box-shadow: 0 0 15px red !important;
+        transform: scale(1.1) !important;
+    }
+  }
+
+  .send-button {
+    background-color: black !important;
+    color: white;
+    width: 160px;
+    border: 1px solid #12e19f;
+    transition: 1s !important;
+    
+    &:hover {
+        background-color: black !important;
+        color: #12e19f !important;
+        box-shadow: 0 0 15px #12e19f !important;
+        transform: scale(1.1) !important;
+    }
+  }
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 60px 5px 2.5em 0;
+}
+
+.filters-container {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+}
+
+.date-created-button {
+    margin-right: 5px;
+}

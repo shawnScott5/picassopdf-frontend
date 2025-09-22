@@ -1,0 +1,176 @@
+<div class="layout-container" [class.night-mode]="isNightMode">
+    <!-- Sidebar -->
+    <div class="sidebar" [class.collapsed]="isCollapsed">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <div class="brand" *ngIf="!isCollapsed">
+                <div class="brand-content">
+                    <h1 class="brand-name">PicassoPDF</h1>
+                </div>
+            </div>
+            
+            <div class="header-controls" *ngIf="!isCollapsed">
+                <!-- Night mode toggle button temporarily hidden
+                <button class="night-mode-toggle" (click)="toggleNightMode()" [attr.aria-label]="isNightMode ? 'Switch to light mode' : 'Switch to dark mode'">
+                    <svg *ngIf="!isNightMode" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg *ngIf="isNightMode" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                -->
+                <button class="collapse-toggle" (click)="toggleSidebar()" [attr.aria-label]="isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" [class.rotated]="isCollapsed">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-section">
+            <!-- Collapsed arrow button -->
+            <button class="expand-arrow" *ngIf="isCollapsed" (click)="toggleSidebar()" [attr.aria-label]="'Expand sidebar'">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a routerLink="/app/dashboard" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed" 
+                       matTooltip="Dashboard" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                        </svg>
+                        <span *ngIf="!isCollapsed">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/app/pdf-vault" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="PDF Vault" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <circle cx="12" cy="16" r="1"></circle>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span *ngIf="!isCollapsed">PDF Vault</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/app/pdf-logs" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="PDF Logs" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10,9 9,9 8,9"></polyline>
+                        </svg>
+                        <span *ngIf="!isCollapsed">PDF Logs</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/app/api-keys" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="API Keys" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                        </svg>
+                        <span *ngIf="!isCollapsed">API Keys</span>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="user?.admin">
+                    <a routerLink="/app/test-api" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="Test API" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                        <span *ngIf="!isCollapsed">Test API</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/app/membership" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="Membership" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                        <span *ngIf="!isCollapsed">Membership</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/docs" target="_blank" rel="noopener noreferrer" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="Documentation (Opens in new tab)" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10,9 9,9 8,9"></polyline>
+                        </svg>
+                        <span *ngIf="!isCollapsed">Documentation</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="nav-section bottom-nav">
+            <hr/>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a routerLink="/app/settings" routerLinkActive="active" class="nav-link" [class.collapsed]="isCollapsed"
+                       matTooltip="Settings" 
+                       [matTooltipDisabled]="!isCollapsed"
+                       matTooltipClass="nav-tooltip">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        <span *ngIf="!isCollapsed">Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link logout" (click)="logout()" [class.collapsed]="isCollapsed">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16,17 21,12 16,7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span *ngIf="!isCollapsed">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content" [class.collapsed]="isCollapsed">
+        <router-outlet></router-outlet>
+    </div>
+</div>

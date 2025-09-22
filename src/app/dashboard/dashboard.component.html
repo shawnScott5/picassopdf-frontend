@@ -1,0 +1,148 @@
+<div class="dashboard-container" [class.night-mode]="isNightMode">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="title-row">
+                    <h1 class="dashboard-title">Your usage ({{formatNumber(getCurrentMonthlyUsage())}}/{{getCreditLimit()}})</h1>
+                    <div class="plan-info">
+                        <span class="plan-text">Current plan: <span class="current-plan-value">{{getCurrentPlan()}}</span></span>
+                        <button class="upgrade-btn" (click)="onUpgrade()">Upgrade</button>
+                    </div>
+                </div>
+                <div class="usage-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" [style.width]="Math.min((getCurrentMonthlyUsage() / getMaxCredits()) * 100, 100) + '%'"></div>
+                    </div>
+                    <p class="progress-text">You used {{Math.round((getCurrentMonthlyUsage() / getMaxCredits()) * 100)}}% of your plan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credits Information -->
+    <div class="credits-section">
+        <div class="credits-card">
+            <div class="credits-content">
+                <h2 class="credits-title">{{getCreditsText()}}</h2>
+                <p class="credits-subtitle">Your credits will reset in {{creditsResetDays}} days.</p>
+            </div>
+            <div class="credits-filters">
+                <div class="custom-dropdown">
+                    <button class="dropdown-toggle" (click)="toggleTimeRangeDropdown()">
+                        {{ selectedTimeRange }}
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" [class.show]="showTimeRangeDropdown">
+                        <div class="dropdown-item" (click)="selectTimeRange('Last 30 days')">Last 30 days</div>
+                        <div class="dropdown-item" (click)="selectTimeRange('Last 7 days')">Last 7 days</div>
+                        <div class="dropdown-item" (click)="selectTimeRange('Last 90 days')">Last 90 days</div>
+                    </div>
+                </div>
+                
+                <div class="custom-dropdown">
+                    <button class="dropdown-toggle" (click)="toggleApiKeyDropdown()">
+                        {{ selectedApiKey }}
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" [class.show]="showApiKeyDropdown">
+                        <div class="dropdown-item" (click)="selectApiKey('All API keys')">All API keys</div>
+                        <div *ngIf="apiKeysLoading" class="dropdown-item loading">Loading API keys...</div>
+                        <div *ngFor="let apiKey of apiKeys" class="dropdown-item" (click)="selectApiKey(apiKey.name)">
+                            {{ apiKey.name }}
+                        </div>
+                        <div *ngIf="!apiKeysLoading && apiKeys.length === 0" class="dropdown-item disabled">No API keys found</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Usage Graph -->
+    <div class="usage-graph-section">
+        <div class="graph-card">
+            <h3 class="graph-title">Credits</h3>
+            <div class="graph-container">
+                <div class="graph-y-axis">
+                    <span class="y-label" [style.top.px]="getYLabelPosition(getMaxCredits())">{{getYAxisLabel(getMaxCredits())}}</span>
+                    <span class="y-label" [style.top.px]="getYLabelPosition(getMaxCredits() * 0.8)">{{getYAxisLabel(getMaxCredits() * 0.8)}}</span>
+                    <span class="y-label" [style.top.px]="getYLabelPosition(getMaxCredits() * 0.6)">{{getYAxisLabel(getMaxCredits() * 0.6)}}</span>
+                    <span class="y-label" [style.top.px]="getYLabelPosition(getMaxCredits() * 0.4)">{{getYAxisLabel(getMaxCredits() * 0.4)}}</span>
+                    <span class="y-label" [style.top.px]="getYLabelPosition(getMaxCredits() * 0.2)">{{getYAxisLabel(getMaxCredits() * 0.2)}}</span>
+                    <span class="y-label" [style.top.px]="getYLabelPosition(0)">0</span>
+                </div>
+                <div class="graph-content">
+                    <svg class="graph-svg" [attr.width]="getGraphWidth()" [attr.height]="getGraphHeight() + 40" [attr.viewBox]="'0 0 ' + getGraphWidth() + ' ' + (getGraphHeight() + 40)">
+                        <!-- Horizontal grid lines -->
+                        <line *ngFor="let tick of [0,1,2,3,4,5]; let i = index" 
+                              x1="20" 
+                              [attr.y1]="20 + (i * (getGraphHeight() - 40)) / 5" 
+                              [attr.x2]="getGraphWidth() - 20" 
+                              [attr.y2]="20 + (i * (getGraphHeight() - 40)) / 5" 
+                              stroke="#e5e7eb" 
+                              stroke-width="1" />
+                        
+                        <!-- Black line at credits 0 -->
+                        <line x1="20" 
+                              [attr.y1]="getGraphHeight() - 20" 
+                              [attr.x2]="getGraphWidth() - 20" 
+                              [attr.y2]="getGraphHeight() - 20" 
+                              stroke="#000000" 
+                              stroke-width="2" />
+                        
+                        <!-- Graph line -->
+                        <polyline 
+                            [attr.points]="polylinePoints"
+                            fill="none"
+                            stroke="#000000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="graph-line" />
+                        
+                        <!-- Data points with hover effects -->
+                        <g *ngFor="let point of graphDataPoints">
+                            <!-- Visible data point with hover events -->
+                            <circle [attr.cx]="point.position.x"
+                                    [attr.cy]="point.position.y"
+                                    r="4"
+                                    fill="#000000"
+                                    stroke="white"
+                                    stroke-width="2"
+                                    class="graph-point"
+                                    (mouseenter)="onPointHover($event, point.data, point.index)"
+                                    (mouseleave)="onPointLeave()"
+                                    style="cursor: pointer;" />
+                        </g>
+                        
+                        <!-- X-axis labels -->
+                        <text *ngFor="let label of visibleLabels; let i = index"
+                              [attr.x]="label.position.x"
+                              [attr.y]="getGraphHeight() + 25"
+                              text-anchor="middle"
+                              class="x-axis-label"
+                              font-size="12">
+                            {{label.data.displayDate}}
+                        </text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div *ngIf="showTooltip && tooltipData" 
+         class="tooltip" 
+         [style.left.px]="tooltipPosition.x" 
+         [style.top.px]="tooltipPosition.y"
+         style="position: fixed; z-index: 10000; pointer-events: none;">
+        <div class="tooltip-content">
+            <div class="tooltip-date">{{tooltipData.date}}</div>
+            <div class="tooltip-credits">Credits: {{tooltipData.credits.toLocaleString()}}</div>
+        </div>
+    </div>
+</div>

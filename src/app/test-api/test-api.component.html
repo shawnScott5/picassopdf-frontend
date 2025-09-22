@@ -1,0 +1,296 @@
+<div class="test-api-container">
+  <div class="header">
+    <h1>Test API</h1>
+    <p>Simple testing interface for HTML to PDF conversion API (CSS & JavaScript will be combined into HTML)</p>
+  </div>
+
+  <!-- Debug Section -->
+  <div class="debug-section" style="background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+    <h3>Debug Info:</h3>
+    <p>Test Cases Count: {{ testCases?.length ?? 0 }}</p>
+    <p>Selected Test Case: {{ selectedTestCase?.name ?? 'None' }}</p>
+    <p>Form Valid: {{ testForm?.valid ? 'Valid' : 'Form not ready' }}</p>
+    <p>Form Values: {{ testForm?.value ? (testForm.value | json) : 'No form data' }}</p>
+  </div>
+
+  <div class="content">
+    <!-- Test Cases Selection -->
+    <div class="test-cases-section">
+      <h2>Predefined Test Cases</h2>
+      <div class="test-cases-grid">
+        <div 
+          *ngFor="let testCase of testCases" 
+          class="test-case-card"
+          [class.selected]="selectedTestCase?.id === testCase.id"
+          (click)="selectTestCase(testCase)">
+          <div class="test-case-header">
+            <h3>{{ testCase.name }}</h3>
+            <span class="category-badge">{{ testCase.category }}</span>
+            <span *ngIf="testCase.id === 'broken-html' || testCase.category === 'Needs AI Repair'" 
+                  class="ai-repair-badge" 
+                  title="AI Repair will be automatically enabled for this test case">
+              <i class="fas fa-robot"></i> AI Repair
+            </span>
+          </div>
+          <p class="test-case-description">{{ testCase.description }}</p>
+          <div *ngIf="testCase.linkUrl" class="link-url">
+            <strong>Link:</strong> <a [href]="testCase.linkUrl" target="_blank">{{ testCase.linkUrl }}</a>
+          </div>
+          <div class="expected-behavior">
+            <strong>Expected:</strong> {{ testCase.expectedBehavior }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Test Configuration -->
+    <div class="test-config-section">
+      <div class="section-header">
+        <h2>Test Configuration</h2>
+        <button 
+          type="button" 
+          class="refresh-btn" 
+          (click)="refreshTestCases()"
+          title="Refresh test cases display">
+          <i class="fas fa-sync-alt"></i> Refresh Test Cases
+        </button>
+      </div>
+      <div class="info-note" style="background: #e3f2fd; padding: 12px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+        <p style="margin: 0; color: #1976d2; font-size: 0.9rem;">
+          <strong>Note:</strong> CSS and JavaScript content will be automatically combined with the HTML content when sent to the backend for PDF conversion.
+        </p>
+      </div>
+      <form [formGroup]="testForm" class="test-form">
+        <div class="form-group">
+          <label for="linkUrl">Website Link (Optional)</label>
+          <input 
+            type="url" 
+            id="linkUrl" 
+            formControlName="linkUrl" 
+            class="form-control"
+            placeholder="https://example.com - Leave empty to use HTML content below">
+          <small class="form-text">
+            Enter a website URL to scrape and convert to PDF. If provided, HTML/CSS/JS fields below will be ignored.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="html">HTML Content</label>
+          <textarea 
+            id="html" 
+            formControlName="html" 
+            class="form-control html-editor"
+            rows="12"
+            placeholder="Enter HTML content to test..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="css">CSS Content (Optional)</label>
+          <textarea 
+            id="css" 
+            formControlName="css" 
+            class="form-control css-editor"
+            rows="8"
+            placeholder="Enter CSS content (optional)..."></textarea>
+          <small class="form-text">
+            Optional CSS styling. Leave empty if HTML contains inline styles.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="javascript">JavaScript Content (Optional)</label>
+          <textarea 
+            id="javascript" 
+            formControlName="javascript" 
+            class="form-control js-editor"
+            rows="6"
+            placeholder="Enter JavaScript content (optional)..."></textarea>
+          <small class="form-text">
+            Optional JavaScript functionality. Leave empty if HTML contains inline scripts.
+          </small>
+        </div>
+
+        <!-- Options -->
+        <div class="form-group">
+          <label>Options</label>
+          <div formGroupName="options">
+            <div class="ai-features-grid">
+              <div class="ai-feature-item">
+                <input type="checkbox" id="saveToVault" formControlName="saveToVault" (change)="onSaveToVaultChange($event)">
+                <label for="saveToVault">Save to Vault</label>
+                <small>Save the converted PDF to your dashboard/database</small>
+              </div>
+              <div class="ai-feature-item" style="visibility: hidden;">
+                <!-- Hidden placeholder to maintain grid consistency -->
+              </div>
+              <div class="ai-feature-item" style="visibility: hidden;">
+                <!-- Hidden placeholder to maintain grid consistency -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Options -->
+        <div class="form-group">
+          <label>AI Options</label>
+          <div formGroupName="aiOptions">
+            <div class="ai-features-grid">
+              <div class="ai-feature-item">
+                <input type="checkbox" id="layoutRepair" formControlName="layoutRepair">
+                <label for="layoutRepair">Layout Repair</label>
+                <small>Fix broken HTML structure and layouts</small>
+              </div>
+              <div class="ai-feature-item">
+                <input type="checkbox" id="textCleanup" formControlName="textCleanup">
+                <label for="textCleanup">Text Cleanup</label>
+                <small>Clean and optimize text formatting</small>
+              </div>
+              <div class="ai-feature-item">
+                <input type="checkbox" id="imageOptimization" formControlName="imageOptimization">
+                <label for="imageOptimization">Image Optimization</label>
+                <small>Compress and optimize images</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button 
+            type="button" 
+            class="btn btn-primary"
+            (click)="runSingleTest()"
+            [disabled]="isRunning || !testForm?.valid">
+            <i class="fas fa-play"></i>
+            Convert to PDF
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="runAllTests()"
+            [disabled]="isRunning">
+            <i class="fas fa-play-circle"></i>
+            Run All Tests
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn-outline"
+            (click)="clearResults()"
+            [disabled]="isRunning">
+            <i class="fas fa-trash"></i>
+            Clear Results
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Test Results -->
+    <div class="test-results-section" *ngIf="testResults.length > 0">
+      <h2>Test Results</h2>
+      
+      <div class="results-summary">
+        <div class="summary-item">
+          <span class="summary-label">Total Tests:</span>
+          <span class="summary-value">{{ testResults.length }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Passed:</span>
+          <span class="summary-value success">{{ completedTestsCount }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Failed:</span>
+          <span class="summary-value error">{{ failedTestsCount }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Running:</span>
+          <span class="summary-value warning">{{ runningTestsCount }}</span>
+        </div>
+      </div>
+
+      <div class="results-list">
+        <div 
+          *ngFor="let result of testResults" 
+          [class]="'result-card ' + getStatusClass(result.status)">
+          <div class="result-header">
+            <div class="result-title">
+              <i [class]="getStatusIcon(result.status)"></i>
+              <span>{{ result.name }}</span>
+            </div>
+            <div class="result-actions">
+              <button 
+                *ngIf="result.status === 'completed' && result.result?.data?.downloadUrl"
+                class="btn btn-sm btn-outline"
+                (click)="downloadResult(result)">
+                <i class="fas fa-download"></i>
+                Download
+              </button>
+            </div>
+          </div>
+          
+          <div class="result-details">
+            <div class="detail-item">
+              <span class="detail-label">Status:</span>
+              <span [class]="'detail-value ' + getStatusClass(result.status)">
+                {{ result.status | titlecase }}
+              </span>
+            </div>
+            <div class="detail-item" *ngIf="result.duration">
+              <span class="detail-label">Duration:</span>
+              <span class="detail-value">{{ formatDuration(result.duration) }}</span>
+            </div>
+            <div class="detail-item" *ngIf="result.startTime">
+              <span class="detail-label">Started:</span>
+              <span class="detail-value">{{ result.startTime | date:'short' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="result.aiAgent !== undefined">
+              <span class="detail-label">AI Agent:</span>
+              <span class="detail-value">{{ result.aiAgent ? 'Enabled' : 'Disabled' }}</span>
+            </div>
+          </div>
+
+          <div class="result-content" *ngIf="result.error || result.result">
+            <div *ngIf="result.error" class="error-message">
+              <h4>Error:</h4>
+              <p>{{ result.error }}</p>
+            </div>
+            
+            <div *ngIf="result.result" class="success-message">
+              <h4>Result:</h4>
+              <div class="result-data">
+                <div class="data-item">
+                  <span class="data-label">File Size:</span>
+                  <span class="data-value">{{ result.result.data?.fileSize | number }} bytes</span>
+                </div>
+                <div class="data-item">
+                  <span class="data-label">Processing Time:</span>
+                  <span class="data-value">{{ result.result.data?.processingTime }}ms</span>
+                </div>
+                <div class="data-item" *ngIf="result.result.data?.pipeline">
+                  <span class="data-label">Pipeline:</span>
+                  <span class="data-value">{{ result.result.data?.pipeline }}</span>
+                </div>
+                <div class="data-item" *ngIf="result.result.data?.aiProcessing">
+                  <span class="data-label">AI Processing:</span>
+                  <span class="data-value">
+                    <span *ngIf="result.result.data.aiProcessing.imageCompression">Images compressed</span>
+                    <span *ngIf="result.result.data.aiProcessing.layoutFixes">Layout fixes applied</span>
+                  </span>
+                </div>
+                <div class="data-item" *ngIf="result.result.data?.creditsUsed">
+                  <span class="data-label">Credits Used:</span>
+                  <span class="data-value">{{ result.result.data.creditsUsed }}</span>
+                </div>
+                <div class="data-item" *ngIf="result.result.data?.remainingCredits !== undefined">
+                  <span class="data-label">Remaining Credits:</span>
+                  <span class="data-value">{{ result.result.data.remainingCredits }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

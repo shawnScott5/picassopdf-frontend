@@ -1,0 +1,1112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.membership-container {
+  min-height: 100vh;
+  background: var(--background-peach);
+  padding: 2rem;
+  position: relative;
+}
+
+.current-plan-text {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.current-plan-value {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+.tooltip-icon {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #666;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 16px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+  
+  &:hover {
+    background: #333;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -140px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+  }
+  
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* Preset Buttons */
+.preset-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+.preset-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.preset-btn {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid #e9ecef;
+  background: white;
+  color: #666;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+  white-space: nowrap;
+  
+  &:hover {
+    border-color: var(--primary-orange);
+    color: var(--primary-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 122, 89, 0.2);
+  }
+  
+  &.active {
+    background: white;
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.2);
+  }
+}
+
+
+
+/* Header Section */
+.membership-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.current-plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.current-plan-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.current-plan-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-orange);
+}
+
+/* Pricing Toggle */
+.pricing-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.toggle-btn {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 122, 89, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-btn:hover {
+  border-color: var(--primary-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 122, 89, 0.2);
+}
+
+.toggle-btn.active {
+  background: var(--primary-orange);
+  color: white;
+  border-color: var(--primary-orange);
+  box-shadow: 0 8px 25px rgba(255, 122, 89, 0.3);
+}
+
+.save-badge {
+  background: var(--accent-cyan);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  margin-left: 0.5rem;
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Pricing Cards */
+.pricing-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-card.featured {
+  border: 2px solid var(--primary-orange);
+  transform: scale(1.05);
+}
+
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--primary-orange);
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card Header */
+.card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.plan-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 122, 89, 0.1);
+  border: 2px solid var(--primary-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--primary-orange);
+}
+
+.plan-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.price-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-orange);
+}
+
+.price-period {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.price-note {
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+/* Card Body */
+.card-body {
+  text-align: left;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.plan-features li svg {
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.plan-features strong {
+  color: var(--primary-orange);
+  font-weight: 700;
+}
+
+/* Plan Buttons */
+.plan-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.plan-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.plan-btn.primary {
+  background: var(--primary-orange);
+  color: white;
+}
+
+.plan-btn.primary:hover:not(:disabled) {
+  background: #e65a4a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 122, 89, 0.4);
+}
+
+.plan-btn.cancel {
+  background: transparent;
+  color: #ef4444;
+  border: 2px solid #ef4444;
+}
+
+.plan-btn.cancel:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+.plan-btn:not(.primary):not(.cancel) {
+  background: rgba(255, 255, 255, 0.8);
+  color: #666;
+  border: 2px solid rgba(102, 102, 102, 0.2);
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Features Section */
+.features-section {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.features-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 194, 209, 0.1);
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: var(--accent-cyan);
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .membership-container {
+    padding: 1rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricing-card.featured {
+    transform: none;
+  }
+  
+  .pricing-card.featured:hover {
+    transform: translateY(-5px);
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .toggle-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.75rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1rem;
+  }
+  
+  .pricing-card {
+    padding: 1.5rem;
+  }
+  
+  .plan-features li {
+    font-size: 0.9rem;
+  }
+}
+
+/* Interactive Pricing Slider Section */
+.pricing-slider {
+  padding: 3rem 0 5rem;
+  background: transparent;
+}
+
+.pricing-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pricing-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Night mode override for the conversion needs title */
+.membership-container.night-mode .pricing-header h2 {
+  color: white !important;
+}
+
+.credit-note-header {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 10px 0 0 0;
+  line-height: 1.4;
+}
+
+
+.pricing-bottom-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  align-items: start;
+  padding: 15px;
+}
+
+.slider-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.slider-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.slider-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.conversion-input {
+  width: 100px;
+  padding: 0.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: white;
+}
+
+.conversion-input:focus {
+  outline: none;
+  border-color: var(--primary-red);
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.conversion-slider {
+  width: 100%;
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.conversion-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--primary-red);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(221, 3, 2, 0.3);
+}
+
+.conversion-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: var(--primary-red);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(221, 3, 2, 0.3);
+}
+
+
+.pricing-recommendation {
+  display: flex;
+  justify-content: center;
+}
+
+.recommendation-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.1), 0 1px 4px -1px rgba(0, 0, 0, 0.06), 0 -2px 6px -1px rgba(0, 0, 0, 0.1), 0 -1px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  width: 100%;
+  max-width: 380px;
+  min-width: 380px;
+}
+
+.recommendation-card.free-plan .credits {
+  color: var(--primary-red);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--primary-red), #ff4444);
+  color: white;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.card-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.card-content {
+  padding: 0 2rem 2.5rem 2rem;
+  text-align: center;
+}
+
+.credits {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-red);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
+  letter-spacing: -0.02em;
+}
+
+.plan-details {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  text-align: left;
+}
+
+.plan-details li {
+  padding: 0.75rem 0;
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.plan-details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.25rem;
+  width: 6px;
+  height: 6px;
+  background: var(--primary-red);
+  border-radius: 50%;
+}
+
+
+.included-features {
+  margin: 2rem 0;
+
+  .features-divider {
+    border-top: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      color: #333;
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      svg {
+        color: #22c55e;
+        flex-shrink: 0;
+      }
+
+      span {
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .overage-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+
+    p {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+}
+
+.btn-primary {
+  background: var(--primary-red);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: #d10000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(221, 3, 2, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-large {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.1rem;
+}
+
+/* Night Mode Styles */
+.membership-container.night-mode {
+  background: var(--background-dark);
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .page-title {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .page-subtitle {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .current-plan-label {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .toggle-btn {
+  background: rgba(30, 30, 30, 0.95);
+  color: var(--text-light);
+  border-color: rgba(255, 122, 89, 0.3);
+}
+
+.membership-container.night-mode .toggle-btn:hover {
+  background: rgba(40, 40, 40, 0.95);
+  border-color: var(--primary-orange);
+}
+
+.membership-container.night-mode .pricing-card {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.membership-container.night-mode .pricing-card h3 {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .pricing-card .price {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .pricing-card .plan-features li {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .features-section h2 {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .feature-card {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.membership-container.night-mode .feature-card h3 {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .feature-card p {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .included-features {
+  .features-list li {
+    color: var(--text-light);
+
+    svg {
+      color: #22c55e;
+    }
+  }
+}
+
+/* Night Mode for Interactive Pricing Section */
+.membership-container.night-mode .pricing-header h2 {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .pricing-slider .pricing-header h2 {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .credit-note-header {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .slider-label {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .conversion-input {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .conversion-input:focus {
+  border-color: var(--primary-red);
+  background: rgba(40, 40, 40, 0.95);
+}
+
+.membership-container.night-mode .conversion-slider {
+  background: linear-gradient(to right, var(--primary-red) 0%, var(--primary-red) 50%, #444 50%, #444 100%);
+}
+
+.membership-container.night-mode .recommendation-card {
+  background: white;
+  border-color: #e5e7eb;
+  box-shadow: 0 2px 6px -1px rgba(255, 255, 255, 0.1), 0 1px 4px -1px rgba(255, 255, 255, 0.06), 0 -2px 6px -1px rgba(255, 255, 255, 0.1), 0 -1px 4px -1px rgba(255, 255, 255, 0.06);
+}
+
+.membership-container.night-mode .price {
+  color: #333;
+}
+
+.membership-container.night-mode .plan-details li {
+  color: #333;
+}
+
+.membership-container.night-mode .plan-details li::before {
+  background: var(--primary-red);
+}
+
+/* Additional comprehensive night mode text styles */
+.membership-container.night-mode h1,
+.membership-container.night-mode h2,
+.membership-container.night-mode h3,
+.membership-container.night-mode h4,
+.membership-container.night-mode h5,
+.membership-container.night-mode h6 {
+  color: var(--text-light) !important;
+}
+
+.membership-container.night-mode p,
+.membership-container.night-mode span,
+.membership-container.night-mode div {
+  color: var(--text-light) !important;
+}
+
+/* Force all text to be white in night mode */
+.membership-container.night-mode * {
+  color: var(--text-light) !important;
+}
+
+/* Direct targeting of specific elements */
+.membership-container.night-mode h2,
+.membership-container.night-mode h3,
+.membership-container.night-mode p,
+.membership-container.night-mode span,
+.membership-container.night-mode div,
+.membership-container.night-mode li,
+.membership-container.night-mode .pricing-header,
+.membership-container.night-mode .slider-label,
+.membership-container.night-mode .card-header,
+.membership-container.night-mode .card-content,
+.membership-container.night-mode .credits,
+.membership-container.night-mode .price,
+.membership-container.night-mode .plan-details,
+.membership-container.night-mode .current-plan-label,
+.membership-container.night-mode .current-plan-name {
+  color: white !important;
+}
+
+/* Specific override for the conversion needs title */
+.membership-container.night-mode .pricing-header h2,
+.membership-container.night-mode .pricing-slider .pricing-header h2,
+.membership-container.night-mode .pricing-content .pricing-header h2 {
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Specific overrides for elements that might need different colors */
+.membership-container.night-mode .btn-primary {
+  color: white !important;
+}
+
+/* Night Mode for Current Plan Text */
+.membership-container.night-mode .current-plan-text {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .current-plan-value {
+  color: var(--primary-red);
+}
+
+.membership-container.night-mode .feature-icon {
+  color: var(--primary-red) !important;
+}
+
+.membership-container.night-mode .period,
+.membership-container.night-mode .description,
+.membership-container.night-mode .feature,
+.membership-container.night-mode .plan-features li,
+.membership-container.night-mode .plan-details li {
+  color: #b0b0b0 !important;
+}
+
+.membership-container.night-mode .pricing-grid {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .pricing-card .period {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .pricing-card .description {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .pricing-card .feature {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .pricing-card .cta {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .features-section p {
+  color: #b0b0b0;
+}
+
+.membership-container.night-mode .feature-card .feature-icon {
+  color: var(--primary-red);
+}
+
+.membership-container.night-mode .slider-container {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .pricing-recommendation {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .card-header h3 {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .card-content {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .credits {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .btn {
+  color: var(--text-light);
+}
+
+.membership-container.night-mode .btn-primary {
+  background: var(--primary-red);
+  color: white;
+}
+
+.membership-container.night-mode .btn-primary:hover {
+  background: #b91c1c;
+}
+
+.membership-container.night-mode .btn-secondary {
+  background: rgba(30, 30, 30, 0.95);
+  color: var(--text-light);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.membership-container.night-mode .btn-secondary:hover {
+  background: rgba(40, 40, 40, 0.95);
+}

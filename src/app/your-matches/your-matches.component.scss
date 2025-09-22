@@ -1,0 +1,410 @@
+/* Webpixels CSS */
+/* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+/* URL: https://github.com/webpixels/css */
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+::ng-deep .close-btn .btn-close {
+    color: white !important;  /* Ensures the icon color is white */
+    background-color: transparent !important;  /* Removes default background */
+    filter: invert(1); /* Inverts colors (useful for Bootstrap btn-close) */
+    z-index: 9999; /* Ensures it is on top */
+    position: relative; /* Ensures z-index takes effect */
+    margin-top: 5px;
+}
+
+::ng-deep .custom-dialog-container {
+    box-shadow: 0 0 15px 10px #12e19f !important;
+    border-radius: 8px !important; // Optional for rounded corners
+    background-color: black !important;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.parent {
+  height: 100%;
+  width: 100%;
+  display: block;
+  background-color: black;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  height: 90vh !important;
+  min-height: 90vh; /* Ensure it fills viewport height if parent is body */
+}
+
+.empty-list-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px; /* Limit width for readability */
+}
+
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: black;
+}
+
+.empty-list-img {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.empty-list h5 {
+    margin-top: -5px;
+    margin-left: 1.5em;
+    font-size: 20px;
+    font-weight: bold;
+    color: #12e19f;
+}
+
+.empty-list-title {
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.table-container {
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.engagement-green {
+  color: #28a745; /* Green for >3% */
+}
+
+.engagement-orange {
+  color: #f0ad4e; /* Orange for 1%–3% */
+}
+
+.engagement-red {
+  color: #dc3545; /* Red for <1% */
+}
+
+.card {
+    border: 2px solid #12e19f !important;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #12e19f !important;
+}
+
+.card-body {
+    background-color: black !important;
+    box-shadow: 0 0 15px #12e19f !important;
+    border-radius: 12px !important;
+}
+
+.card-footer {
+  background: black !important;
+}
+
+th {
+    background-color: black !important;
+    color: white !important;
+}
+
+
+td {
+    background-color: black !important;
+    color: white !important;
+    font-weight: normal !important;
+}
+
+.body-section {
+    margin: 30px;
+}
+
+.form-title {
+    color: #12e19f;
+    margin-bottom: 0 !important;
+    padding-top: 10px;
+}
+
+.form-wrapper {
+    padding: 0 30px 10px 30px;
+    cursor: grab;
+}
+
+h1 {
+    font-size: 17px !important;
+    font-weight: 500 !important;
+}
+
+hr {
+    margin-top: 0;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #12e19f !important;
+    border-color: #12e19f !important;
+}
+
+.dark-banner-text {
+    color: black;
+}
+
+.form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.icon-margin-left {
+    margin-left: 2px;
+}
+
+.name-column {
+    color: #12e19f !important;
+}
+
+.banner-container {
+    width: 99.5%;
+    margin-left: 0.6rem;
+}
+
+.empty-title {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+}
+
+.empty-list-container {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12vh;
+}
+
+.results-button {
+    background-color: #12e19f !important;
+    
+    &:hover {
+      box-shadow: 0 0 15px #12e19f !important;
+    }
+}
+
+.influencer-list-img {
+    height: 125px;
+    width: 125px;
+    margin-bottom: 3vh;
+}
+
+.results-button {
+    color: #fff;
+    background-color: #12e19f !important;
+    
+    &:hover {
+      box-shadow: 0 0 15px #12e19f !important;
+    }
+  }
+
+.delete-button {
+    color: #fff;
+    background-color: red !important;
+    
+    &:hover {
+      box-shadow: 0 0 15px red !important;
+    }
+}
+
+.table-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.table-responsive {
+    font-size: 14px;
+    font-weight: 600;
+    overflow-y: auto;
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.dropdown-item {
+    cursor: pointer;
+}
+
+button.dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown-menu{
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.empty-list-container {
+    margin-top: 9em;
+    margin-left: 11em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+}
+
+h5 {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #12e19f;
+}
+
+.empty-list {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-list-title {
+   margin-left: 2rem;
+}
+
+.empty-list-img {
+    margin-left: 3.5rem;
+ }
+
+.empty-list-btn {
+    margin-top: 1rem;
+    margin-left: 5rem;
+}
+
+.empty-influencers {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-influencers-img {
+    margin-left: 8rem;
+ }
+
+.empty-influencers-btn {
+    margin-top: 1rem;
+    margin-left: 8rem;
+}
+
+.dropdown-menu > a:hover {
+    background-image: none;
+    background-color: #12e19f !important;
+    color: #fff;
+}
+  
+.dropdown-menu > div > a:hover {
+    background-image: none;
+    background-color: #12e19f !important;
+    color: #fff;
+}
+
+.dropdown {
+    margin-top: 20px;
+    margin-right: 20px;
+  
+    :last-child {
+      margin-right: 0;
+    }
+}
+
+::ng-deep .btn-check:checked+.btn-secondary, .btn-check:active+.btn-secondary, .btn-secondary:active, .btn-secondary.active, .show>.btn-secondary.dropdown-toggle {
+    color: #fff !important;
+    background-color: #000 !important;
+    border-color: #12e19f !important;
+}
+
+::ng-deep .dropdown-toggle {
+    width: 160px !important;
+  }
+
+::ng-deep .btn-square.btn-sm {
+    color: white !important;
+    background-color: black !important;
+}
+
+::ng-deep .btn-square.btn-sm:hover {
+    color: #12e19f !important;
+    background-color: black !important;
+    box-shadow: 0 0 15px #12e19f !important;
+    border: 1px solid #12e19f !important
+}
+
+.influencer-img {
+    height: 30px;
+    width: 30px;
+}
+
+.email-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .email-button {
+    padding: 0.5rem 1.5rem;
+    background-color: black !important;
+    border-color: #12e19f !important;
+    margin-bottom: 10px;
+    color: white !important;
+    
+    &:hover {
+      padding: 0.5rem 1.5rem;
+      background-color: #000 !important;
+      color: #12e19f !important;
+      border-color: #12e19f !important;
+      box-shadow: 0 0 15px #12e19f !important;
+    }
+  }
+
+  .card-header {
+    background-color: black !important;
+    color: white !important;
+  }
+
+  ::ng-deep .envelope-open {
+    background-color: black;
+    color: white;
+  }
+
+  .custom-menu-item:hover {
+    background-color: #12e19f !important;
+    color: white;
+  }
+
+  
+

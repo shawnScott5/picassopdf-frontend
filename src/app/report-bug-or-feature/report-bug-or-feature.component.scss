@@ -1,0 +1,295 @@
+h1 {
+  margin-bottom: 0 !important;
+}
+
+::ng-deep .custom-dialog-container {
+  box-shadow: 0 0 30px white !important; // Adjust as needed
+  border-radius: 8px !important; // Optional for rounded corners
+}
+
+::ng-deep .close-btn .btn-close {
+  color: white !important;  /* Ensures the icon color is white */
+  background-color: transparent !important;  /* Removes default background */
+  filter: invert(1); /* Inverts colors (useful for Bootstrap btn-close) */
+  z-index: 9999; /* Ensures it is on top */
+  position: relative; /* Ensures z-index takes effect */
+}
+
+::ng-deep .NgxEditor__MenuItem .NgxEditor__MenuItem--Icon:hover {
+  color: black !important;
+  background-color: #12e19f !important;
+  cursor: pointer !important;
+}
+
+::ng-deep .NgxEditor__Dropdown .NgxEditor__Dropdown--Text {
+  color: white !important;
+  background-color: black !important;
+}
+
+::ng-deep .NgxEditor__Dropdown .NgxEditor__Dropdown--Text:hover {
+  color: black !important;
+  background-color: #12e19f !important;
+  cursor: pointer !important;
+}
+
+.container {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding-bottom: 3em;
+  width: 100%;
+  height: 100vh;
+}
+
+.subject-line-container {
+  margin-bottom: 10px;
+}
+
+.subject-line {
+  width: 100%;
+  border: 1px solid #12e19f !important;
+  border-color: #12e19f !important;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.subject-line:focus {
+  border: 1px solid #12e19f !important;
+  border-color: #12e19f !important;
+  outline: none !important;
+}
+
+.form-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding-top: 10px !important;
+  cursor: grab;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+.form-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #12e19f;
+}
+
+hr {
+  width: 120%;
+  margin-top: 10px;
+  margin-left: -50px;
+  font-size: 1px;
+  color: lightgray;
+}
+
+.hr-2 {
+  width: 120%;
+  margin-top: 15px;
+  margin-left: -50px;
+  font-size: 1px;
+  color: lightgray;
+}
+
+.close-btn {
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.cancel-title {
+  padding-bottom: -5px !important;
+}
+
+.cancel-button {
+  background-color: black !important;
+  border-color: red!important;
+  margin-right: 15px;
+  transition: 1s;
+  color: white;
+  width: 160px;
+  height: 45px;
+  padding-bottom: 10px !important;
+  
+  &:hover {
+      background-color: black !important;
+      border-color: red !important;
+      box-shadow: 0 0 15px red !important;
+      transform: scale(1.1) !important;
+      color: red !important;
+  }
+}
+
+.send-button {
+  padding-top: -5px !important;
+  background-color: black !important;
+  color: white;
+  transition: 1s;
+  border-color: #12e19f !important;
+  width: 160px;
+  height: 45px;
+  
+  &:hover {
+      background-color: black !important;
+      color: #12e19f !important;
+      border-color: #12e19f !important;
+      box-shadow: 0 0 15px #12e19f !important;
+      transform: scale(1.1) !important;
+  }
+}
+
+::ng-deep angular-editor .angular-editor-textarea {
+  color: white !important; /* Set your desired default font color */
+  resize: none !important;
+  margin-top: 0 !important;
+  border-top: solid 1px #dcdcdc !important;
+
+  &:focus {
+      border-color: #12e19f !important;
+      box-shadow: 0 0 15px #12e19f !important;
+  }
+}
+
+::ng-deep input { 
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid #12e19f !important;
+}
+
+::ng-deep input:focus { 
+  box-shadow: 0 0 15px #12e19f !important;
+  border: 1px solid #12e19f !important;
+}
+
+.influencer-info-container {
+  margin: 2rem 0;
+}
+
+.influencer-info {
+  display: inline;
+}
+
+.influencer-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.influencer-followers {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.example-form-field {
+  width: 100%;
+}
+
+
+.recipient-container {
+  width: 100%;
+  border: solid 1px #dcdcdc !important;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 10px 10px 10px 0;
+}
+
+.to {
+  margin-right: 5px;
+}
+
+::ng-deep mat-chip {
+  margin-right: 3px !important; /* Adds space between chips */
+}
+
+::ng-deep div.NgxEditor__Content {
+  height: 42vh !important;
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid #12e19f !important;
+}
+
+::ng-deep div.NgxEditor__Content:focus {
+  background-color: black !important;
+  color: white !important;
+  border: 2px solid #12e19f !important;
+  box-shadow: 0 0 15px #12e19f !important;
+}
+
+::ng-deep .NgxEditor__Wrapper .NgxEditor__MenuBar {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid #12e19f !important;
+}
+
+::ng-deep .NgxEditor__Dropdown .NgxEditor__Dropdown--Item {
+  color: black !important;
+  background-color: white!important;
+}
+
+::ng-deep .NgxEditor__Dropdown .NgxEditor__Dropdown--Item:hover {
+  color: white !important;
+  background-color: #12e19f !important;
+  box-shadow: 0 0 7.5px #12e19f !important;
+  cursor: pointer !important;
+}
+
+::ng-deep .spinner-color {
+  color: #12e19f !important;
+  margin-right: 3px !important;
+}
+
+::ng-deep .NgxEditor__Popup .NgxEditor__Popup--FormGroup label {
+  color: black !important;
+}
+
+::ng-deep .NgxEditor__Popup .NgxEditor__Popup--Label {
+  color: black !important;
+}
+
+::ng-deep .NgxEditor__Popup .NgxEditor__Popup--FormGroup input {
+  color: black !important;
+  background-color: white !important;
+}
+
+::ng-deep button[type=submit] {
+  color: white !important;
+  background-color: black !important;
+  border-color: #12e19f !important;
+  border: 1px solid #12e19f !important;
+  padding: 6px 18px !important;
+  border-radius: 5px;
+  transition: 1s;
+}
+
+::ng-deep button[type=submit]:not(:disabled):hover {
+  padding: 6px 18px !important;
+  border-radius: 5px !important;
+  color: #12e19f !important;
+  background-color: black !important;
+  border: 1px solid #12e19f !important;
+  border-color: #12e19f !important;
+  box-shadow: 0 0 15px !important;
+  transform: scale(1.1) !important;
+  cursor: pointer !important;
+}
+
+::ng-deep button[type=submit]:disabled {
+  padding: 6px 18px !important;
+  border-radius: 5px !important;
+  color: white !important;
+  background-color: #757575 !important;
+  border-color: #757575 !important;
+  cursor: not-allowed !important;
+}

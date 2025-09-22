@@ -1,0 +1,65 @@
+<div class="pdf-converter">
+	<h1 class="title">PicassoPDF</h1>
+	<p class="subtitle">Convert your data into beautiful PDFs</p>
+
+	<form [formGroup]="convertForm" (ngSubmit)="onSubmit()" class="convert-form">
+		<div class="form-row">
+			<label>Data Type</label>
+			<select formControlName="dataType">
+				<option *ngFor="let t of dataTypes" [value]="t.key">{{ t.label }}</option>
+			</select>
+		</div>
+
+		<div class="form-row">
+			<label>PDF Name</label>
+			<input formControlName="fileName" placeholder="my-report" />
+		</div>
+
+		<div class="form-row">
+			<label>URLs (one per line)</label>
+			<textarea formControlName="urlsText" rows="5" placeholder="https://www.notion.so/your-page\nhttps://airtable.com/shrXXXX"></textarea>
+		</div>
+
+		<button class="btn-convert" [disabled]="isConverting || convertForm.invalid">{{ isConverting ? 'Converting...' : 'Convert' }}</button>
+	</form>
+
+	<div class="results-header" *ngIf="conversionResults.length || conversionError">
+		<h3>Conversion Results</h3>
+		<div class="try-free" (click)="goToSignup()" title="Start your free trial">
+			<span>Try for Free</span>
+			<svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<polyline points="6,9 12,15 18,9"></polyline>
+			</svg>
+		</div>
+	</div>
+
+	<div class="error" *ngIf="conversionError">{{ conversionError }}</div>
+
+	<table class="results-table" *ngIf="conversionResults.length">
+		<thead>
+			<tr>
+				<th>File Name</th>
+				<th>Source URL</th>
+				<th>Status</th>
+				<th>Size</th>
+				<th>Download</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let r of conversionResults">
+				<td>{{ r.fileName }}</td>
+				<td class="url-cell">{{ r.sourceUrl }}</td>
+				<td>
+					<span class="badge" [class.success]="r.status === 'completed'" [class.fail]="r.status !== 'completed'">{{ r.status }}</span>
+				</td>
+				<td>{{ r.fileSize ? (r.fileSize/1024 | number:'1.0-0') + ' KB' : '-' }}</td>
+				<td>
+					<a *ngIf="r.downloadUrl && r.status==='completed'" [href]="r.downloadUrl" target="_blank" rel="noopener">Download</a>
+					<span *ngIf="r.status!=='completed'">-</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+

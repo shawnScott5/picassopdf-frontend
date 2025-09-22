@@ -1,0 +1,94 @@
+<div class="blog-container">
+  <!-- Blog Header -->
+  <div class="blog-header">
+    <div class="header-content">
+      <h1 class="blog-title">PicassoPDF Blog</h1>
+      <p class="blog-subtitle">Learn about PDF generation, API integration, and web development best practices</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <div class="blog-content">
+    <!-- Sidebar -->
+    <div class="blog-sidebar">
+      <div class="sidebar-section">
+        <h3>Categories</h3>
+        <div class="tag-filters">
+          <button 
+            class="tag-filter" 
+            [class.active]="selectedTag === ''"
+            (click)="filterByTag('')">
+            All Posts
+          </button>
+          <button 
+            *ngFor="let tag of getAllTags()" 
+            class="tag-filter"
+            [class.active]="selectedTag === tag"
+            (click)="filterByTag(tag)">
+            {{ tag }}
+          </button>
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <div class="recent-posts">
+          <div *ngFor="let post of blogPosts.slice(0, 3)" class="recent-post">
+            <a [routerLink]="['/blog', post.slug]" class="recent-post-link">
+              <h4>{{ post.title }}</h4>
+              <span class="recent-post-date">{{ formatDate(post.publishDate) }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="blog-main">
+      <div class="posts-grid">
+        <article *ngFor="let post of filteredPosts" class="blog-post-card">
+          <div class="post-image">
+            <div class="placeholder-image">
+              <svg width="100" height="60" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="60" fill="#f3f4f6"/>
+                <path d="M20 20h60v20H20z" fill="#e5e7eb"/>
+                <path d="M25 25h50v10H25z" fill="#d1d5db"/>
+                <circle cx="30" cy="30" r="2" fill="#9ca3af"/>
+                <path d="M35 28h15v2H35z" fill="#9ca3af"/>
+                <path d="M35 32h10v2H35z" fill="#9ca3af"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-date">{{ formatDate(post.publishDate) }}</span>
+              <span class="post-read-time">{{ post.readTime }} min read</span>
+            </div>
+            
+            <h2 class="post-title">
+              <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+            </h2>
+            
+            <p class="post-excerpt">{{ post.excerpt }}</p>
+            
+            <div class="post-tags">
+              <span *ngFor="let tag of post.tags" class="post-tag">{{ tag }}</span>
+            </div>
+            
+            <div class="post-footer">
+              <span class="post-author">By {{ post.author }}</span>
+              <a [routerLink]="['/blog', post.slug]" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      
+      <!-- No posts message -->
+      <div *ngIf="filteredPosts.length === 0" class="no-posts">
+        <h3>No posts found</h3>
+        <p>Try selecting a different category or check back later for new content.</p>
+      </div>
+    </div>
+  </div>
+</div>

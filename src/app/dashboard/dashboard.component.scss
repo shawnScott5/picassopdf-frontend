@@ -1,0 +1,661 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.dashboard-container {
+  padding: 1.5rem;
+  background: #ffffff;
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.dashboard-container.night-mode {
+  background: #000000;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.header-left {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.dashboard-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.usage-progress {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #dc2626;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.plan-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.plan-text {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.current-plan-value {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+.upgrade-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.upgrade-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+/* Credits Section */
+.credits-section {
+  margin-bottom: 2rem;
+}
+
+.credits-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.1), 0 1px 4px -1px rgba(0, 0, 0, 0.06), 0 -2px 6px -1px rgba(0, 0, 0, 0.1), 0 -1px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.credits-content h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.credits-content p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.credits-filters {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter-dropdown {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: white;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filter-dropdown:hover {
+  border-color: #9ca3af;
+  cursor: pointer;
+}
+
+/* Dropdown options styling */
+.filter-dropdown option {
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.filter-dropdown option:hover {
+  background-color: #f3f4f6;
+  cursor: pointer;
+}
+
+/* For select dropdowns, override default browser styling */
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #000000;
+  cursor: pointer;
+}
+
+/* Custom dropdown styling for better control */
+.filter-dropdown option:checked {
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+}
+
+.filter-dropdown option:hover {
+  background-color: #dc2626 !important;
+  color: white !important;
+  cursor: pointer;
+}
+
+/* Force red hover for all dropdown options */
+.filter-dropdown option:hover,
+.filter-dropdown option:focus,
+.filter-dropdown option:active {
+  background-color: #dc2626 !important;
+  color: white !important;
+}
+
+/* Additional specificity for webkit browsers */
+.filter-dropdown option:hover {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+/* Custom select styling with pseudo-elements */
+.filter-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1em;
+  padding-right: 2rem;
+}
+
+/* Hide the custom dropdown arrow since we're using custom dropdowns now */
+.dropdown-arrow {
+  display: none;
+}
+
+/* Force red background on focus */
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #dc2626;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+/* Custom Dropdown Styles */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: white;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.dropdown-toggle:hover {
+  border-color: #9ca3af;
+}
+
+/* Night mode styles for dropdowns */
+.dashboard-container.night-mode .dropdown-toggle {
+  border: 1px solid #ffffff;
+  background: #000000;
+  color: #ffffff;
+}
+
+.dashboard-container.night-mode .dropdown-toggle:hover {
+  border-color: #ffffff;
+  background: #1a1a1a;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6 !important;
+  color: #000000 !important;
+}
+
+/* Night mode hover for dropdown items */
+.dashboard-container.night-mode .dropdown-item:hover {
+  background-color: #374151 !important;
+  color: white !important;
+}
+
+.dropdown-item:active {
+  background-color: #b91c1c !important;
+  color: white !important;
+}
+
+/* Usage Graph */
+.usage-graph-section {
+  margin-bottom: 2rem;
+}
+
+.graph-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.1), 0 1px 4px -1px rgba(0, 0, 0, 0.06), 0 -2px 6px -1px rgba(0, 0, 0, 0.1), 0 -1px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.graph-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+}
+
+.graph-container {
+  display: flex;
+  gap: 0.5rem;
+  height: 280px;
+  overflow: hidden;
+}
+
+.graph-y-axis {
+  position: relative;
+  font-size: 0.8rem;
+  color: #666;
+  width: 20px;
+  flex-shrink: 0;
+  height: 200px;
+  padding-top: 5px;
+}
+
+.y-label {
+  position: absolute;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.graph-content {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.graph-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.graph-point {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.graph-point:hover {
+  r: 6;
+  fill: #000000;
+  stroke-width: 3;
+}
+
+.x-axis-label {
+  font-size: 0.7rem;
+  fill: #666;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Tooltip */
+.tooltip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translateX(-50%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content {
+  background: #000000;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  position: relative;
+  min-width: 80px;
+  text-align: center;
+}
+
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #000000;
+}
+
+.tooltip-date {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.tooltip-credits {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+  
+  .title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .credits-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .credits-filters {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .filter-dropdown {
+    flex: 1;
+  }
+  
+  .graph-container {
+    height: 240px;
+  }
+  
+  .graph-svg {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-title {
+    font-size: 1.4rem;
+  }
+  
+  .credits-content h2 {
+    font-size: 1rem;
+  }
+  
+  .graph-container {
+    height: 220px;
+  }
+  
+  .graph-svg {
+    min-width: 400px;
+  }
+  
+  .x-axis-label {
+    font-size: 0.6rem;
+  }
+}
+
+/* Night Mode Styles */
+.dashboard-container.night-mode .dashboard-title {
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+.dashboard-container.night-mode .progress-text {
+  color: #cccccc;
+}
+
+.dashboard-container.night-mode .plan-text {
+  color: #cccccc;
+}
+
+.dashboard-container.night-mode .credits-card {
+  background: #000000;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-container.night-mode .credits-content h2 {
+  color: #ffffff;
+}
+
+.dashboard-container.night-mode .credits-content p {
+  color: #cccccc;
+}
+
+.dashboard-container.night-mode .filter-dropdown {
+  background: #000000;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.dashboard-container.night-mode .filter-dropdown:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+.dashboard-container.night-mode .filter-dropdown:focus {
+  border-color: #ffffff;
+  cursor: pointer;
+}
+
+.dashboard-container.night-mode .filter-dropdown option {
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.dashboard-container.night-mode .filter-dropdown option:hover {
+  background-color: #374151;
+  cursor: pointer;
+}
+
+.dashboard-container.night-mode .filter-dropdown option:checked {
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+.dashboard-container.night-mode .graph-card {
+  background: #000000;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-container.night-mode .graph-title {
+  color: #ffffff;
+}
+
+.dashboard-container.night-mode .graph-y-axis {
+  color: #cccccc;
+}
+
+.dashboard-container.night-mode .x-axis-label {
+  fill: #cccccc;
+}
+
+.dashboard-container.night-mode .tooltip-content {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #e5e7eb;
+}
+
+.dashboard-container.night-mode .tooltip-content::after {
+  border-top-color: #ffffff;
+}
+
+/* Night mode tooltip styling */
+.dashboard-container.night-mode .tooltip-content {
+  background: #ffffff;
+  color: #000000;
+}
+
+.dashboard-container.night-mode .tooltip-date {
+  font-weight: 600;
+}
+
+.dashboard-container.night-mode .tooltip-content::after {
+  border-top-color: #ffffff;
+}
+
+.dashboard-container.night-mode .tooltip-credits {
+  color: #000000;
+}
+
+/* Night mode graph styling */
+.dashboard-container.night-mode .graph-point {
+  fill: #ffffff;
+  stroke: #000000;
+}
+
+.dashboard-container.night-mode .graph-point:hover {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 3;
+}
+
+/* Night mode horizontal grid lines */
+.dashboard-container.night-mode line {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+
+/* Night mode graph line */
+.dashboard-container.night-mode .graph-line {
+  stroke: #ffffff;
+}
+
+/* Night mode current plan value */
+.dashboard-container.night-mode .current-plan-value {
+  color: var(--primary-red);
+}
+
+
+

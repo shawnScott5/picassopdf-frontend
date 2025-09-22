@@ -1,0 +1,715 @@
+<div class="home-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <h4>PicassoPDF</h4>
+        </div>
+        <nav class="nav">
+          <a (click)="scrollToSection('comparison')" class="nav-link" style="cursor: pointer;">Features</a>
+          <a (click)="scrollToSection('pricing')" class="nav-link" style="cursor: pointer;">Pricing</a>
+          <a (click)="scrollToSection('faq')" class="nav-link" style="cursor: pointer;">FAQs</a>
+          <a href="/docs" target="_blank" rel="noopener noreferrer" class="nav-link">Docs</a>
+          <a href="/blog" target="_blank" rel="noopener noreferrer" class="nav-link">Blog</a>
+          <button class="btn btn-secondary" (click)="goToLogin()">Login</button>
+          <button class="btn btn-primary" (click)="goToSignup()">Signup</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text-section">
+          <div class="hero-title-section">
+            <h1 class="hero-title">
+              <span style="display:block; font-size:1.1rem; font-weight:400; color:#666;">
+                Best HTML to PDF API
+              </span> Convert <span class="typing-text">{{ currentDataType }}</span><span class="cursor">|</span><br/> into PDF Masterpieces
+            </h1>
+          </div>
+          <h2 class="hero-subtitle">
+            PDF generator API for developers — convert HTML to PDF, generate PDFs from URLs, and automate document creation with our fast & secure REST API. Free tier available with enterprise scalability.
+          </h2>
+          
+          <button class="btn btn-primary btn-large" (click)="goToSignup()">
+            Get started for free
+          </button>
+          <p class="no-credit-card-text">*no credit card required</p>
+        </div>
+
+        <div class="hero-code-section">
+          <!-- Code Example -->
+          <div class="code-example">
+            <div class="code-header">
+              <div class="window-controls">
+                <div class="control-dot red"></div>
+                <div class="control-dot yellow"></div>
+                <div class="control-dot green"></div>
+              </div>
+              <div class="code-tabs">
+                <button class="tab-button" [class.active]="activeTab === 'python'" (click)="setActiveTab('python')">Python</button>
+                <button class="tab-button" [class.active]="activeTab === 'nodejs'" (click)="setActiveTab('nodejs')">NodeJS</button>
+                <button class="tab-button" [class.active]="activeTab === 'php'" (click)="setActiveTab('php')">PHP</button>
+                <button class="tab-button" [class.active]="activeTab === 'ruby'" (click)="setActiveTab('ruby')">Ruby</button>
+                <button class="tab-button" [class.active]="activeTab === 'java'" (click)="setActiveTab('java')">Java</button>
+                <button class="tab-button" [class.active]="activeTab === 'csharp'" (click)="setActiveTab('csharp')">C#</button>
+              </div>
+              <button class="copy-button" (click)="copyCode()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="code-block">
+              <pre><code [innerHTML]="getCodeSnippet()" #codeElement></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Stats -->
+    <div class="container">
+      <div class="stats-grid">
+          <div class="stat-item">
+            <h3><span #conversionCounter>1</span>+</h3>
+            <p>Conversions made</p>
+          </div>
+          <div class="stat-item">
+            <h3>1.5s</h3>
+            <p>Average conversion time</p>
+          </div>
+          <div class="stat-item">
+            <h3>AI-Enhanced</h3>
+            <p>Polished, professional layouts</p>
+          </div>
+          <div class="stat-item">
+            <h3>99.99%</h3>
+            <p>Uptime</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="conversion-demo">
+        <div class="conversion-visual">
+          <!-- HTML Input Box -->
+          <div class="conversion-box html-box">
+            <div class="box-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="HTML code icon for HTML to PDF conversion">
+                <path d="M16 18l6-6-6-6"></path>
+                <path d="M8 6l-6 6 6 6"></path>
+              </svg>
+            </div>
+            <span>HTML</span>
+          </div>
+          
+          <!-- Connecting Line -->
+          <div class="connection-line"></div>
+          
+          <!-- Conversion Status Box -->
+          <div class="conversion-status">
+            <div class="status-text">Converting your PDF</div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <div class="progress-text">1.5sec remaining</div>
+          </div>
+          
+          <!-- Connecting Line -->
+          <div class="connection-line"></div>
+          
+          <!-- PDF Output Box -->
+          <div class="conversion-box pdf-box">
+            <div class="box-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="PDF document icon - Generated PDF output from HTML to PDF API">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14,2 14,8 20,8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10,9 9,9 8,9"></polyline>
+              </svg>
+            </div>
+            <span>PDF</span>
+          </div>
+        </div>
+        
+        <div class="conversion-content">
+          <h2>Convert <span class="highlight">HTML to PDF</span> in under 2 seconds with our PDF Generation API</h2>
+          <p>Our HTML to PDF converter API makes it easy to generate perfect PDFs from raw HTML or URLs programmatically. No need to worry about CSS properties, outdated libraries, or conversion errors. Perfect for invoice PDF generation, report automation, and document creation.</p>
+          <button class="btn btn-primary" (click)="goToDocs()">
+            View HTML to PDF API Documentation
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Template Storage Section -->
+  <section class="template-storage">
+    <div class="container">
+      <div class="template-demo">
+        <div class="template-content">
+          <h2>Batch <span class="highlight">HTML to PDF</span> API — Automate Document Generation with Templates</h2>
+          <p>Store HTML templates and generate PDFs on the fly with our batch HTML to PDF API. Perfect for invoice PDF generator needs, receipt generation, and automated document creation. Secure, fast, and developer-friendly REST API.</p>
+          <button class="btn btn-primary" (click)="goToDocs()">
+            View HTML to PDF API Documentation
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="template-visual">
+          <div class="template-illustration">
+            <!-- Template Storage -->
+            <div class="storage-section">
+              <div class="storage-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Cloud storage icon for HTML template storage in PDF API">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                </svg>
+              </div>
+              <div class="storage-label">Template Stored</div>
+            </div>
+            
+            <!-- Speed Indicator -->
+            <div class="speed-section">
+              <div class="speed-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+              </div>
+              <div class="speed-label">0.5s</div>
+            </div>
+            
+            <!-- PDF Output -->
+            <div class="output-section">
+              <div class="output-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14,2 14,8 20,8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <div class="output-label">PDF Generated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section class="dashboard-section">
+    <div class="container">
+      <div class="dashboard-demo">
+        <div class="dashboard-visual">
+       
+          
+          <!-- Processing Icon with Animation -->
+        
+          
+          <!-- Dashboard Box -->
+          <div class="dashboard-box">
+            <div class="dashboard-header">
+              <div class="dashboard-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="9" y1="9" x2="9" y2="21"></line>
+                  <line x1="15" y1="9" x2="15" y2="21"></line>
+                  <line x1="3" y1="9" x2="21" y2="9"></line>
+                </svg>
+              </div>
+              <div class="dashboard-label">Dashboard</div>
+            </div>
+            <div class="dashboard-content-preview">
+              <div class="pdf-item">
+                <div class="pdf-icon">📄</div>
+                <div class="pdf-info">
+                  <div class="pdf-name">invoice-2024.pdf</div>
+                  <div class="pdf-date">2 hours ago</div>
+                </div>
+              </div>
+              <div class="pdf-item">
+                <div class="pdf-icon">📄</div>
+                <div class="pdf-info">
+                  <div class="pdf-name">report-final.pdf</div>
+                  <div class="pdf-date">1 day ago</div>
+                </div>
+              </div>
+              <div class="pdf-item">
+                <div class="pdf-icon">📄</div>
+                <div class="pdf-info">
+                  <div class="pdf-name">contract-v2.pdf</div>
+                  <div class="pdf-date">3 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-content">
+          <h2><span class="highlight">PDF Generator</span> Dashboard — Manage Your Document Automation</h2>
+          <p>Access your PDF library through our intuitive developer dashboard. Manage your HTML to PDF conversions, track API usage, and organize all your generated documents. Perfect for developers building invoice generators, report automation systems, and document management solutions.</p>
+          <button class="btn btn-primary" (click)="goToSignup()">
+            Get started for free
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Technical Features Section -->
+  <section class="technical-features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Advanced PDF Generation Features</h2>
+        <p style="max-width: 1200px; margin: 0 auto 1rem auto;">Perfect for automated invoice PDF generation, medical report PDF creation, financial document automation, compliance reporting, receipt generation, bank statement PDFs, patient record exports and enterprise document management. Our REST API powers everything from simple HTML to PDF conversion to complex batch processing workflows.</p>
+        <p style="max-width: 1200px; margin: 0 auto;">Join thousands of developers using the most reliable PDF generator API for Node.js, Python, PHP, Java, C#, and Ruby applications. From startups to Fortune 500 companies — PicassoPDF delivers scalable document automation solutions.</p>
+      </div>
+      <div class="tech-features-grid">
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <h4>Async PDF Generation</h4>
+          <p>Handle large batches with webhook callbacks for scalable document processing</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h4>Headless PDF Generation</h4>
+          <p>Chrome-based rendering engine for perfect CSS and JavaScript support</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h4>Web to PDF API</h4>
+          <p>Convert any URL to PDF with custom headers and authentication</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+          </div>
+          <h4>Modern CSS Support</h4>
+          <p>Full Flexbox, Grid, CSS Variables & @media print support — no more broken layouts</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <path d="M12 3v18m-9-9h18"></path>
+              <path d="M6 6h12v12H6z" fill="none"></path>
+            </svg>
+          </div>
+          <h4>Professional Page Breaks</h4>
+          <p>Smart content grouping prevents orphaned headings and awkward page splits</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+          </div>
+          <h4>AI Layout Repair</h4>
+          <p>Automatically fixes broken HTML, malformed tables, and structural issues</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h4>Reliable Asset Loading</h4>
+          <p>Guaranteed image and CSS loading with networkidle2 — no more missing content</p>
+        </div>
+        <div class="tech-feature">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dd0302" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+              <circle cx="6" cy="8" r="1"></circle>
+              <circle cx="10" cy="8" r="1"></circle>
+              <circle cx="14" cy="8" r="1"></circle>
+              <circle cx="18" cy="8" r="1"></circle>
+            </svg>
+          </div>
+          <h4>Background & Print Media</h4>
+          <p>Perfect @media print support with printBackground: true — no more white backgrounds</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Section -->
+  <section class="privacy">
+    <div class="container">
+      <div class="privacy-content">
+        <div class="privacy-text">
+          <div class="privacy-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Security lock icon - HIPAA compliant PDF generation API">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <circle cx="12" cy="16" r="1"></circle>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 style="color: #dd0302; font-weight: 700;">HIPAA, SOC 2 & GDPR Compliant HTML to PDF API — <br>Enterprise-Grade Security</h3>
+          <p style="font-size: calc(1.1rem - 2px);">PicassoPDF's HTML to PDF conversion technology is fully HIPAA, SOC 2, and GDPR compliant, making it perfect for healthcare applications, financial services, and global enterprises. Generate medical report PDFs, patient record exports, and sensitive financial documents with confidence. We don't store your documents (unless specifically requested), ensuring maximum data privacy and security for your PDF generation needs.</p>
+          <!-- <button class="btn btn-primary">
+            Review our Business Associate Agreement (BAA)
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button> -->
+        </div>
+        <div class="privacy-visual">
+          <div class="shield-container">
+            <div class="shield-icon">
+              <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="decorative-elements">
+              <div class="element circle filled"></div>
+              <div class="element circle outline"></div>
+              <div class="element square filled"></div>
+              <div class="element square outline"></div>
+              <div class="element gear"></div>
+              <div class="element lock"></div>
+              <div class="element dots"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table Section -->
+  <section id="comparison" class="comparison">
+    <div class="container">
+      <div class="comparison-content">
+        <div class="comparison-header">
+          <h2>PicassoPDF vs Free HTML to PDF Tools</h2>
+          <p style="max-width: 1200px; margin: 0 auto 1rem auto;">Free HTML to PDF tools aren't truly free — they drain your development time, eat into your budget, and create endless maintenance headaches. PicassoPDF eliminates all of that with our professional HTML to PDF converter API. Get zero maintenance, lightning-fast PDF generation and flawless professional-grade results that save thousands per year.</p>
+          
+          <p style="max-width: 1200px; margin: 2rem auto 0 auto;"><span style="color: #dd0302; font-weight: 600;">Looking for a Puppeteer Alternative or wkhtmltopdf Replacement?</span> PicassoPDF is the perfect Puppeteer alternative for developers seeking a reliable, managed PDF generation service. Unlike maintaining your own headless Chrome PDF generation setup, our API handles all the complexity while providing better performance than wkhtmltopdf or other alternatives.</p>
+        </div>
+        
+        <div class="comparison-table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>PicassoPDF</th>
+                <th>html2pdf.js</th>
+                <th>jsPDF</th>
+                <th>Puppeteer (DIY)</th>
+                <th style="font-weight: 500;">wkhtmltopdf</th>
+              </tr>
+            </thead>
+                          <tbody>
+                <tr>
+                  <td class="feature-name">Monthly Cost</td>
+                  <td class="picasso-feature">Free / Paid $5+</td>
+                  <td class="free-alternative">Free</td>
+                  <td class="free-alternative">Free</td>
+                  <td class="free-alternative">Free</td>
+                  <td class="free-alternative">Free</td>
+                </tr>
+              <tr>
+                <td class="feature-name">Development Time</td>
+                <td class="picasso-feature">5 Minutes</td>
+                <td class="free-alternative">1 Day</td>
+                <td class="free-alternative">3 Days</td>
+                <td class="free-alternative">1 Week</td>
+                <td class="free-alternative">1 Week</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Output Quality</td>
+                <td class="picasso-feature">✅ Professional Grade</td>
+                <td class="free-alternative">❌ Looks Like 1995</td>
+                <td class="free-alternative">❌ Basic Text Only</td>
+                <td class="free-alternative">⚠️ Inconsistent</td>
+                <td class="free-alternative">⚠️ Layout Issues</td>
+              </tr>
+              <tr>
+                <td class="feature-name">CSS Support</td>
+                <td class="picasso-feature">✅ CSS3 + Flexbox/Grid</td>
+                <td class="free-alternative">⚠️ Partial CSS</td>
+                <td class="free-alternative">❌ No CSS Support</td>
+                <td class="free-alternative">✅ CSS3 + Flexbox/Grid</td>
+                <td class="free-alternative">⚠️ Limited CSS3</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Performance</td>
+                <td class="picasso-feature">✅ < 2 seconds</td>
+                <td class="free-alternative">✅ < 2 seconds</td>
+                <td class="free-alternative">✅ < 2 seconds</td>
+                <td class="free-alternative">✅ < 2 seconds</td>
+                <td class="free-alternative">✅ < 2 seconds</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Maintenance</td>
+                <td class="picasso-feature">✅ Zero Maintenance</td>
+                <td class="free-alternative">⚠️ Bug fixes</td>
+                <td class="free-alternative">⚠️ Requires updates</td>
+                <td class="free-alternative">⚠️ Server maintenance</td>
+                <td class="free-alternative">⚠️ Server maintenance</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Support</td>
+                <td class="picasso-feature">✅ 24/7 Priority Support</td>
+                <td class="free-alternative">⚠️ Community support</td>
+                <td class="free-alternative">⚠️ Community support</td>
+                <td class="free-alternative">⚠️ Self support</td>
+                <td class="free-alternative">⚠️ Community support</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Scalability</td>
+                <td class="picasso-feature">✅ Unlimited / Cloud-scaled</td>
+                <td class="free-alternative">⚠️ Limited by browser</td>
+                <td class="free-alternative">⚠️ Limited by memory</td>
+                <td class="free-alternative">⚠️ Scales with server</td>
+                <td class="free-alternative">⚠️ Scales manually</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Compliance</td>
+                <td class="picasso-feature">✅ HIPAA, SOC 2, GDPR</td>
+                <td class="free-alternative">❌ No Compliance</td>
+                <td class="free-alternative">❌ No Compliance</td>
+                <td class="free-alternative">⚠️ Manual setup required</td>
+                <td class="free-alternative">⚠️ Depends on implementation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Pricing Section -->
+  <section id="pricing" class="pricing-slider">
+    <div class="container">
+      <div class="pricing-content">
+        <div class="pricing-header">
+          <h2>Affordable HTML to PDF API Pricing</h2>
+          <p class="credit-note-header">* 1 credit = 1 PDF page. Generate a 3-page invoice PDF? That's 3 credits.</p>
+          <p class="credit-note-header">Perfect for developers who need flexible HTML to PDF conversion pricing.</p>
+        </div>
+        
+        <div class="slider-section">
+          <div class="slider-container">
+            <div class="slider-label">
+              <span>I need to convert</span>
+              <input type="text" [value]="formatNumberWithCommas(monthlyConversions)" (input)="onInputChange($event)" (blur)="onInputBlur($event)" class="conversion-input">
+              <span>pages per month</span>
+              <span class="tooltip-icon">
+                ?
+                <span class="tooltip-text">Enterprise? For plans over 1M credits per month contact us</span>
+              </span>
+            </div>
+            <div class="preset-buttons">
+              <div class="preset-row">
+                <button class="preset-btn" (click)="setCredits(50)" [class.active]="monthlyConversions === 50">Free plan</button>
+                <button class="preset-btn" (click)="setCredits(1000)" [class.active]="monthlyConversions === 1000">1k Credits</button>
+                <button class="preset-btn" (click)="setCredits(5000)" [class.active]="monthlyConversions === 5000">5k Credits</button>
+                <button class="preset-btn" (click)="setCredits(10000)" [class.active]="monthlyConversions === 10000">10k Credits</button>
+                <button class="preset-btn" (click)="setCredits(25000)" [class.active]="monthlyConversions === 25000">25k Credits</button>
+              </div>
+              <div class="preset-row">
+                <button class="preset-btn" (click)="setCredits(50000)" [class.active]="monthlyConversions === 50000">50k Credits</button>
+                <button class="preset-btn" (click)="setCredits(100000)" [class.active]="monthlyConversions === 100000">100k Credits</button>
+                <button class="preset-btn" (click)="setCredits(250000)" [class.active]="monthlyConversions === 250000">250k Credits</button>
+                <button class="preset-btn" (click)="setCredits(500000)" [class.active]="monthlyConversions === 500000">500k Credits</button>
+                <button class="preset-btn" (click)="setCredits(750000)" [class.active]="monthlyConversions === 750000">750k Credits</button>
+                <button class="preset-btn" (click)="setCredits(1000000)" [class.active]="monthlyConversions === 1000000">1M Credits</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pricing-bottom-row">
+          <div class="current-plan-badge" *ngIf="currentPlan !== 'Free'">
+            <span class="current-plan-label">Current Plan:</span>
+            <span class="current-plan-name">{{currentPlan}}</span>
+          </div>
+          <div class="pricing-recommendation">
+            <div class="recommendation-card">
+              <div class="card-header">
+                <h3>Your Pricing</h3>
+              </div>
+              <div class="card-content">
+                <div class="credits">{{formatNumber(monthlyConversions)}} Credits</div>
+                <div class="price">{{getFormattedPrice() === 'Free' ? 'Free' : '$' + getFormattedPrice()}}</div>
+                <div class="included-features">
+                  <div class="features-divider"></div>
+                  <ul class="features-list">
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                      </svg>
+                      <span>Convert {{formatNumber(monthlyConversions)}} pages/month</span>
+                    </li>
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                      </svg>
+                      <span>API + dashboard for full control</span>
+                    </li>
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                      </svg>
+                      <span>Secure cloud storage + instant file links</span>
+                    </li>
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                      </svg>
+                      <span>Batch & async processing for large jobs</span>
+                    </li>
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                      </svg>
+                      <span>AI-powered HTML layout repair</span>
+                    </li>
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                      </svg>
+                      <span>Priority support</span>
+                    </li>
+                </ul>
+                  <div class="overage-info">
+                    <p>+$0.003 per extra page (billed at end of month)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Start Converting HTML to PDF Programmatically</h2>
+        <p style="max-width: 800px; margin: 0 auto 50px auto;">Join thousands of developers using the best HTML to PDF API for invoice generation, report automation and document creation. Free tier available — no credit card required.</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary btn-large" (click)="goToSignup()">Signup</button>
+          <button class="btn btn-secondary" (click)="goToLogin()">Login</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <div class="faq-container">
+        <div class="faq-header">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        
+        <div class="faq-content">
+          <div class="faq-item" *ngFor="let item of faqItems; let i = index" (click)="toggleFaq(i)">
+            <div class="faq-question">
+              <span>{{ item.question }}</span>
+              <svg class="faq-arrow" [class.expanded]="item.isExpanded" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6,9 12,15 18,9"></polyline>
+              </svg>
+            </div>
+            <div class="faq-answer" [class.expanded]="item.isExpanded">
+              <p>{{ item.answer }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h4>PicassoPDF</h4>
+          <p>Generate PDF Masterpieces</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-section">
+            <h4>HTML to PDF API</h4>
+            <a (click)="scrollToSection('comparison')" style="cursor: pointer;">PDF Generator Features</a>
+            <a (click)="scrollToSection('pricing')" style="cursor: pointer;">API Pricing Plans</a>
+              <a (click)="goToSignup()" style="cursor: pointer;">Start Free Trial</a>
+          </div>
+          <div class="footer-section">
+            <h4>Resources</h4>
+            <a href="/docs" target="_blank" rel="noopener noreferrer">API Documentation</a>
+            <a href="#" (click)="scrollToTop()">Code Examples</a>
+            <a href="mailto:support@picassopdf.com">Developer Support</a>
+          </div>
+          <div class="footer-section">
+            <h4>Use Cases</h4>
+            <span>Invoice PDF Generator</span>
+            <span>Medical Report PDF</span>
+            <span>Financial Document API</span>
+          </div>
+          <div class="footer-section" style="min-width: 200px; flex: 1.2;">
+            <h4>Programming Languages</h4>
+            <span>HTML to PDF JavaScript</span>
+            <span>HTML to PDF Python</span>
+            <span>HTML to PDF PHP</span>
+            <span>HTML to PDF C#</span>
+            <span>HTML to PDF Java</span>
+            <span>HTML to PDF Ruby</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 PicassoPDF. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+

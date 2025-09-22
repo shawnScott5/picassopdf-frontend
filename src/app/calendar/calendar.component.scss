@@ -1,0 +1,131 @@
+.calendar-container {
+    height: 100vh;
+    overflow-y: auto;
+    background-color: black !important;
+}
+
+.calendar-wrapper {
+    margin: 40px;
+}
+
+input {
+    border-color: #12e19f;
+    color: black;
+}
+
+#tooltip {
+    background-color: black;
+    border: 1px solid #12e19f;
+    border-radius: 4px;
+    color: #12e19f;
+    font-weight: 500;
+    padding: 4px 8px;
+    font-size: 13px;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 0 15px #12e19f !important;
+}
+  
+#tooltip[data-show] {
+    display: block;
+    z-index: 9999;
+}
+
+::ng-deep .fc .fc-col-header-cell-cushion {
+    color: white !important;
+}
+
+::ng-deep .fc .fc-daygrid-day-number {
+    color: white !important;
+}
+
+::ng-deep .fc .fc-toolbar-title {
+    color: white !important;
+}
+
+::ng-deep .fc .fc-button-group > .fc-button {
+    background-color: #12e19f !important;
+    border-color: #fff !important;
+}
+
+::ng-deep .calendar-wrapper a {
+    color: #fff !important;
+}
+
+::ng-deep .calendar-wrapper b {
+    color: #fff !important;
+}
+
+::ng-deep .fc-day-today {
+    box-shadow: 0 0 25px #12e19f!important;
+    border: 3.5px solid #12e19f !important;
+    background-color: black !important;
+    color: #12e19f !important;
+    font-weight: bold;
+  }
+
+::ng-deep .fc-event-main {
+    background-color: black !important;
+    box-shadow: 0 0 15px #12e19f !important;
+    color: #fff !important;
+    margin: 2px;
+}
+
+::ng-deep .fc-event {
+    background-color: black !important;
+    box-shadow: 0 0 15px #12e19f !important;
+    color: #fff !important;
+    margin: 2px;
+}
+
+::ng-deep .fc-direction-ltr .fc-toolbar > * > :not(:first-child) {
+    background-color: black !important;
+}
+
+::ng-deep .fc-day-today .fc-daygrid-day-number {
+    color: #12e19f !important;
+    font-weight: bold;
+}
+
+::ng-deep b {
+    margin-right: 3px !important;
+}
+
+::ng-deep .fc-theme-standard .fc-list-day-cushion {
+    background-color: black !important;
+}
+
+::ng-deep .past-event {
+    text-decoration: line-through !important;
+    opacity: 0.6 !important; /* Reduce opacity */
+}
+
+::ng-deep tr:hover {
+    color: black !important
+}
+
+.header-wrapper {
+    padding: 20px 40px;
+    height: 50px;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    color: #12e19f;
+}
+
+.button-icon {
+    margin-right: 5px;
+}
+
+.action-button {
+    background-color: black !important;
+    color: white !important;
+}
+
+.action-button:hover {
+    border-color: #12e19f !important;
+    color: #12e19f !important;
+}

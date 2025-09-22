@@ -1,0 +1,500 @@
+<div class="documentation-container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Documentation</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#introduction" class="nav-link active" (click)="scrollToSection('introduction')">Introduction</a></li>
+        <li><a href="#authentication" class="nav-link" (click)="scrollToSection('authentication')">Authentication</a></li>
+        <li><a href="#conversion" class="nav-link" (click)="scrollToSection('conversion')">PDF Conversion</a></li>
+        <li><a href="#rate-limits" class="nav-link" (click)="scrollToSection('rate-limits')">Rate Limits</a></li>
+        <li><a href="#errors" class="nav-link" (click)="scrollToSection('errors')">Error Handling</a></li>
+        <li><a href="#webhooks" class="nav-link" (click)="scrollToSection('webhooks')">Webhooks</a></li>
+        <li><a href="#sdks" class="nav-link" (click)="scrollToSection('sdks')">SDKs & Libraries</a></li>
+        <li><a href="#examples" class="nav-link" (click)="scrollToSection('examples')">Examples</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <div class="content-wrapper">
+      <!-- Introduction -->
+      <section id="introduction" class="doc-section">
+        <h1>PicassoPDF API Documentation</h1>
+        <p class="lead">Transform your HTML into PDF Masterpieces with our powerful API.</p>
+        
+        <div class="info-box">
+          <h3>Base URL</h3>
+          <code>https://api.picassopdf.com/v1</code>
+        </div>
+
+        <h2>Getting Started</h2>
+        <p>PicassoPDF provides a simple REST API to convert web pages, documents, and content into high-quality PDFs. Our API is designed to be easy to use while providing powerful features for content transformation.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h4>📄 PDF Conversion</h4>
+            <p>Convert any webpage or document into a beautiful PDF with custom styling and formatting.</p>
+          </div>
+          <div class="feature-card">
+            <h4>🎨 Custom Styling</h4>
+            <p>Apply custom CSS and styling to make your PDFs look exactly how you want.</p>
+          </div>
+          <div class="feature-card">
+            <h4>⚡ Fast Processing</h4>
+            <p>High-performance conversion with real-time status updates and webhook notifications.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Authentication -->
+      <section id="authentication" class="doc-section">
+        <h2>Authentication</h2>
+        <p>All API requests require authentication using your API key. Include your API key in the Authorization header of your requests.</p>
+
+        <div class="code-example">
+          <div class="code-header">
+            <span>Using your API key</span>
+            <button class="copy-btn" (click)="copyCode('auth-example')">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+          <pre><code id="auth-example" class="language-bash">curl -X POST https://api.picassopdf.com/v1/convert \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{{ '{' }}
+    "url": "https://example.com",
+    "format": "pdf"
+  {{ '}' }}'</code></pre>
+        </div>
+
+        <div class="warning-box">
+          <h4>⚠️ Keep your API key secure</h4>
+          <p>Never expose your API key in client-side code or public repositories. Always use environment variables or secure configuration management.</p>
+        </div>
+      </section>
+
+      <!-- PDF Conversion -->
+      <section id="conversion" class="doc-section">
+        <h2>PDF Conversion</h2>
+        <p>Convert web pages, HTML content, or documents into high-quality PDFs with custom styling and options.</p>
+
+        <h3>Convert a Web Page</h3>
+        <div class="code-example">
+          <div class="code-header">
+            <span>Basic web page conversion</span>
+            <button class="copy-btn" (click)="copyCode('convert-webpage')">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+          <pre><code id="convert-webpage" class="language-javascript">const response = await fetch('https://api.picassopdf.com/v1/convert', {{ '{' }}
+  method: 'POST',
+  headers: {{ '{' }}
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  {{ '}' }},
+  body: JSON.stringify({{ '{' }}
+    url: 'https://example.com',
+    format: 'pdf',
+    options: {{ '{' }}
+      pageSize: 'A4',
+      margin: '20mm',
+      printBackground: true
+    {{ '}' }}
+  {{ '}' }})
+{{ '}' }});
+
+const result = await response.json();
+console.log(result);</code></pre>
+        </div>
+
+        <h3>Convert HTML Content</h3>
+        <div class="code-example">
+          <div class="code-header">
+            <span>Convert HTML string to PDF</span>
+            <button class="copy-btn" (click)="copyCode('convert-html')">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+          <pre><code id="convert-html" class="language-javascript">const response = await fetch('https://api.picassopdf.com/v1/convert', {{ '{' }}
+  method: 'POST',
+  headers: {{ '{' }}
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  {{ '}' }},
+  body: JSON.stringify({{ '{' }}
+    html: '&lt;h1&gt;Hello World&lt;/h1&gt;&lt;p&gt;This is a test document.&lt;/p&gt;',
+    format: 'pdf',
+    options: {{ '{' }}
+      pageSize: 'Letter',
+      margin: '15mm',
+      header: '&lt;div style="text-align: center; color: #666;"&gt;My Document&lt;/div&gt;',
+      footer: '&lt;div style="text-align: center; color: #666;"&gt;Page {{ '{' }}page{{ '}' }} of {{ '{' }}total{{ '}' }}&lt;/div&gt;'
+    {{ '}' }}
+  {{ '}' }})
+{{ '}' }});</code></pre>
+        </div>
+
+        <h3>Conversion Options</h3>
+        <div class="table-container">
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>url</code></td>
+                <td>string</td>
+                <td>-</td>
+                <td>URL of the webpage to convert</td>
+              </tr>
+              <tr>
+                <td><code>html</code></td>
+                <td>string</td>
+                <td>-</td>
+                <td>HTML content to convert</td>
+              </tr>
+              <tr>
+                <td><code>format</code></td>
+                <td>string</td>
+                <td>pdf</td>
+                <td>Output format (pdf)</td>
+              </tr>
+              <tr>
+                <td><code>pageSize</code></td>
+                <td>string</td>
+                <td>A4</td>
+                <td>Page size (A4, Letter, Legal, etc.)</td>
+              </tr>
+              <tr>
+                <td><code>margin</code></td>
+                <td>string</td>
+                <td>10mm</td>
+                <td>Page margins</td>
+              </tr>
+              <tr>
+                <td><code>printBackground</code></td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Include background graphics</td>
+              </tr>
+              <tr>
+                <td><code>header</code></td>
+                <td>string</td>
+                <td>-</td>
+                <td>Custom header HTML</td>
+              </tr>
+              <tr>
+                <td><code>footer</code></td>
+                <td>string</td>
+                <td>-</td>
+                <td>Custom footer HTML</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <!-- Rate Limits -->
+      <section id="rate-limits" class="doc-section">
+        <h2>Rate Limits</h2>
+        <p>To ensure fair usage and optimal performance, PicassoPDF implements rate limiting on API requests.</p>
+
+        <div class="rate-limit-table">
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Requests per minute</th>
+                <th>Requests per hour</th>
+                <th>Requests per day</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Free</td>
+                <td>10</td>
+                <td>100</td>
+                <td>1,000</td>
+              </tr>
+              <tr>
+                <td>Starter</td>
+                <td>60</td>
+                <td>1,000</td>
+                <td>10,000</td>
+              </tr>
+              <tr>
+                <td>Professional</td>
+                <td>300</td>
+                <td>10,000</td>
+                <td>100,000</td>
+              </tr>
+              <tr>
+                <td>Enterprise</td>
+                <td>1,000</td>
+                <td>50,000</td>
+                <td>500,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Rate Limit Headers</h3>
+        <p>Every API response includes rate limit information in the headers:</p>
+        <div class="code-example">
+          <pre><code class="language-bash">X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 45
+X-RateLimit-Reset: 1640995200</code></pre>
+        </div>
+
+        <div class="warning-box">
+          <h4>⚠️ Rate Limit Exceeded</h4>
+          <p>When you exceed your rate limit, the API returns a <code>429 Too Many Requests</code> status code. Wait until the reset time before making additional requests.</p>
+        </div>
+      </section>
+
+      <!-- Error Handling -->
+      <section id="errors" class="doc-section">
+        <h2>Error Handling</h2>
+        <p>PicassoPDF uses conventional HTTP response codes to indicate the success or failure of API requests.</p>
+
+        <h3>HTTP Status Codes</h3>
+        <div class="table-container">
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Status</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>200</code></td>
+                <td>OK</td>
+                <td>Request successful</td>
+              </tr>
+              <tr>
+                <td><code>201</code></td>
+                <td>Created</td>
+                <td>Resource created successfully</td>
+              </tr>
+              <tr>
+                <td><code>400</code></td>
+                <td>Bad Request</td>
+                <td>Invalid request parameters</td>
+              </tr>
+              <tr>
+                <td><code>401</code></td>
+                <td>Unauthorized</td>
+                <td>Invalid or missing API key</td>
+              </tr>
+              <tr>
+                <td><code>403</code></td>
+                <td>Forbidden</td>
+                <td>Insufficient permissions</td>
+              </tr>
+              <tr>
+                <td><code>404</code></td>
+                <td>Not Found</td>
+                <td>Resource not found</td>
+              </tr>
+              <tr>
+                <td><code>429</code></td>
+                <td>Too Many Requests</td>
+                <td>Rate limit exceeded</td>
+              </tr>
+              <tr>
+                <td><code>500</code></td>
+                <td>Internal Server Error</td>
+                <td>Server error</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Error Response Format</h3>
+        <div class="code-example">
+          <pre><code class="language-json">{{ '{' }}
+  "error": {{ '{' }}
+    "code": "invalid_url",
+    "message": "The provided URL is invalid or inaccessible",
+    "details": {{ '{' }}
+      "url": "https://invalid-url.com"
+    {{ '}' }}
+  {{ '}' }}
+{{ '}' }}</code></pre>
+        </div>
+      </section>
+
+      <!-- Webhooks -->
+      <section id="webhooks" class="doc-section">
+        <h2>Webhooks</h2>
+        <p>Receive real-time notifications when your conversions are completed or encounter errors.</p>
+
+        <h3>Setting Up Webhooks</h3>
+        <div class="code-example">
+          <div class="code-header">
+            <span>Configure webhook endpoint</span>
+            <button class="copy-btn" (click)="copyCode('webhook-setup')">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+          <pre><code id="webhook-setup" class="language-javascript">const response = await fetch('https://api.picassopdf.com/v1/webhooks', {{ '{' }}
+  method: 'POST',
+  headers: {{ '{' }}
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  {{ '}' }},
+  body: JSON.stringify({{ '{' }}
+    url: 'https://your-domain.com/webhook',
+    events: ['conversion.completed', 'conversion.failed'],
+    secret: 'your-webhook-secret'
+  {{ '}' }})
+{{ '}' }});</code></pre>
+        </div>
+
+        <h3>Webhook Events</h3>
+        <div class="table-container">
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>conversion.started</code></td>
+                <td>Conversion process has begun</td>
+              </tr>
+              <tr>
+                <td><code>conversion.completed</code></td>
+                <td>Conversion completed successfully</td>
+              </tr>
+              <tr>
+                <td><code>conversion.failed</code></td>
+                <td>Conversion failed with error</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SDKs -->
+      <section id="sdks" class="doc-section">
+        <h2>SDKs & Libraries</h2>
+        <p>Use our official SDKs and libraries to integrate PicassoPDF into your applications quickly and easily.</p>
+
+        <div class="sdk-grid">
+          <div class="sdk-card">
+            <h4>JavaScript/Node.js</h4>
+            <div class="sdk-install">
+              <code>npm install PicassoPDF</code>
+              <button class="copy-btn" (click)="copyCode('npm-install')">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="sdk-example">
+              <pre><code class="language-javascript">import {{ '{' }} PicassoPDF {{ '}' }} from 'PicassoPDF';
+
+const client = new PicassoPDF('YOUR_API_KEY');
+const result = await client.convert({{ '{' }}
+  url: 'https://example.com',
+  format: 'pdf'
+{{ '}' }});</code></pre>
+            </div>
+          </div>
+
+          <div class="sdk-card">
+            <h4>Python</h4>
+            <div class="sdk-install">
+              <code>pip install PicassoPDF</code>
+              <button class="copy-btn" (click)="copyCode('pip-install')">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="sdk-example">
+              <pre><code class="language-python">from PicassoPDF import PicassoPDF
+
+client = PicassoPDF('YOUR_API_KEY')
+result = client.convert(
+    url='https://example.com',
+    format='pdf'
+)</code></pre>
+            </div>
+          </div>
+
+          <div class="sdk-card">
+            <h4>PHP</h4>
+            <div class="sdk-install">
+              <code>composer require PicassoPDF/PicassoPDF</code>
+              <button class="copy-btn" (click)="copyCode('composer-install')">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="sdk-example">
+              <pre><code class="language-php">use PicassoPDF\PicassoPDF;
+
+$client = new PicassoPDF('YOUR_API_KEY');
+$result = $client->convert([
+    'url' => 'https://example.com',
+    'format' => 'pdf'
+]);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Examples -->
+      <section id="examples" class="doc-section">
+        <h2>Examples</h2>
+        <p>Explore common use cases and integration examples for PicassoPDF.</p>
+
+        <h3>Convert Multiple URLs</h3>
+        <div class="code-example">
+          <div class="code-header">
+            <span>Batch conversion example</span>
+            <button class="copy-btn" (click)="copyCode('batch-conversion')">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+          <pre><code id="batch-conversion" class="language-javascript">const urls = [
+  'https://example1.com',
+  'https://example2.com',
+  'https://example3.com'
+];
+
+const conversions = urls.map(url => 
+  fetch('https://api.picassopdf.com/v1/convert', {{ '{' }}
+    method: 'POST',
+    headers: {{ '{' }}
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    {{ '}' }},
+    body: JSON.stringify({{ '{' }}
+      url,
+      format: 'pdf',
+      options: {{ '{' }}
+        pageSize: 'A4',
+        margin: '15mm'
+      {{ '}' }}
+    {{ '}' }})
+  {{ '}' }})
+);
+
+const results = await Promise.all(conversions);
+const pdfs = await Promise.all(results.map(r => r.json()));</code></pre>
+        </div>
+
+      </section>
+    </div>
+  </div>
+</div>

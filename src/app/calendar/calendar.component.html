@@ -1,0 +1,36 @@
+<div class="calendar-container">
+    <div class="header-wrapper">
+        <div>
+            <h1>Calendar</h1>
+        </div>
+        <div>
+            <a class="btn d-inline-flex btn-sm btn-secondary mx-1 action-button" (click)="openCreateEvent()">
+                <span><i class="bi bi-calendar-plus button-icon"></i> New Event</span>
+            </a>
+        </div>
+    </div>
+    <hr>
+    <div class="calendar-wrapper">
+        <full-calendar *ngIf="(calendarVisible | async) && !isPageLoading" [options]="calendarOptions">
+            <ng-template #eventContent let-arg>
+              <b [ngClass]="{'past-event': arg.event.extendedProps?.isPastEvent}">
+                {{ arg.event.extendedProps?.customTime || arg.timeText }}
+              </b>
+              <i>
+                <span *ngIf="isMonthView">-</span> 
+                <span [ngClass]="{'past-event': arg.event.extendedProps?.isPastEvent}">
+                  {{ arg.event.title?.length > 15 ? arg.event.title.slice(0, 15).trim() + '...' : arg.event.title }}
+                </span>
+              </i>
+            </ng-template>
+          </full-calendar>
+        <div id="tooltip" role="tooltip">
+            {{ tooltipMessage }}
+        </div>
+        <div *ngIf="isPageLoading" class="card-footer border-0 py-5 d-flex justify-content-center">
+          <div class="spinner-border spinner-border-md text-success" role="status">
+              <span class="sr-only">Loading...</span>
+          </div>  
+      </div>
+    </div>
+</div>

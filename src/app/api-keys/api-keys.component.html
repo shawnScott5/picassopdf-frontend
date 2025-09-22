@@ -1,0 +1,423 @@
+<div class="api-keys-container">
+  <div class="header">
+    <div class="title-section">
+      <h1>API Keys</h1>
+      <p>Manage your API keys to integrate PicassoPDF services into your applications.</p>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="custom-spinner"></div>
+    <p>Loading your API keys...</p>
+  </div>
+
+  <!-- Content (only show when not loading) -->
+  <div *ngIf="!loading" class="content">
+    <!-- Error State -->
+    <div *ngIf="error" class="error-container">
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        {{ error }}
+        <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadApiKeys()">Retry</button>
+      </div>
+    </div>
+
+    <!-- API Keys Table (only show when not loading) -->
+    <div *ngIf="!loading && !error" class="api-keys-table-container">
+      <div class="table-header">
+        <div class="header-content">
+          <h3>Your API Keys</h3>
+          <p>
+            You have {{ apiKeys.length }} active API key{{ apiKeys.length !== 1 ? 's' : '' }} for accessing PicassoPDF services
+            <span *ngIf="!isApiKeyLimitReached" class="limit-info">({{ remainingApiKeys }} remaining)</span>
+            <span *ngIf="isApiKeyLimitReached" class="limit-info limit-reached">(Maximum limit reached)</span>
+          </p>
+        </div>
+        <button 
+          class="btn btn-primary" 
+          [class.disabled]="isApiKeyLimitReached"
+          [disabled]="isApiKeyLimitReached"
+          (click)="!isApiKeyLimitReached && (showCreateModal = true)"
+          [title]="isApiKeyLimitReached ? 'Maximum of 5 API keys reached. Delete an existing key to create a new one.' : 'Create a new API key'">
+          <i class="fas fa-plus"></i>
+          New API Key
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="api-keys-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>API Key</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let apiKey of paginatedApiKeys" class="api-key-row">
+              <td class="api-key-name">
+                <div class="name-content">
+                  <i class="fas fa-key key-icon"></i>
+                  <span>{{ apiKey.name }}</span>
+                                     <button class="edit-btn" matTooltip="Edit name" matTooltipClass="action-tooltip" (click)="editApiKeyName(apiKey)">
+                     <i class="fas fa-pencil-alt"></i>
+                   </button>
+                </div>
+              </td>
+              <td class="api-key-token">
+                <div class="token-content">
+                  <code class="token-text">{{ apiKey.fullKey || apiKey.token }}</code>
+                                     <div class="token-actions">
+                     <button class="btn btn-sm btn-outline-secondary copy-btn" 
+                             (click)="copyToClipboard(apiKey.fullKey || apiKey.token, apiKey._id)" 
+                             matTooltip="Copy to clipboard"
+                             matTooltipClass="action-tooltip">
+                       <i [class]="copiedApiKeyId === apiKey._id ? 'fas fa-check' : 'fas fa-copy'"></i>
+                     </button>
+                     <button class="btn btn-sm btn-outline-warning regenerate-btn" 
+                             (click)="regenerateApiKey(apiKey)" 
+                             matTooltip="Regenerate key"
+                             matTooltipClass="action-tooltip">
+                       <i class="fas fa-sync-alt"></i>
+                     </button>
+                   </div>
+                </div>
+              </td>
+              <td class="api-key-status">
+                <span class="status-badge" [class.active]="apiKey.isActive" [class.inactive]="!apiKey.isActive">
+                  <i class="fas fa-circle"></i>
+                  {{ apiKey.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td class="api-key-created">
+                <div class="created-content">
+                  <span>{{ formatDate(apiKey.createdAt) }}</span>
+                </div>
+              </td>
+                             <td class="api-key-actions">
+                 <div class="action-buttons">
+                   <button class="btn btn-sm btn-outline-secondary" 
+                           (click)="toggleApiKeyStatus(apiKey)" 
+                           matTooltip="{{apiKey.isActive ? 'Deactivate' : 'Activate'}}"
+                           matTooltipClass="action-tooltip">
+                     <i [class]="apiKey.isActive ? 'fas fa-pause' : 'fas fa-play'"></i>
+                   </button>
+                   <button class="btn btn-sm btn-outline-danger" 
+                           (click)="deleteApiKey(apiKey)" 
+                           matTooltip="Delete API key"
+                           matTooltipClass="action-tooltip">
+                     <i class="fas fa-trash"></i>
+                   </button>
+                 </div>
+               </td>
+            </tr>
+            <!-- Empty state message when no API keys -->
+            <tr *ngIf="apiKeys.length === 0" class="empty-footer">
+              <td colspan="5" class="empty-message">
+                <div class="empty-footer-content">
+                  <span>No API keys have been generated yet</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button class="btn btn-outline-secondary" [disabled]="currentPage === 1" (click)="previousPage()">
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button class="btn btn-outline-secondary" [disabled]="currentPage === totalPages" (click)="nextPage()">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Start Guide -->
+    <div class="quick-start-section">
+      <div class="section-header">
+        <h3>Quick Start Guide</h3>
+        <p>Get started with your API key in just a few steps</p>
+      </div>
+      
+      <div class="guide-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Copy Your API Key</h4>
+            <p>Click the copy button next to your API key to copy it to your clipboard</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Choose Your Language</h4>
+            <p>Select your programming language from the tabs below</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Make Your First Request</h4>
+            <p>Use the code example below to convert your first webpage to PDF</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Examples Section -->
+    <div class="code-examples-section">
+      <div class="section-header">
+        <h3>Code Examples</h3>
+        <p>Replace <code>YOUR_API_KEY</code> with your actual API key</p>
+        <div class="docs-btn">
+          <button class="btn btn-primary" (click)="openDocumentation()">
+            <i class="fas fa-book"></i>
+            Full Documentation
+          </button>
+        </div>
+      </div>
+      
+      <div class="code-example">
+        <div class="code-header">
+          <div class="window-controls">
+            <div class="control-dot red"></div>
+            <div class="control-dot yellow"></div>
+            <div class="control-dot green"></div>
+          </div>
+          <div class="code-tabs">
+            <button 
+              *ngFor="let tab of tabs" 
+              class="tab-button" 
+              [class.active]="activeTab === tab.id"
+              (click)="switchTab(tab.id)">
+              {{ tab.name }}
+            </button>
+          </div>
+          <button class="copy-button" (click)="copyCodeExample()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="code-block">
+          <pre><code [innerHTML]="getCurrentCodeExample()" #codeElement></code></pre>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- Create API Key Modal -->
+  <div *ngIf="showCreateModal" class="modal-overlay" (click)="closeCreateModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Create New API Key</h3>
+        <button class="modal-close" (click)="closeCreateModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Warning message when limit is reached -->
+        <div *ngIf="isApiKeyLimitReached" class="warning-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h4>API Key Limit Reached</h4>
+          <p>You have reached the maximum limit of {{ MAX_API_KEYS }} API keys. Please delete an existing API key before creating a new one.</p>
+        </div>
+        
+        <div class="form-group">
+          <label for="keyName">API Key Name</label>
+          <input 
+            type="text" 
+            id="keyName"
+            class="form-control" 
+            [class.is-invalid]="isApiKeyNameDuplicate || nameAvailabilityError"
+            [(ngModel)]="newKeyName" 
+            placeholder="e.g., Production Server, Development, Mobile App"
+            (keyup.enter)="createNewApiKey()"
+            (input)="onNewKeyNameChange(); clearError()"
+            [disabled]="isApiKeyLimitReached || isCreatingApiKey">
+          <small class="form-text">Give your API key a descriptive name to help you identify its purpose</small>
+          <div *ngIf="isApiKeyNameDuplicate || nameAvailabilityError" class="error-message">
+            {{ nameAvailabilityError || 'An API key with this name already exists.' }}
+          </div>
+        </div>
+                 <div class="form-group">
+           <label>Permissions</label>
+           <div class="permissions-list">
+             <div class="permission-item">
+               <input type="checkbox" id="pdfPermission" checked disabled>
+               <label for="pdfPermission">PDF Conversion</label>
+             </div>
+             <div class="permission-item">
+               <input type="checkbox" id="readPermission" checked disabled>
+               <label for="readPermission">Read Access</label>
+             </div>
+           </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeCreateModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="createNewApiKey()" [disabled]="isCreateButtonDisabled">
+          <i *ngIf="isCreatingApiKey" class="fas fa-spinner fa-spin me-2"></i>
+          {{ isCreatingApiKey ? 'Creating...' : 'Create API Key' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Regenerate API Key Modal -->
+  <div *ngIf="showRegenerateModal" class="modal-overlay" (click)="showRegenerateModal = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Regenerate API Key</h3>
+        <button class="modal-close" (click)="showRegenerateModal = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h4>Warning: This action cannot be undone</h4>
+          <p>Regenerating your API key will invalidate the current key immediately. Any applications using this key will stop working until you update them with the new key.</p>
+        </div>
+        <div class="form-group">
+          <label for="regenerateKeyName">API Key Name</label>
+          <input 
+            type="text" 
+            id="regenerateKeyName"
+            class="form-control" 
+            [(ngModel)]="regenerateKeyName" 
+            placeholder="Enter a name for the new API key">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showRegenerateModal = false">Cancel</button>
+        <button class="btn btn-warning" (click)="confirmRegenerateApiKey()" [disabled]="!regenerateKeyName.trim()">
+          Regenerate API Key
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit API Key Name Modal -->
+  <div *ngIf="showEditModal" class="modal-overlay" (click)="showEditModal = false">
+    <div class="modal-content edit-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Edit API Key Name</h3>
+        <button class="modal-close" (click)="showEditModal = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="editKeyName">API Key Name</label>
+          <input 
+            type="text" 
+            id="editKeyName"
+            class="form-control" 
+            [class.is-invalid]="editNameAvailabilityError"
+            [(ngModel)]="editKeyName" 
+            placeholder="Enter a descriptive name for your API key"
+            (keyup.enter)="saveApiKeyName()"
+            (input)="onEditKeyNameChange()"
+            autofocus>
+          <small class="form-text">Give your API key a descriptive name to help you identify its purpose</small>
+          <div *ngIf="editNameAvailabilityError" class="error-message">
+            {{ editNameAvailabilityError }}
+          </div>
+        </div>
+        <div class="current-key-info">
+          <div class="info-item">
+            <span class="label">Current Name:</span>
+            <span class="value">{{ selectedApiKeyForEdit?.name }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">API Key ID:</span>
+            <span class="value">{{ selectedApiKeyForEdit?._id }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Created:</span>
+            <span class="value">{{ selectedApiKeyForEdit ? formatDate(selectedApiKeyForEdit.createdAt) : '' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showEditModal = false">Cancel</button>
+        <button class="btn btn-primary" (click)="saveApiKeyName()" [disabled]="isEditSaveButtonDisabled">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete API Key Modal -->
+  <div *ngIf="showDeleteModal" class="modal-overlay" (click)="showDeleteModal = false">
+    <div class="modal-content delete-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Delete API Key</h3>
+        <button class="modal-close" (click)="showDeleteModal = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h4>Warning: This action cannot be undone</h4>
+          <p>Are you sure you want to delete the API key <strong>"{{ selectedApiKeyForDelete?.name }}"</strong>?</p>
+          <p>This will permanently remove the API key and any applications using it will stop working immediately.</p>
+        </div>
+        <div class="api-key-details">
+          <div class="detail-item">
+            <span class="label">API Key Name:</span>
+            <span class="value">{{ selectedApiKeyForDelete?.name }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">API Key ID:</span>
+            <span class="value">{{ selectedApiKeyForDelete?._id }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Created:</span>
+            <span class="value">{{ selectedApiKeyForDelete ? formatDate(selectedApiKeyForDelete.createdAt) : '' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Status:</span>
+            <span class="value status-badge" [class.active]="selectedApiKeyForDelete?.isActive" [class.inactive]="!selectedApiKeyForDelete?.isActive">
+              <i class="fas fa-circle"></i>
+              {{ selectedApiKeyForDelete?.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn btn-danger" (click)="confirmDeleteApiKey()">
+          <i class="fas fa-trash"></i>
+          Delete API Key
+        </button>
+      </div>
+    </div>
+
+
+
+    <!-- Empty State (show when no API keys) -->
+    <div *ngIf="!error && !loading && apiKeys.length === 0" class="empty-state">
+      <div class="empty-icon">
+        <i class="fas fa-key"></i>
+      </div>
+      <h3>No API Keys Yet</h3>
+      <p>Create your first API key to start integrating PicassoPDF services into your applications.</p>
+      <button 
+        class="btn btn-primary" 
+        (click)="showCreateModal = true">
+        <i class="fas fa-plus"></i>
+        Create Your First API Key
+      </button>
+    </div>
+  </div>
+</div>

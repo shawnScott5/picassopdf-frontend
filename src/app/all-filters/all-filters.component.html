@@ -1,0 +1,38 @@
+<div class="parent">
+    <div>
+            <div class="form-wrapper" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+                <div>
+                    <h1 class="form-title">More Filters</h1>
+                </div>
+                <div class="close-btn">
+                    <button (click)="dialog.close(false)" type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+            </div>
+            <hr class="hr" />
+            <div class="body-container">
+                <section class="example-section">
+                    <div *ngIf="task | async as taskData">
+                        <div *ngFor="let subtask of taskData.subtasks; let index = index">
+                          <span class="example-list-section">
+                            <mat-checkbox
+                              class="custom-checkbox"
+                              [checked]="subtask.completed"
+                              (change)="update($event.checked, index)"
+                            >
+                              {{ subtask.name }}
+                            </mat-checkbox>
+                          </span>
+                        </div>
+                      </div>
+                </section>
+            </div>
+            <div class="buttons-container">
+                <button (click)="dialog.close(false)" class="btn btn-secondary cancel-button" type="button" role="button">
+                    Cancel
+                </button>
+                <button class="btn btn-secondary send-button" type="button" role="button" (click)="applyFilters()">
+                    Apply Filters
+                </button>
+            </div>
+    </div>
+</div>  

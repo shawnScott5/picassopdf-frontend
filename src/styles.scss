@@ -1,0 +1,307 @@
+@use '@angular/material' as mat;
+
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+:root {
+  /* New Color Palette */
+  --primary-red: #dd0302;
+  --accent-gold: #e3aa36;
+  --teal: #2e8575;
+  --soft-blue: #a3afc8;
+  --muted-pink-grey: #d3bac7;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #dd0302 0%, #e3aa36 100%);
+  --gradient-reverse: linear-gradient(135deg, #e3aa36 0%, #dd0302 100%);
+  --gradient-artistic: linear-gradient(135deg, #dd0302 0%, #a3afc8 50%, #e3aa36 100%);
+  
+  /* ChatGPT-inspired swirling gradient background */
+  --gradient-chatgpt: 
+    radial-gradient(circle at 15% 30%, rgba(255, 199, 221, 0.8) 0%, transparent 35%),
+    radial-gradient(circle at 85% 15%, rgba(230, 230, 255, 0.6) 0%, transparent 40%),
+    radial-gradient(circle at 15% 10%, rgba(255, 155, 90, 0.9) 0%, rgba(240, 240, 255, 0.3) 15%, transparent 25%),
+    radial-gradient(circle at 50% 22%, rgba(255, 175, 120, 0.9) 0%, rgba(245, 245, 255, 0.3) 25%, transparent 50%),
+    radial-gradient(circle at 45% 75%, rgba(255, 228, 241, 0.7) 0%, transparent 30%),
+    radial-gradient(circle at 75% 85%, rgba(240, 244, 255, 0.5) 0%, transparent 45%),
+    radial-gradient(circle at 25% 85%, rgba(252, 240, 255, 0.6) 0%, transparent 35%),
+    radial-gradient(circle at 90% 45%, rgba(255, 242, 252, 0.4) 0%, transparent 50%),
+    linear-gradient(135deg, #fff8fc 0%, #f8f5ff 50%, #fcf8ff 100%);
+  --gradient-chatgpt-alt: 
+    radial-gradient(circle at 25% 40%, rgba(255, 228, 241, 0.6) 0%, transparent 35%),
+    radial-gradient(circle at 75% 20%, rgba(240, 244, 255, 0.5) 0%, transparent 40%),
+    linear-gradient(135deg, #fefaff 0%, #f9f6ff 100%);
+  
+  /* Background and Text Colors */
+  --background-soft-blue: #a3afc8;
+  --background-muted-pink: #d3bac7;
+  --text-dark: #1a1a1a;
+  --text-light: #ffffff;
+  
+  /* Material Design Overrides */
+  --mat-radio-disabled-selected-icon-color: #dd0302;
+  --mat-radio-disabled-unselected-icon-color: #a3afc8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  position: relative;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+html::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-chatgpt);
+  z-index: -1;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* Global Error Message Styles */
+.error-message {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: left;
+  border: 1px solid #fecaca;
+  margin: 0.5rem 0;
+  display: block;
+  line-height: 1.4;
+}
+
+.error-message h4 {
+  color: #dc2626;
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.error-message p {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin: 0;
+  font-family: inherit;
+}
+
+/* Form Input Error States */
+.form-input.error,
+.form-control.error,
+.form-control.is-invalid {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.25);
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc2626;
+}
+
+/* Alert Styles for Consistency */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.alert-danger {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.alert-danger::before {
+  content: "⚠️";
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.alert-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.alert-success::before {
+  content: "✅";
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.alert-warning {
+  background: #fffbeb;
+  border: 1px solid #fed7aa;
+  color: #92400e;
+}
+
+.alert-warning::before {
+  content: "⚠️";
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.alert-info {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.alert-info::before {
+  content: "ℹ️";
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Global Button Styles */
+.btn-primary {
+  background: var(--primary-red);
+  color: var(--text-light);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #b80202;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(221, 3, 2, 0.3);
+}
+
+.btn-secondary {
+  background: var(--soft-blue);
+  color: var(--text-dark);
+  border: 1px solid var(--soft-blue);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #8f9bb3;
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: var(--accent-gold);
+  color: var(--text-dark);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-accent:hover {
+  background: #d19a2e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(227, 170, 54, 0.3);
+}
+
+/* Global Card Styles */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Global Form Styles */
+.form-control {
+  border: 2px solid var(--soft-blue);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--text-light);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 3px rgba(221, 3, 2, 0.1);
+}
+
+/* Success States */
+.success {
+  color: var(--teal);
+  // Background and border removed as requested
+}
+
+/* Loading and Progress */
+.progress {
+  background: var(--soft-blue);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: var(--teal);
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Utility Classes */
+.text-primary { color: var(--primary-red); }
+.text-accent { color: var(--accent-gold); }
+.text-teal { color: var(--teal); }
+.text-soft-blue { color: var(--soft-blue); }
+.text-muted-pink { color: var(--muted-pink-grey); }
+
+.bg-primary { background: var(--primary-red); }
+.bg-accent { background: var(--accent-gold); }
+.bg-teal { background: var(--teal); }
+.bg-soft-blue { background: var(--soft-blue); }
+.bg-muted-pink { background: var(--muted-pink-grey); }
+
+/* ChatGPT Gradient Utilities */
+.bg-chatgpt { 
+  background: var(--gradient-chatgpt); 
+  background-attachment: fixed;
+}
+.bg-chatgpt-alt { 
+  background: var(--gradient-chatgpt-alt); 
+  background-attachment: fixed;
+}

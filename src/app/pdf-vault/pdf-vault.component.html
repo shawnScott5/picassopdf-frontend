@@ -1,0 +1,180 @@
+<div class="pdf-vault-container">
+  <div class="content-wrapper">
+    <div class="header">
+    <div class="title-section">
+      <h1>PDF Vault</h1>
+      <p>All your generated PDFs are organized & ready for quick access.</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="custom-spinner"></div>
+      <p>Loading your PDFs...</p>
+    </div>
+    
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container">
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        {{ error }}
+        <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadPDFs()">Retry</button>
+      </div>
+    </div>
+
+    <!-- PDFs Table (only show when not loading) -->
+    <div *ngIf="!loading && !error" class="pdfs-table-container">
+      <div class="table-header">
+        <h3>PDF Vault</h3>
+                 <div class="table-actions">
+           <input type="text" placeholder="Search PDFs..." class="search-input" [(ngModel)]="searchTerm" (input)="onSearchChange()">
+           <div class="custom-dropdown">
+             <button class="dropdown-toggle" (click)="toggleStatusDropdown()" type="button">
+               {{ statusFilter || 'All Status' }}
+               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <path d="M6 9l6 6 6-6"/>
+               </svg>
+             </button>
+             <div class="dropdown-menu" *ngIf="showStatusDropdown">
+               <div class="dropdown-item" (click)="selectStatus('')">All Status</div>
+               <div class="dropdown-item" (click)="selectStatus('completed')">Completed</div>
+               <div class="dropdown-item" (click)="selectStatus('processing')">Processing</div>
+               <div class="dropdown-item" (click)="selectStatus('failed')">Failed</div>
+               <div class="dropdown-item" (click)="selectStatus('pending')">Pending</div>
+               <div class="dropdown-item" (click)="selectStatus('cancelled')">Cancelled</div>
+             </div>
+           </div>
+         </div>
+      </div>
+
+      <div class="table-wrapper" (scroll)="onTableScroll($event)">
+        <table class="pdfs-table my-table" style="width:100%">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Data Type</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>File Size</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pdf of paginatedPDFs" class="pdf-row">
+              <td class="pdf-name">
+                <div class="pdf-info">
+                  <div>
+                    <div class="pdf-title">{{ getDisplayFileName(pdf.fileName) }}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="pdf-type">{{ pdf.dataType | titlecase }}</td>
+              <td class="pdf-status">
+                <span class="status-badge" [ngClass]="'status-' + getStatusColor(pdf.status)">
+                  {{ getStatusText(pdf.status) }}
+                </span>
+                <div *ngIf="pdf.errorMessage" class="error-message">
+                  {{ pdf.errorMessage }}
+                </div>
+              </td>
+              <td class="pdf-date">{{ pdf.createdAt | date:'MMM dd, yyyy h:mm a' }}</td>
+              <td class="pdf-size">
+                <div *ngIf="pdf.fileSize">{{ formatFileSizeMB(pdf.fileSize) }}</div>
+              </td>
+              <td class="pdf-actions">
+                <button class="btn btn-sm btn-outline-primary" 
+                        (click)="viewPDF(pdf)" 
+                        matTooltip="View PDF" 
+                        matTooltipClass="nav-tooltip"
+                        [disabled]="!canViewPDF(pdf)">
+                  <i class="fas fa-eye" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" 
+                        (click)="deletePDF(pdf)" 
+                        matTooltip="Delete Log" 
+                        matTooltipClass="nav-tooltip">
+                  <i class="fas fa-trash" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+                </button>
+              </td>
+            </tr>
+            <!-- Loading/End Footer Row -->
+            <tr class="table-footer-row">
+              <td colspan="6" class="footer-content">
+                
+                <div *ngIf="!hasMoreData && !isLoadingMore && pdfs.length > 0" class="end-footer">
+                  <span>You've reached the end of your logs</span>
+                </div>
+                <div *ngIf="!hasMoreData && !isLoadingMore && pdfs.length === 0" class="empty-footer">
+                  <span>No PDF generation logs found</span>
+                </div>
+                <div *ngIf="hasMoreData && !isLoadingMore" class="blank-footer">
+                  <!-- Blank footer when more data is available but not loading -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Delete PDF Confirmation Modal -->
+<div *ngIf="showDeleteModal" class="modal-overlay" (click)="closeDeleteModal()">
+  <div class="modal-content delete-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Delete PDF</h3>
+      <button class="modal-close" (click)="closeDeleteModal()">
+        <i class="fas fa-times" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="warning-message">
+        <i class="fas fa-exclamation-triangle" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+        <h4>Warning: This action cannot be undone</h4>
+        <p>Are you sure you want to delete the PDF <strong>"{{ getDisplayFileName(selectedPDFForDelete?.fileName) }}"</strong>?</p>
+      </div>
+      <div class="pdf-details" *ngIf="selectedPDFForDelete">
+        <div class="detail-item">
+          <span class="label">File Name:</span>
+          <span class="value">{{ getDisplayFileName(selectedPDFForDelete.fileName) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Data Type:</span>
+          <span class="value">{{ selectedPDFForDelete.dataType | titlecase }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Status:</span>
+          <span class="value status-badge" [ngClass]="'status-' + getStatusColor(selectedPDFForDelete.status)">
+            {{ getStatusText(selectedPDFForDelete.status) }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Created:</span>
+          <span class="value">{{ selectedPDFForDelete.createdAt | date:'MMM dd, yyyy' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Size:</span>
+          <span class="value">{{ formatFileSizeMB(selectedPDFForDelete.fileSize) }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-secondary" (click)="closeDeleteModal()">
+        Cancel
+      </button>
+      <button class="btn btn-danger" (click)="confirmDeletePDF()" [disabled]="isDeletingPDF">
+        <i *ngIf="isDeletingPDF && !deleteSuccess" class="fas fa-spinner fa-spin" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+        <i *ngIf="deleteSuccess" class="fas fa-check" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+        <span *ngIf="!isDeletingPDF">Delete PDF</span>
+        <span *ngIf="isDeletingPDF && !deleteSuccess">Deleting</span>
+        <span *ngIf="deleteSuccess">Deleted</span>
+      </button>
+    </div>
+  </div>
+</div>
+

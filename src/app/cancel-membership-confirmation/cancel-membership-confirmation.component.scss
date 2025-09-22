@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+::ng-deep .custom-dialog-container {
+    box-shadow: 0 0 15px 10px red !important;
+    border-radius: 8px !important; // Optional for rounded corners
+}
+
+.parent{
+    height: 725px;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-color: #000;
+    color: #fff;
+    height: 30vh;
+}
+
+::ng-deep .close-btn .btn-close {
+    color: white !important;  /* Ensures the icon color is white */
+    background-color: transparent !important;  /* Removes default background */
+    filter: invert(1); /* Inverts colors (useful for Bootstrap btn-close) */
+    z-index: 9999; /* Ensures it is on top */
+    position: relative; /* Ensures z-index takes effect */
+}
+
+img{
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    margin-bottom: 40px;
+}
+
+.green-banner-text {
+    color: red !important;
+    font-weight: bolder;
+}
+
+.intro-container{
+    width: 100vw;
+    height: 30vh;
+    display: block !important;
+    align-items: flex-center !important;
+    justify-content: flex-start !important;
+    color: #000;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 19rem;
+    background: #fff;
+}
+
+h2 {
+    font-weight: 600;
+    color: red !important;
+}
+
+.intro {
+    width: 100%;
+}
+
+.logo {
+    height: 100px !important;
+    width: 150px !important;
+}
+
+.header-title {
+    padding: 15px 0;
+    font-size: 32px !important
+}
+
+.header-sub-title {
+    font-size: 16px !important
+}
+
+.header-sub-title-container {
+    margin-top: 100px;
+}
+
+.login-container{
+    width: 60%;
+    display: block !important;
+    align-items: start !important;
+    justify-content: flex-start !important;
+    color: 000f;
+    padding: 30px 40px;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    margin-top: -70px;
+    border-radius: 15px;
+    border: 2px solid red !important;
+    box-shadow: red 0px 10px 120px 10px;
+    background: #fff;
+}
+
+.input-box{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 20px 0 10px;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: #000;
+    border: 2px solid red !important;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.input-box i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+
+.register{
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register p a{
+    font-weight: 600;
+    color: #fff;
+    font-size: 18px;
+}
+
+.register p a:hover{
+    color: red !important;
+}
+
+.remember{
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin: -10px 0 15px;
+}
+
+.remember a{
+    border-bottom: 2px solid transparent;
+    color: #fff;
+}
+
+.remember a:hover{
+    /* border-bottom: 2px solid #fff; */
+    color: red;
+}
+
+.input-error {
+    margin-top: -20px;
+    color: red;
+}
+
+.user-exists-error {
+    justify-self: center;
+    margin-top: 10px;
+    color: red;
+}
+
+.input-success {
+    justify-self: center;
+    margin-top: 10px;
+    color: green;
+}
+
+.loading-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.form {
+    width: 100%;
+    padding: 0 40px 25px;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-bottom: -20px !important;
+
+    &:hover {
+        cursor: grab !important;
+    }
+}
+
+span {
+    font-size: 15px !important
+}
+
+.form-title {
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: red;
+    padding: 15px 0;
+    font-weight: 500 !important;
+}
+
+.form-confirmation {
+    color: red;
+    font-weight: 500;
+    margin-top: 3vh;
+    margin-bottom: 1vh;
+    align-self: center;
+    justify-self: center;
+}
+
+.close-btn {
+    margin: -15px 0 0 10px;
+}
+
+hr {
+    width: 150%;
+    margin-left: -50px;
+    font-size: 1px;
+    color: lightgray;
+}
+
+.spinner {
+    color: red !important;
+}
+
+.checkmark {
+    color: #12e19f !important;
+}
+
+.cross {
+    color: red !important;
+}
+
+.error-message {
+    color: red;
+    /* Now using global error message styles */
+}
+
+::ng-deep .btn-close {
+    margin-right: 5px !important;
+}
+
+.buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.cancel-button {
+    background-color: black !important;
+    border-color: red !important;
+    margin-right: 15px !important;
+    padding: 12px 16px !important;
+    border: 1px solid red !important;
+    color: white !important;
+    transition: 1s !important;
+    width: 140px !important;
+    
+    &:hover {
+        width: 140px !important;
+        background-color: black !important;
+        border-color: red !important;
+        box-shadow: 0 0 15px red !important;
+        border: 1px solid red !important;
+        color: red !important;
+        transform: scale(1.1) !important;
+    }
+  }
+
+  .delete-button {
+    background-color: black !important;
+    color: white !important;
+    padding: 12px 16px !important;
+    border: 1px solid #12e19f !important;
+    transition: 1s;
+    width: 140px !important;
+    
+    &:hover {
+        width: 140px !important;
+        background-color: black !important;
+        color: #12e19f !important;
+        box-shadow: 0 0 15px #12e19f !important;
+        border: 1px solid #12e19f !important;
+        transform: scale(1.1) !important;
+    }
+  }
+
+::ng-deep .spinner-color {
+    color: #12e19f !important
+}

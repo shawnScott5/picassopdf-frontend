@@ -1,0 +1,326 @@
+.blog-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff8fc 0%, #f8f5ff 50%, #fcf8ff 100%);
+  padding: 2rem 0;
+}
+
+.blog-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-bottom: 3rem;
+  
+  .header-content {
+    text-align: center;
+    
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0;
+      line-height: 1.2;
+    }
+    
+    .blog-subtitle {
+      font-size: 1.25rem;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.blog-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.blog-sidebar {
+  .sidebar-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 1rem;
+    }
+    
+    .tag-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .tag-filter {
+        background: none;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #6b7280;
+        font-size: 0.875rem;
+        
+        &:hover {
+          background: #f9fafb;
+          border-color: #d1d5db;
+        }
+        
+        &.active {
+          background: #dc2626;
+          color: white;
+          border-color: #dc2626;
+        }
+      }
+    }
+    
+    .recent-posts {
+      .recent-post {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f3f4f6;
+        
+        &:last-child {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          border-bottom: none;
+        }
+        
+        .recent-post-link {
+          text-decoration: none;
+          color: inherit;
+          
+          h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+          }
+          
+          .recent-post-date {
+            font-size: 0.75rem;
+            color: #6b7280;
+          }
+          
+          &:hover h4 {
+            color: #dc2626;
+          }
+        }
+      }
+    }
+  }
+}
+
+.blog-main {
+  .posts-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .blog-post-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-image {
+      height: 200px;
+      background: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .placeholder-image {
+        opacity: 0.5;
+      }
+    }
+    
+    .post-content {
+      padding: 1.5rem;
+      
+      .post-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+      
+      .post-title {
+        margin-bottom: 1rem;
+        
+        a {
+          text-decoration: none;
+          color: #1f2937;
+          font-size: 1.5rem;
+          font-weight: 600;
+          line-height: 1.3;
+          
+          &:hover {
+            color: #dc2626;
+          }
+        }
+      }
+      
+      .post-excerpt {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      
+      .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        
+        .post-tag {
+          background: #f3f4f6;
+          color: #6b7280;
+          padding: 0.25rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 500;
+        }
+      }
+      
+      .post-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .post-author {
+          color: #6b7280;
+          font-size: 0.875rem;
+        }
+        
+        .read-more {
+          color: #dc2626;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.875rem;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  
+  .no-posts {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+    
+    h3 {
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+// Night mode support
+.blog-container.night-mode {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #0f172a 100%);
+  
+  .blog-title {
+    color: #f9fafb;
+  }
+  
+  .blog-subtitle {
+    color: #d1d5db;
+  }
+  
+  .sidebar-section {
+    background: #374151;
+    
+    h3 {
+      color: #f9fafb;
+    }
+    
+    .tag-filter {
+      background: #4b5563;
+      border-color: #6b7280;
+      color: #d1d5db;
+      
+      &:hover {
+        background: #6b7280;
+      }
+      
+      &.active {
+        background: #dc2626;
+        color: white;
+      }
+    }
+    
+    .recent-post-link {
+      h4 {
+        color: #f9fafb;
+        
+        &:hover {
+          color: #fca5a5;
+        }
+      }
+    }
+  }
+  
+  .blog-post-card {
+    background: #374151;
+    
+    .post-image {
+      background: #4b5563;
+    }
+    
+    .post-title a {
+      color: #f9fafb;
+      
+      &:hover {
+        color: #fca5a5;
+      }
+    }
+    
+    .post-excerpt {
+      color: #d1d5db;
+    }
+    
+    .post-tag {
+      background: #4b5563;
+      color: #d1d5db;
+    }
+    
+    .post-author {
+      color: #d1d5db;
+    }
+  }
+  
+  .no-posts {
+    color: #d1d5db;
+    
+    h3 {
+      color: #f9fafb;
+    }
+  }
+}

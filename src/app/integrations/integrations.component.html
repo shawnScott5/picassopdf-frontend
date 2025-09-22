@@ -1,0 +1,164 @@
+<div class="integrations-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1 class="page-title">Integrations</h1>
+                <p class="page-subtitle">Connect your e-commerce stores to sync products, orders, and customer data</p>
+            </div>
+            <div class="header-right">
+                <button class="primary-btn" (click)="loadIntegrations()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                    Refresh
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connected Stores Section -->
+    <div class="connected-stores-section" *ngIf="connectedStores.length > 0">
+        <h2 class="section-title">Connected Stores</h2>
+        <div class="stores-grid">
+            <div class="store-card" *ngFor="let store of connectedStores">
+                <div class="store-header">
+                    <div class="store-info">
+                        <div class="store-icon" [ngClass]="store.icon">
+                            <svg *ngIf="store.icon === 'shopify'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                            </svg>
+                            <svg *ngIf="store.icon === 'woocommerce'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                            </svg>
+                            <svg *ngIf="store.icon === 'bigcommerce'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                            </svg>
+                        </div>
+                        <div class="store-details">
+                            <h3>{{ store.name }}</h3>
+                            <p class="store-name">{{ store.storeName }}</p>
+                            <div class="store-status">
+                                <span class="status-dot" [style.background-color]="getStatusColor(store.status)"></span>
+                                <span class="status-text">{{ getStatusText(store.status) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="store-actions">
+                        <button class="action-btn sync" (click)="syncStore(store)" [disabled]="store.lastSync === 'Syncing...'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                            </svg>
+                            {{ store.lastSync === 'Syncing...' ? 'Syncing...' : 'Sync' }}
+                        </button>
+                        <button class="action-btn disconnect" (click)="disconnectStore(store)">
+                            Disconnect
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="store-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Products</span>
+                        <span class="stat-value">{{ store.productsCount?.toLocaleString() }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Orders</span>
+                        <span class="stat-value">{{ store.ordersCount?.toLocaleString() }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Revenue</span>
+                        <span class="stat-value">${{ store.revenue?.toLocaleString() }}</span>
+                    </div>
+                </div>
+
+                <div class="store-footer">
+                    <span class="last-sync">Last sync: {{ store.lastSync }}</span>
+                    <button class="view-details-btn" (click)="viewStoreDetails(store)">
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Available Integrations Section -->
+    <div class="available-integrations-section">
+        <h2 class="section-title">Available Integrations</h2>
+        <div class="integrations-grid">
+            <div class="integration-card" *ngFor="let integration of availableIntegrations">
+                <div class="integration-header">
+                    <div class="integration-icon" [ngClass]="integration.icon">
+                        <svg *ngIf="integration.icon === 'shopify'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                        <svg *ngIf="integration.icon === 'woocommerce'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                        <svg *ngIf="integration.icon === 'bigcommerce'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                    </div>
+                    <div class="integration-info">
+                        <h3>{{ integration.name }}</h3>
+                        <p>{{ integration.description }}</p>
+                    </div>
+                </div>
+                
+                <div class="integration-features">
+                    <ul class="feature-list">
+                        <li>Sync products and inventory</li>
+                        <li>Track orders and customers</li>
+                        <li>Automated marketing campaigns</li>
+                        <li>Real-time data updates</li>
+                    </ul>
+                </div>
+
+                <div class="integration-actions">
+                    <button class="connect-btn" 
+                            (click)="connectStore(integration)"
+                            [disabled]="integration.status === 'connecting'">
+                        <span *ngIf="integration.status === 'connecting'">Connecting...</span>
+                        <span *ngIf="integration.status === 'disconnected'">Connect Store</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Integration Benefits Section -->
+    <div class="benefits-section">
+        <h2 class="section-title">Why Integrate Your Store?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                </div>
+                <h3>Automated Recovery</h3>
+                <p>Automatically recover abandoned carts with personalized campaigns based on your store data.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                </div>
+                <h3>Smart Targeting</h3>
+                <p>Target customers with precision using real-time data from your e-commerce platform.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                </div>
+                <h3>Increased Revenue</h3>
+                <p>Boost your sales with AI-powered campaigns that convert abandoned carts into purchases.</p>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,84 @@
+    <div class="parent">
+        <form [formGroup]="profileForm">
+            <div class="container" *ngIf="!isPageLoading">
+                    <div class="container-1">
+                        <div class="avatar-container">
+                            <div *ngIf="!uploadedImageUrl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                </svg>
+                            </div>
+                            <div *ngIf="uploadedImageUrl">
+                                <img *ngIf="!isImageLoading" height="125px" width="125px" [src]="uploadedImageUrl" class="circular-image" />
+                                <div *ngIf="isImageLoading" class="spinner-border spinner-border-md text-success spinner-color" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <span class="update-photo" (click)="fileInput.click()">Update photo</span>
+                            <input (change)="onFileSelected($event)" #fileInput type="file" id="myFiles" accept="image/*" style="display: none;">
+                            <span class="profile-name">{{ user.name }}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <h1>My Profile</h1>
+                            <div class="input-box">
+                                <input formControlName="name" type="name" placeholder="Update First Name">
+                                <input formControlName="email" type="email" placeholder="Update Email">
+                                <span class="password-icon-container">
+                                    <input 
+                                        formControlName="password" 
+                                        [type]="showPassword ? 'text' : 'password'" 
+                                        placeholder="Change Password"
+                                        autocomplete="new-password" 
+                                        autocorrect="off" 
+                                    >
+                                    
+                                    <!-- Password Toggle Icon -->
+                                    <span class="password-icon" (click)="togglePasswordVisibility()">
+                                        <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye eye-icon" viewBox="0 0 16 16">
+                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                        </svg>
+                                        <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash eye-slash-icon" viewBox="0 0 16 16">
+                                            <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                                            <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                                            <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                                        </svg>
+                                    </span>
+                                </span>
+                                <input 
+                                    formControlName="confirmPassword" 
+                                    [type]="showConfirmPassword ? 'text' : 'password'" 
+                                    placeholder="Confirm New Password"
+                                    autocomplete="off" 
+                                    autocorrect="off" 
+                                >
+                            </div>
+                            <div class="input-error" *ngIf="!isPasswordsMatching && (profileForm.controls['password'].dirty && profileForm.controls['confirmPassword'].dirty)">
+                                Passwords must match
+                            </div>
+                        </div>
+                        <div class="buttons-container">
+                            <button class="btn cancel-btn" (click)="onCancel()">
+                                Cancel Changes
+                            </button>
+                            <button class="btn" (click)="onUpdate()" [disabled]="!canSave()">
+                                <div *ngIf="isLoading" class="spinner-border spinner-border-sm text-success spinner-color" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-0 py-5 d-flex justify-content-center">
+                    <div *ngIf="isPageLoading" class="spinner-border spinner-border-md text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>  
+                </div>
+        </form>
+    </div>
+

@@ -1,0 +1,118 @@
+<div class="upload-container">
+  <div class="header">
+    <h1>Upload Your Book</h1>
+    <p>Convert your book into a professional audiobook with AI-powered text-to-speech</p>
+  </div>
+
+  <div class="upload-form">
+    <!-- File Upload Section -->
+    <div class="upload-section">
+      <h3>1. Upload Your Book</h3>
+      
+      <div class="file-upload-area" 
+           [class.drag-over]="dragOver"
+           (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave($event)"
+           (drop)="onDrop($event)">
+        
+        <div *ngIf="!selectedFile" class="upload-placeholder">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <h4>Drag & Drop your book here</h4>
+          <p>or</p>
+          <label for="file-input" class="btn btn-primary">
+            Choose File
+          </label>
+          <input 
+            id="file-input" 
+            type="file" 
+            accept=".pdf,.docx,.epub"
+            (change)="onFileSelected($event)"
+            style="display: none;">
+          <p class="file-types">Supported formats: PDF, DOCX, EPUB (Max 50MB)</p>
+        </div>
+
+        <div *ngIf="selectedFile" class="file-selected">
+          <div class="file-info">
+            <i [class]="getFileIcon(selectedFile.type)"></i>
+            <div class="file-details">
+              <h4>{{ selectedFile.name }}</h4>
+              <p>{{ formatFileSize(selectedFile.size) }}</p>
+            </div>
+          </div>
+          <button class="btn btn-outline-danger btn-sm" (click)="removeFile()">
+            <i class="fas fa-times"></i>
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Book Details Section -->
+    <div class="details-section">
+      <h3>2. Book Details</h3>
+      
+      <div class="form-group">
+        <label for="title">Book Title *</label>
+        <input 
+          type="text" 
+          id="title"
+          [(ngModel)]="title"
+          class="form-control"
+          placeholder="Enter the title of your book"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="author">Author *</label>
+        <input 
+          type="text" 
+          id="author"
+          [(ngModel)]="author"
+          class="form-control"
+          placeholder="Enter the author's name"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description (Optional)</label>
+        <textarea 
+          id="description"
+          [(ngModel)]="description"
+          class="form-control"
+          rows="4"
+          placeholder="Brief description of your book..."></textarea>
+      </div>
+    </div>
+
+    <!-- Error Display -->
+    <div *ngIf="error" class="error-message">
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        {{ error }}
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="submit-section">
+      <button 
+        class="btn btn-primary btn-lg"
+        [disabled]="!selectedFile || !title || !author || loading"
+        (click)="uploadBook()">
+        <span *ngIf="!loading">
+          <i class="fas fa-upload"></i>
+          Upload & Start Processing
+        </span>
+        <span *ngIf="loading">
+          <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+          Uploading...
+        </span>
+      </button>
+      
+      <p class="upload-info">
+        <i class="fas fa-info-circle"></i>
+        Your book will be processed automatically. You'll be able to edit the text and customize voice settings once processing is complete.
+      </p>
+    </div>
+  </div>
+</div>
+
