@@ -2,15 +2,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse, RegisterPayLoad } from '../core/model/common.model';
 import { ApiEndpoint } from '../core/constants/constants';
+import { ApiConfigService } from '../core/services/api-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActionsService {
-  //baseURL: string = "http://localhost:3000/api/actions";
-  baseURL: string = 'https://api.picassopdf.com';
 
-  constructor(private _http: HttpClient) { }
+  constructor(
+    private _http: HttpClient,
+    private apiConfig: ApiConfigService
+  ) { }
 
   convertToPDF(payload: any) {
     console.log('PAYLOAD:', payload);

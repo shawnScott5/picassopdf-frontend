@@ -115,7 +115,7 @@ export class ApiKeysComponent implements OnInit, OnDestroy {
 API_KEY = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>
 
 res = requests.<span style="color: #dcdcaa;">post</span>(
-    <span style="color: #ce9178;">"https://picassopdf.com/api/v1/convert/pdf"</span>,
+    <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>,
     headers={<span style="color: #ce9178;">"Authorization"</span>: <span style="color: #ce9178;">f"Bearer {API_KEY}"</span>},
     json={
         <span style="color: #6a9955;"># Either 'url' or 'html' is required</span>
@@ -140,7 +140,7 @@ res = requests.<span style="color: #dcdcaa;">post</span>(
 
 <span style="color: #569cd6; font-weight: 500;">const</span> API_KEY = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>;
 
-<span style="color: #569cd6; font-weight: 500;">const</span> res = <span style="color: #569cd6; font-weight: 500;">await</span> fetch(<span style="color: #ce9178;">"https://picassopdf.com/api/v1/convert/pdf"</span>, {
+<span style="color: #569cd6; font-weight: 500;">const</span> res = <span style="color: #569cd6; font-weight: 500;">await</span> fetch(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>, {
   method: <span style="color: #ce9178;">"POST"</span>,
   headers: {
     <span style="color: #ce9178;">"Authorization"</span>: <span style="color: #ce9178;">\`Bearer \${API_KEY}\`</span>,
@@ -174,7 +174,7 @@ $apiKey = <span style="color: #ce9178;">'sk_XXXXXXXXXX'</span>;
 
 $ch = <span style="color: #dcdcaa;">curl_init</span>();
 
-<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_URL, <span style="color: #ce9178;">'https://picassopdf.com/api/v1/convert/pdf'</span>);
+<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_URL, <span style="color: #ce9178;">'https://api.picassopdf.com/v1/convert'</span>);
 <span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_POST, <span style="color: #569cd6; font-weight: 500;">true</span>);
 <span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_POSTFIELDS, <span style="color: #dcdcaa;">json_encode</span>([
     <span style="color: #ce9178;">'url'</span> => <span style="color: #ce9178;">'https://en.wikipedia.org/wiki/PDF'</span>
@@ -193,7 +193,7 @@ $response = <span style="color: #dcdcaa;">curl_exec</span>($ch);
 <span style="color: #569cd6; font-weight: 500;">require</span> <span style="color: #ce9178;">"json"</span>
 
 api_key = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>
-uri = <span style="color: #dcdcaa;">URI</span>(<span style="color: #ce9178;">"https://picassopdf.com/api/v1/convert/pdf"</span>)
+uri = <span style="color: #dcdcaa;">URI</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>)
 
 body = {
   <span style="color: #6a9955;"># Either 'url' or 'html' is required</span>
@@ -239,7 +239,7 @@ res = <span style="color: #dcdcaa;">Net::HTTP</span>.<span style="color: #dcdcaa
         """</span>;
 
         <span style="color: #dcdcaa;">HttpRequest</span> request = <span style="color: #dcdcaa;">HttpRequest</span>.<span style="color: #dcdcaa;">newBuilder</span>()
-            .<span style="color: #dcdcaa;">uri</span>(<span style="color: #dcdcaa;">URI</span>.<span style="color: #dcdcaa;">create</span>(<span style="color: #ce9178;">"https://picassopdf.com/api/v1/convert/pdf"</span>))
+            .<span style="color: #dcdcaa;">uri</span>(<span style="color: #dcdcaa;">URI</span>.<span style="color: #dcdcaa;">create</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>))
             .<span style="color: #dcdcaa;">header</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer "</span> + API_KEY)
             .<span style="color: #dcdcaa;">header</span>(<span style="color: #ce9178;">"Content-Type"</span>, <span style="color: #ce9178;">"application/json"</span>)
             .<span style="color: #dcdcaa;">POST</span>(<span style="color: #dcdcaa;">HttpRequest</span>.<span style="color: #dcdcaa;">BodyPublishers</span>.<span style="color: #dcdcaa;">ofString</span>(json, <span style="color: #dcdcaa;">StandardCharsets</span>.UTF_8))
@@ -272,7 +272,7 @@ res = <span style="color: #dcdcaa;">Net::HTTP</span>.<span style="color: #dcdcaa
             ai_options = <span style="color: #569cd6; font-weight: 500;">new</span> { layout_repair = <span style="color: #569cd6; font-weight: 500;">true</span> } <span style="color: #6a9955;">// optional, default is false</span>
         };
 
-        <span style="color: #569cd6; font-weight: 500;">var</span> request = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">HttpRequestMessage</span>(<span style="color: #dcdcaa;">HttpMethod</span>.Post, <span style="color: #ce9178;">"https://picassopdf.com/api/v1/convert/pdf"</span>) {
+        <span style="color: #569cd6; font-weight: 500;">var</span> request = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">HttpRequestMessage</span>(<span style="color: #dcdcaa;">HttpMethod</span>.Post, <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>) {
             Headers = { { <span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">$"Bearer {apiKey}"</span> } },
             Content = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">StringContent</span>(<span style="color: #dcdcaa;">JsonSerializer</span>.<span style="color: #dcdcaa;">Serialize</span>(payload), <span style="color: #dcdcaa;">Encoding</span>.UTF8, <span style="color: #ce9178;">"application/json"</span>)
         };
@@ -304,7 +304,7 @@ res = <span style="color: #dcdcaa;">Net::HTTP</span>.<span style="color: #dcdcaa
     }
     jsonData, _ := json.<span style="color: #dcdcaa;">Marshal</span>(data)
 
-    req, _ := http.<span style="color: #dcdcaa;">NewRequest</span>(<span style="color: #ce9178;">"POST"</span>, <span style="color: #ce9178;">"https://picassopdf.com/api/v1/convert/pdf"</span>, 
+    req, _ := http.<span style="color: #dcdcaa;">NewRequest</span>(<span style="color: #ce9178;">"POST"</span>, <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>, 
         bytes.<span style="color: #dcdcaa;">NewBuffer</span>(jsonData))
     req.Header.<span style="color: #dcdcaa;">Set</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer "</span>+apiKey)
     req.Header.<span style="color: #dcdcaa;">Set</span>(<span style="color: #ce9178;">"Content-Type"</span>, <span style="color: #ce9178;">"application/json"</span>)

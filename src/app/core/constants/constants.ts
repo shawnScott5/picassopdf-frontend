@@ -1,5 +1,6 @@
-const apiUrl = 'http://localhost:3000/api';
-//const apiUrl = 'https://distros-8f63ee867795.herokuapp.com/api';
+import { environment } from '../../../environments/environment';
+
+const apiUrl = environment.apiUrl;  
 
 export const ApiEndpoint = {
     Auth: {
@@ -27,7 +28,7 @@ export const ApiEndpoint = {
         FeatureSuggestion: `${apiUrl}/actions/feature-suggestion`
     },
     PDF: {
-        convertToPDF: `${apiUrl}/pdf/convert`,
+        convertToPDF: environment.pdfApiUrl,
     },
     Campaigns: {
         CreateCampaign: `${apiUrl}/campaigns/create-campaign`,
@@ -64,8 +65,8 @@ export const ApiEndpoint = {
         UnhideInfluencer: `${apiUrl}/influencers/unhide`
     },
     Subscription: {
-        SubscribeToPro: `${apiUrl}/subscribe-to-pro`,
-        SubscribeToScale: `${apiUrl}/subscribe-to-scale`
+        SubscribeToPro: `${apiUrl}/subscribe-stripe-pro`,
+        SubscribeToScale: `${apiUrl}/subscribe-stripe-scale`
     },
     Uploads: {
         Image: `${apiUrl}/uploads/image`
@@ -73,6 +74,12 @@ export const ApiEndpoint = {
     Organizations: {
         InviteUser: `${apiUrl}/organizations`,
         GetMembers: `${apiUrl}/organizations`
+    },
+    ApiKeys: {
+        GetApiKeys: `${apiUrl}/api-keys`,
+        CreateApiKey: `${apiUrl}/api-keys`,
+        UpdateApiKey: `${apiUrl}/api-keys`,
+        DeleteApiKey: `${apiUrl}/api-keys`
     }
 }
 

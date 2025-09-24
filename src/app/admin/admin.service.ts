@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
   //baseURL: string = "http://localhost:3000/api/admin";
-  baseURL: string = 'https://api.picassopdf.com';
+  baseURL: string = 'https://api.picassopdf.com/api';
 
   constructor(private _http: HttpClient) { }
 

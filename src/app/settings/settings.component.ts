@@ -399,7 +399,7 @@ export class SettingsComponent implements OnInit {
       description: this.createCompanyForm.get('description')?.value?.trim()
     };
 
-    this.httpClient.post('http://localhost:3000/api/organizations/create-for-user', companyData).subscribe({
+    this.httpClient.post('https://api.picassopdf.com/api/organizations/create-for-user', companyData).subscribe({
       next: (response: any) => {
         this.isCreatingCompany = false;
         if (response.success) {

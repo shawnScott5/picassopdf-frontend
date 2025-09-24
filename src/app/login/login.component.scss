@@ -117,6 +117,41 @@
   border-color: #ef4444;
 }
 
+/* Password Group with Toggle */
+.password-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 1rem;
+  padding: 0.25rem;
+  transition: color 0.3s ease;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: var(--primary-red);
+}
+
+.password-group .form-input {
+  padding-right: 3rem;
+  border-radius: 12px !important; /* Force border-radius to be maintained */
+  overflow: hidden; /* Ensure content doesn't overflow rounded corners */
+}
+
 /* Form Options */
 .form-options {
   display: flex;

@@ -508,7 +508,7 @@ export class TestApiComponent implements OnInit, OnDestroy {
     }
     console.log('=== END PAYLOAD DEBUG ===');
 
-    this.http.post('http://localhost:3000/api/conversions/convert-html-to-pdf', payload)
+    this.http.post('https://api.picassopdf.com/api/conversions/convert-html-to-pdf', payload)
       .subscribe({
         next: (response: any) => {
           // Find the specific test result by ID and update it
@@ -589,7 +589,7 @@ export class TestApiComponent implements OnInit, OnDestroy {
       payload.html = combinedHTML;
     }
 
-    this.http.post('http://localhost:3000/api/conversions/convert-html-to-pdf', payload)
+    this.http.post('https://api.picassopdf.com/api/conversions/convert-html-to-pdf', payload)
       .subscribe({
         next: (response: any) => {
           // Find the specific test result by ID and update it
@@ -640,7 +640,7 @@ export class TestApiComponent implements OnInit, OnDestroy {
       // Make sure the URL is absolute to point to the backend
       const downloadUrl = result.result.data.downloadUrl.startsWith('http') 
         ? result.result.data.downloadUrl 
-        : `http://localhost:3000${result.result.data.downloadUrl}`;
+        : `https://api.picassopdf.com/api${result.result.data.downloadUrl}`;
       
       link.href = downloadUrl;
       link.download = result.result.data.fileName || 'converted-pdf.pdf';

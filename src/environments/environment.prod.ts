@@ -1,4 +1,5 @@
 export const environment = {
-    production: true,
-    apiUrl: 'https://distros-8f63ee867795.herokuapp.com/api' // Your Heroku API URL
+  production: true,
+  apiUrl: 'https://api.picassopdf.com/api',
+  pdfApiUrl: 'https://api.picassopdf.com/v1/convert/pdf'
 };

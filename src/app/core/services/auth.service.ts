@@ -5,6 +5,7 @@ import { ApiResponse, LoginPayLoad, RegisterPayLoad, User } from "../model/commo
 import { ApiEndpoint, LocalStorage } from "../constants/constants"
 import { Router } from "@angular/router";
 import { BehaviorSubject } from 'rxjs';
+import { ApiConfigService } from './api-config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,10 +18,11 @@ export class AuthService {
         return token ? true : false;
     }
     router = inject(Router);
-    //baseURL: string = "http://localhost:3000/api/users";
-    baseURL: string = 'https://api.picassopdf.com';
     
-    constructor(private _http: HttpClient) {
+    constructor(
+        private _http: HttpClient,
+        private apiConfig: ApiConfigService
+    ) {
 
     }
 
@@ -78,7 +80,7 @@ export class AuthService {
 
     fetchMyMatches(query: any) {
         let queryParams: string = this.toQueryString(query);
-        return this._http.get(`${this.baseURL}?${queryParams}`);
+        return this._http.get(`${this.apiConfig.apiUrl}/users/matches?${queryParams}`);
     }
 
     logout() {

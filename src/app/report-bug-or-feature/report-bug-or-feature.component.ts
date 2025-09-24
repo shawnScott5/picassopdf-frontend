@@ -58,7 +58,7 @@ export class ReportBugOrRequestFeature implements OnInit {
     ],
     customClasses: [
     ],
-    uploadUrl: 'http://localhost:3000/api/uploads/image', // Your API endpoint
+    uploadUrl: 'https://api.picassopdf.com/api/uploads/image', // Your API endpoint
     //upload: (file: File) => this.handleImageUpload(file),
     uploadWithCredentials: false,
     sanitize: true,

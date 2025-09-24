@@ -70,8 +70,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
 
           // Check if "Remember Me" is checked
-          this.form.controls['rememberMe'].setValue(this.rememberMe);
-          if (this.form.value.rememberMe) {
+          if (this.rememberMe) {
             const encryptedPassword = AES.encrypt(this.form.value.password, this.secretKey).toString();
             localStorage.setItem('savedCredentials', JSON.stringify({
               email: this.form.value.email,
@@ -96,5 +95,10 @@ export class LoginComponent implements OnInit {
 
   clicked() {
     this.rememberMe = !this.rememberMe;
+  }
+
+  onRememberMeChange(event: any) {
+    this.rememberMe = event.target.checked;
+    this.form.get('rememberMe')?.setValue(this.rememberMe);
   }
 }

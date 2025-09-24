@@ -200,6 +200,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.calculateTotalClientsChange();
         }
   
+        this.clearCachedData();
         this.checkFirstOfMonthAndCalculate();
         this.loadApiKeys();
         this.loadConversions();
@@ -249,6 +250,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.generateSampleCreditData(30);
   }
 
+  clearCachedData() {
+    console.log('🧹 Clearing cached data...');
+    this.allConversions = [];
+    this.creditUsageData = [];
+    this.totalCreditsUsed = 0;
+  }
+
   loadApiKeys() {
     this.apiKeysLoading = true;
     
@@ -293,7 +301,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const startDateStr = startDate.toISOString().split('T')[0];
     const endDateStr = endDate.toISOString().split('T')[0];
     
-    console.log('Loading conversions for dashboard from', startDateStr, 'to', endDateStr);
+    console.log('🔄 Loading conversions for dashboard from', startDateStr, 'to', endDateStr);
+    console.log('🌍 Environment:', window.location.hostname.includes('localhost') ? 'DEVELOPMENT' : 'PRODUCTION');
 
     this.conversionsService.getConversionsByDateRange(startDateStr, endDateStr).subscribe({
       next: (response: any) => {
@@ -310,8 +319,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
             return conversionDate >= startDate && conversionDate <= endDate;
           });
           
-          console.log('Loaded', this.allConversions.length, 'conversions for dashboard (last 90 days)');
-          console.log('Sample conversions:', this.allConversions.slice(0, 3));
+          console.log('📊 Loaded', this.allConversions.length, 'conversions for dashboard (last 90 days)');
+          console.log('📋 Sample conversions:', this.allConversions.slice(0, 3));
+          
+          // Debug: Log total credits from all conversions
+          const totalCreditsFromAllConversions = this.allConversions.reduce((sum, conversion) => {
+            return sum + (conversion.creditsUsed || 1);
+          }, 0);
+          console.log('💰 Total credits from ALL conversions:', totalCreditsFromAllConversions);
           
           // Debug: Check for today's conversions specifically
           const today = new Date();
@@ -399,8 +414,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // Calculate total credits used
     this.totalCreditsUsed = this.creditUsageData.reduce((sum, data) => sum + data.credits, 0);
     
-    console.log('Generated real credit data for', days, 'days. Total conversions:', this.totalCreditsUsed);
-    console.log('Sample of creditUsageData:', this.creditUsageData.slice(0, 5));
+    console.log('📈 Generated real credit data for', days, 'days. Total credits used:', this.totalCreditsUsed);
+    console.log('📅 Sample of creditUsageData:', this.creditUsageData.slice(0, 5));
+    console.log('🔍 Environment check - API URL would be:', window.location.hostname.includes('localhost') ? 'localhost:3000' : 'api.picassopdf.com');
     
     // Debug: Log today's data specifically
     const todayStr = today.getFullYear() + '-' + 
@@ -827,10 +843,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         //baseURL = "http://localhost:3000/api/subscribe-stripe/details";
         baseURL = "https://distros-8f63ee867795.herokuapp.com/api/subscribe-stripe/details";
       } else if(this.user.subscription.type === 'PRO') {
-        baseURL = "http://localhost:3000/api/subscribe-stripe-pro/details";
+        baseURL = "https://api.picassopdf.com/api/subscribe-stripe-pro/details";
         //baseURL = "https://distros-8f63ee867795.herokuapp.com/api/subscribe-stripe-pro/details";
       } else if(this.user.subscription.type === 'SCALE') {
-        baseURL = "http://localhost:3000/api/subscribe-stripe-scale/details";
+        baseURL = "https://api.picassopdf.com/api/subscribe-stripe-scale/details";
         //baseURL = "https://distros-8f63ee867795.herokuapp.com/api/subscribe-stripe-pro/details";
       }
 

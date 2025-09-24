@@ -22,7 +22,8 @@ export interface StripeSessionResponse {
 export class StripeCustomService {
   //private baseURL = 'https://distros-8f63ee867795.herokuapp.com/api/subscribe-stripe-custom';
   // For local development, uncomment the line below and comment the line above
-  private baseURL = 'http://localhost:3000/api/subscribe-stripe-custom';
+  //private baseURL = 'http://localhost:3000/api/subscribe-stripe-custom';
+  private baseURL = 'https://api.picassopdf.com/api/subscribe-stripe-custom';
 
   constructor(private http: HttpClient) { }
 

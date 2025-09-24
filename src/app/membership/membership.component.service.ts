@@ -7,7 +7,7 @@ import { ApiEndpoint } from '../core/constants/constants';
   providedIn: 'root'
 })
 export class SubscriptionService {
-  baseURL: string = "http://localhost:3000/api/subscribe";
+  baseURL: string = "https://api.picassopdf.com/api/subscribe";
   //baseURL: string = "https://distros-8f63ee867795.herokuapp.com/api/subscribe";
 
   constructor(

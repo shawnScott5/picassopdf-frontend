@@ -34,7 +34,7 @@
                             >
                         </div>
                         
-                        <div class="input-group">
+                        <div class="input-group password-group">
                             <input 
                                 [type]="showPassword ? 'text' : 'password'" 
                                 class="form-input" 
@@ -42,11 +42,18 @@
                                 formControlName="password"
                                 [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
                             >
+                            <button 
+                                type="button" 
+                                class="password-toggle" 
+                                (click)="togglePasswordVisibility()"
+                            >
+                                <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword" style="font-family: 'Font Awesome 6 Free'; font-weight: 900;"></i>
+                            </button>
                         </div>
                         
                         <div class="form-options">
                             <label class="checkbox-wrapper">
-                                <input type="checkbox" class="checkbox" formControlName="rememberMe">
+                                <input type="checkbox" class="checkbox" formControlName="rememberMe" (change)="onRememberMeChange($event)">
                                 <span class="checkmark"></span>
                                 Remember me
                             </label>
