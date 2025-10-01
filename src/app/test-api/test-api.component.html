@@ -1,7 +1,7 @@
 <div class="test-api-container">
   <div class="header">
-    <h1>Test API</h1>
-    <p>Simple testing interface for HTML to PDF conversion API (CSS & JavaScript will be combined into HTML)</p>
+    <h1>API Test Suite</h1>
+    <p>Comprehensive testing interface for HTML to PDF conversion API with production testing capabilities</p>
   </div>
 
   <!-- Debug Section -->
@@ -16,28 +16,62 @@
   <div class="content">
     <!-- Test Cases Selection -->
     <div class="test-cases-section">
-      <h2>Predefined Test Cases</h2>
+      <div class="section-header">
+        <h2>Test Cases</h2>
+        <div class="test-case-controls">
+          <button 
+            type="button" 
+            class="btn btn-outline btn-sm"
+            (click)="selectAllTestCases()"
+            [disabled]="isRunning || isProductionTesting">
+            <i class="fas fa-check-square"></i> Select All
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-outline btn-sm"
+            (click)="clearTestCaseSelection()"
+            [disabled]="isRunning || isProductionTesting">
+            <i class="fas fa-square"></i> Clear All
+          </button>
+          <span class="selection-count">
+            {{ selectedTestCases.length }} of {{ testCases.length }} selected
+          </span>
+        </div>
+      </div>
+      
       <div class="test-cases-grid">
         <div 
           *ngFor="let testCase of testCases" 
           class="test-case-card"
           [class.selected]="selectedTestCase?.id === testCase.id"
+          [class.production-selected]="isTestCaseSelected(testCase)"
           (click)="selectTestCase(testCase)">
-          <div class="test-case-header">
-            <h3>{{ testCase.name }}</h3>
-            <span class="category-badge">{{ testCase.category }}</span>
-            <span *ngIf="testCase.id === 'broken-html' || testCase.category === 'Needs AI Repair'" 
-                  class="ai-repair-badge" 
-                  title="AI Repair will be automatically enabled for this test case">
-              <i class="fas fa-robot"></i> AI Repair
-            </span>
+          
+          <div class="test-case-checkbox">
+            <input 
+              type="checkbox" 
+              [checked]="isTestCaseSelected(testCase)"
+              (click)="$event.stopPropagation(); toggleTestCaseSelection(testCase)"
+              [disabled]="isRunning || isProductionTesting">
           </div>
-          <p class="test-case-description">{{ testCase.description }}</p>
-          <div *ngIf="testCase.linkUrl" class="link-url">
-            <strong>Link:</strong> <a [href]="testCase.linkUrl" target="_blank">{{ testCase.linkUrl }}</a>
-          </div>
-          <div class="expected-behavior">
-            <strong>Expected:</strong> {{ testCase.expectedBehavior }}
+          
+          <div class="test-case-content">
+            <div class="test-case-header">
+              <h3>{{ testCase.name }}</h3>
+              <span class="category-badge">{{ testCase.category }}</span>
+              <span *ngIf="testCase.id === 'broken-html' || testCase.category === 'Needs AI Repair'" 
+                    class="ai-repair-badge" 
+                    title="AI Repair will be automatically enabled for this test case">
+                <i class="fas fa-robot"></i> AI Repair
+              </span>
+            </div>
+            <p class="test-case-description">{{ testCase.description }}</p>
+            <div *ngIf="testCase.linkUrl" class="link-url">
+              <strong>Link:</strong> <a [href]="testCase.linkUrl" target="_blank">{{ testCase.linkUrl }}</a>
+            </div>
+            <div class="expected-behavior">
+              <strong>Expected:</strong> {{ testCase.expectedBehavior }}
+            </div>
           </div>
         </div>
       </div>
@@ -160,7 +194,7 @@
             type="button" 
             class="btn btn-primary"
             (click)="runSingleTest()"
-            [disabled]="isRunning || !testForm?.valid">
+            [disabled]="isRunning || isProductionTesting || !testForm?.valid">
             <i class="fas fa-play"></i>
             Convert to PDF
           </button>
@@ -169,16 +203,25 @@
             type="button" 
             class="btn btn-secondary"
             (click)="runAllTests()"
-            [disabled]="isRunning">
+            [disabled]="isRunning || isProductionTesting">
             <i class="fas fa-play-circle"></i>
             Run All Tests
           </button>
           
           <button 
             type="button" 
+            class="btn btn-success"
+            (click)="runProductionTests()"
+            [disabled]="isRunning || isProductionTesting || selectedTestCases.length === 0">
+            <i class="fas fa-rocket"></i>
+            Production Test ({{ selectedTestCases.length }})
+          </button>
+          
+          <button 
+            type="button" 
             class="btn btn-outline"
             (click)="clearResults()"
-            [disabled]="isRunning">
+            [disabled]="isRunning || isProductionTesting">
             <i class="fas fa-trash"></i>
             Clear Results
           </button>

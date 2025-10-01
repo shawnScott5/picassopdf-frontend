@@ -121,7 +121,7 @@
       <div *ngIf="activeTab === 'api'" class="settings-panel">
         <div class="panel-header">
           <h2>API Configuration</h2>
-          <p>Configure your API settings and webhook endpoints</p>
+          <p>Configure your webhook endpoint</p>
         </div>
         
         <div class="panel-content">
@@ -130,22 +130,6 @@
               <label for="webhookUrl">Webhook URL</label>
               <input type="url" id="webhookUrl" [(ngModel)]="apiSettings.webhookUrl" placeholder="https://your-domain.com/webhook">
               <small>Receive notifications when conversions are completed</small>
-            </div>
-            
-            <div class="form-group">
-              <label for="callbackUrl">Callback URL</label>
-              <input type="url" id="callbackUrl" [(ngModel)]="apiSettings.callbackUrl" placeholder="https://your-domain.com/callback">
-              <small>Redirect URL after successful conversion</small>
-            </div>
-            
-            <div class="form-group">
-              <label for="timeout">Request Timeout (seconds)</label>
-              <input type="number" id="timeout" [(ngModel)]="apiSettings.timeout" min="30" max="300" placeholder="120">
-            </div>
-            
-            <div class="form-group">
-              <label for="maxRetries">Max Retries</label>
-              <input type="number" id="maxRetries" [(ngModel)]="apiSettings.maxRetries" min="0" max="5" placeholder="3">
             </div>
           </div>
           

@@ -160,11 +160,23 @@ export class MembershipComponent implements OnInit {
       case 'free':
         this.monthlyConversions = 50;
         break;
-      case 'pro':
-        this.monthlyConversions = 5000;
+      case 'starter':
+        this.monthlyConversions = 300;
+        break;
+      case 'growth':
+        this.monthlyConversions = 2500;
         break;
       case 'scale':
-        this.monthlyConversions = 10000;
+        this.monthlyConversions = 25000;
+        break;
+      case 'small business':
+        this.monthlyConversions = 75000;
+        break;
+      case 'medium business':
+        this.monthlyConversions = 300000;
+        break;
+      case 'enterprise':
+        this.monthlyConversions = 750000;
         break;
       default:
         this.monthlyConversions = 1000;
@@ -326,6 +338,41 @@ export class MembershipComponent implements OnInit {
   getEstimatedCredits(): number {
     // 1 credit = 1 PDF page (simple pricing model)
     return this.monthlyConversions;
+  }
+
+  getSubscriptionTier(credits: number): string {
+    if (credits <= 50) {
+      return 'FREE';
+    } else if (credits <= 500) {
+      return 'STARTER';
+    } else if (credits <= 5000) {
+      return 'GROWTH';
+    } else if (credits <= 50000) {
+      return 'SCALE';
+    } else if (credits <= 100000) {
+      return 'SMALL_BUSINESS';
+    } else if (credits <= 500000) {
+      return 'MEDIUM_BUSINESS';
+    } else {
+      return 'ENTERPRISE';
+    }
+  }
+
+  getTierDisplayName(tier: string): string {
+    const tierNames: { [key: string]: string } = {
+      'FREE': 'Free',
+      'STARTER': 'Starter',
+      'GROWTH': 'Growth',
+      'SCALE': 'Scale',
+      'SMALL_BUSINESS': 'Small Business',
+      'MEDIUM_BUSINESS': 'Medium Business',
+      'ENTERPRISE': 'Enterprise'
+    };
+    return tierNames[tier] || 'Free';
+  }
+
+  getCurrentTier(): string {
+    return this.getSubscriptionTier(this.monthlyConversions);
   }
 
   parseInt(value: string): number {
@@ -490,11 +537,14 @@ export class MembershipComponent implements OnInit {
         }
       }
 
+      const subscriptionTier = this.getSubscriptionTier(credits);
+      
       const subscriptionRequest = {
         credits: credits,
         userId: userId,
         price: totalPrice,
-        customerEmail: customerEmail
+        customerEmail: customerEmail,
+        tier: subscriptionTier
       };
 
       // Create Stripe checkout session

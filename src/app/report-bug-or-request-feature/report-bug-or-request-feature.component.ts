@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 import { ActionsService } from '../actions/actions.service';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { ToastrService } from 'ngx-toastr';
+import { ApiConfigService } from '../core/services/api-config.service';
 
 interface UploadResponse {
   imageUrl: string; // Adjust this to match your API response structure
@@ -39,6 +40,7 @@ export class ReportBugOrRequestFeatureComponent implements OnInit {
   isReportBug!: boolean;
   influencerEmails!: Array<string>;
   toastrService = inject(ToastrService);
+  apiConfig = inject(ApiConfigService);
   editorConfig: /*AngularEditorConfig*/any = {
     editable: true,
     spellcheck: true,
@@ -61,7 +63,7 @@ export class ReportBugOrRequestFeatureComponent implements OnInit {
     ],
     customClasses: [
     ],
-    uploadUrl: 'http://localhost:3000/api/uploads/image', // Your API endpoint
+    uploadUrl: `${this.apiConfig.apiUrl}/uploads/image`, // Dynamic API endpoint
     //upload: (file: File) => this.handleImageUpload(file),
     uploadWithCredentials: false,
     sanitize: true,

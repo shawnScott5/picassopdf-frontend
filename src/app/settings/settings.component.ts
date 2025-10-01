@@ -154,10 +154,7 @@ export class SettingsComponent implements OnInit {
 
   // API Settings
   apiSettings = {
-    webhookUrl: '',
-    callbackUrl: '',
-    timeout: 120,
-    maxRetries: 3
+    webhookUrl: ''
   };
 
   // Notification Settings
@@ -534,6 +531,11 @@ export class SettingsComponent implements OnInit {
 
   loadSettings() {
     // Load saved settings from backend/localStorage
+    const savedApiSettings = localStorage.getItem('apiSettings');
+    if (savedApiSettings) {
+      this.apiSettings = { ...this.apiSettings, ...JSON.parse(savedApiSettings) };
+    }
+
     const savedEmailSettings = localStorage.getItem('emailSettings');
     if (savedEmailSettings) {
       this.emailSettings = { ...this.emailSettings, ...JSON.parse(savedEmailSettings) };

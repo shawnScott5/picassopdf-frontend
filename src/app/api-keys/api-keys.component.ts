@@ -112,206 +112,104 @@ export class ApiKeysComponent implements OnInit, OnDestroy {
   codeExamples = {
     python: `<span style="color: #569cd6; font-weight: 500;">import</span> requests
 
-API_KEY = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>
-
 res = requests.<span style="color: #dcdcaa;">post</span>(
-    <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>,
-    headers={<span style="color: #ce9178;">"Authorization"</span>: <span style="color: #ce9178;">f"Bearer {API_KEY}"</span>},
-    json={
-        <span style="color: #6a9955;"># Either 'url' or 'html' is required</span>
-        <span style="color: #ce9178;">"url"</span>: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>,
-        <span style="color: #ce9178;">"html"</span>: <span style="color: #569cd6; font-weight: 500;">None</span>,
-        <span style="color: #ce9178;">"css"</span>: <span style="color: #569cd6; font-weight: 500;">None</span>,         <span style="color: #6a9955;"># optional, only used with 'html'</span>
-        <span style="color: #ce9178;">"javascript"</span>: <span style="color: #569cd6; font-weight: 500;">None</span>,  <span style="color: #6a9955;"># optional, only used with 'html'</span>
-        
-        <span style="color: #ce9178;">"file_name"</span>: <span style="color: #ce9178;">"pdf-generated"</span>,
-        <span style="color: #ce9178;">"options"</span>: {
-            <span style="color: #ce9178;">"save_to_vault"</span>: <span style="color: #569cd6; font-weight: 500;">True</span>  <span style="color: #6a9955;"># optional, default is false</span>
-        },
-        <span style="color: #ce9178;">"ai_options"</span>: {
-            <span style="color: #ce9178;">"layout_repair"</span>: <span style="color: #569cd6; font-weight: 500;">True</span>  <span style="color: #6a9955;"># optional, default is false</span>
-        }
-    }
+    <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>,
+    headers={<span style="color: #ce9178;">"Authorization"</span>: <span style="color: #ce9178;">"Bearer sk_XXX"</span>},
+    json={<span style="color: #ce9178;">"url"</span>: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>}
 )
 
-<span style="color: #569cd6; font-weight: 500;">with</span> <span style="color: #dcdcaa;">open</span>(<span style="color: #ce9178;">"pdf-generated.pdf"</span>, <span style="color: #ce9178;">"wb"</span>) <span style="color: #569cd6; font-weight: 500;">as</span> f:
-    f.<span style="color: #dcdcaa;">write</span>(res.content)`,
-    nodejs: `<span style="color: #569cd6; font-weight: 500;">import</span> fetch <span style="color: #569cd6; font-weight: 500;">from</span> <span style="color: #ce9178;">"node-fetch"</span>;
+<span style="color: #dcdcaa;">open</span>(<span style="color: #ce9178;">"output.pdf"</span>, <span style="color: #ce9178;">"wb"</span>).<span style="color: #dcdcaa;">write</span>(res.content)`,
+    nodejs: `<span style="color: #569cd6; font-weight: 500;">const</span> fetch = <span style="color: #dcdcaa;">require</span>(<span style="color: #ce9178;">"node-fetch"</span>), fs = <span style="color: #dcdcaa;">require</span>(<span style="color: #ce9178;">"fs"</span>);
 
-<span style="color: #569cd6; font-weight: 500;">const</span> API_KEY = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>;
-
-<span style="color: #569cd6; font-weight: 500;">const</span> res = <span style="color: #569cd6; font-weight: 500;">await</span> fetch(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>, {
+<span style="color: #569cd6; font-weight: 500;">const</span> res = <span style="color: #569cd6; font-weight: 500;">await</span> fetch(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>, {
   method: <span style="color: #ce9178;">"POST"</span>,
-  headers: {
-    <span style="color: #ce9178;">"Authorization"</span>: <span style="color: #ce9178;">\`Bearer \${API_KEY}\`</span>,
-    <span style="color: #ce9178;">"Content-Type"</span>: <span style="color: #ce9178;">"application/json"</span>
-  },
-  body: <span style="color: #dcdcaa;">JSON</span>.<span style="color: #dcdcaa;">stringify</span>({
-    <span style="color: #6a9955;">// Either 'url' or 'html' is required</span>
-    url: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>,
-    html: <span style="color: #569cd6; font-weight: 500;">null</span>,
-    css: <span style="color: #569cd6; font-weight: 500;">null</span>,        <span style="color: #6a9955;">// optional, only used with 'html'</span>
-    javascript: <span style="color: #569cd6; font-weight: 500;">null</span>, <span style="color: #6a9955;">// optional, only used with 'html'</span>
-
-    file_name: <span style="color: #ce9178;">"pdf-generated"</span>,
-    options: {
-      save_to_vault: <span style="color: #569cd6; font-weight: 500;">true</span> <span style="color: #6a9955;">// optional, default is false</span>
-    },
-    ai_options: {
-      layout_repair: <span style="color: #569cd6; font-weight: 500;">true</span> <span style="color: #6a9955;">// optional, default is false</span>
-    }
-  })
+  headers: { Authorization: <span style="color: #ce9178;">"Bearer sk_XXX"</span>, <span style="color: #ce9178;">"Content-Type"</span>: <span style="color: #ce9178;">"application/json"</span> },
+  body: <span style="color: #dcdcaa;">JSON</span>.<span style="color: #dcdcaa;">stringify</span>({ url: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span> })
 });
 
-<span style="color: #569cd6; font-weight: 500;">const</span> buffer = <span style="color: #dcdcaa;">Buffer</span>.<span style="color: #dcdcaa;">from</span>(<span style="color: #569cd6; font-weight: 500;">await</span> res.<span style="color: #dcdcaa;">arrayBuffer</span>());
-<span style="color: #569cd6; font-weight: 500;">await</span> fs.<span style="color: #dcdcaa;">promises</span>.<span style="color: #dcdcaa;">writeFile</span>(<span style="color: #ce9178;">"pdf-generated.pdf"</span>, buffer);`,
+res.body.<span style="color: #dcdcaa;">pipe</span>(fs.<span style="color: #dcdcaa;">createWriteStream</span>(<span style="color: #ce9178;">"wikipedia.pdf"</span>));`,
     php: `<span style="color: #d4d4d4;">&lt;?php</span>
-<span style="color: #6a9955;">// use your real api key</span>
-$apiKey = <span style="color: #ce9178;">'sk_XXXXXXXXXX'</span>;
+$curl = <span style="color: #dcdcaa;">curl_init</span>();
 
-<span style="color: #6a9955;">// json required fields: 'html' OR 'link'</span>
-<span style="color: #6a9955;">// json optional fields: 'css', 'javascript'</span>
-
-$ch = <span style="color: #dcdcaa;">curl_init</span>();
-
-<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_URL, <span style="color: #ce9178;">'https://api.picassopdf.com/v1/convert'</span>);
-<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_POST, <span style="color: #569cd6; font-weight: 500;">true</span>);
-<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_POSTFIELDS, <span style="color: #dcdcaa;">json_encode</span>([
-    <span style="color: #ce9178;">'url'</span> => <span style="color: #ce9178;">'https://en.wikipedia.org/wiki/PDF'</span>
-]));
-<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_HTTPHEADER, [
-    <span style="color: #ce9178;">'Content-Type: application/json'</span>,
-    <span style="color: #ce9178;">'Authorization: Bearer '</span> . $apiKey
+<span style="color: #dcdcaa;">curl_setopt_array</span>($curl, [
+    CURLOPT_URL => <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>,
+    CURLOPT_RETURNTRANSFER => <span style="color: #569cd6; font-weight: 500;">true</span>,
+    CURLOPT_POST => <span style="color: #569cd6; font-weight: 500;">true</span>,
+    CURLOPT_POSTFIELDS => <span style="color: #dcdcaa;">json_encode</span>([<span style="color: #ce9178;">"url"</span> => <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>]),
+    CURLOPT_HTTPHEADER => [
+        <span style="color: #ce9178;">"Content-Type: application/json"</span>,
+        <span style="color: #ce9178;">"Authorization: Bearer sk_XXXXXXXXXX"</span>
+    ]
 ]);
-<span style="color: #dcdcaa;">curl_setopt</span>($ch, CURLOPT_RETURNTRANSFER, <span style="color: #569cd6; font-weight: 500;">true</span>);
 
-$response = <span style="color: #dcdcaa;">curl_exec</span>($ch);
-<span style="color: #dcdcaa;">curl_close</span>($ch);
+<span style="color: #dcdcaa;">file_put_contents</span>(<span style="color: #ce9178;">"wikipedia.pdf"</span>, <span style="color: #dcdcaa;">curl_exec</span>($curl));`,
+    ruby: `<span style="color: #569cd6; font-weight: 500;">require</span> <span style="color: #ce9178;">'net/http'</span>
+<span style="color: #569cd6; font-weight: 500;">require</span> <span style="color: #ce9178;">'json'</span>
+<span style="color: #569cd6; font-weight: 500;">require</span> <span style="color: #ce9178;">'uri'</span>
 
-<span style="color: #dcdcaa;">file_put_contents</span>(<span style="color: #ce9178;">'wikipedia.pdf'</span>, $response);`,
-    ruby: `<span style="color: #569cd6; font-weight: 500;">require</span> <span style="color: #ce9178;">"net/http"</span>
-<span style="color: #569cd6; font-weight: 500;">require</span> <span style="color: #ce9178;">"json"</span>
+uri = <span style="color: #dcdcaa;">URI</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>)
+data = { url: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span> }
 
-api_key = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>
-uri = <span style="color: #dcdcaa;">URI</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>)
+req = <span style="color: #dcdcaa;">Net::HTTP::Post</span>.<span style="color: #569cd6; font-weight: 500;">new</span>(uri, <span style="color: #ce9178;">"Content-Type"</span> => <span style="color: #ce9178;">"application/json"</span>, <span style="color: #ce9178;">"Authorization"</span> => <span style="color: #ce9178;">"Bearer sk_XXXXXXXXXX"</span>)
+req.body = data.<span style="color: #dcdcaa;">to_json</span>
 
-body = {
-  <span style="color: #6a9955;"># Either 'url' or 'html' is required</span>
-  url: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>,
-  html: <span style="color: #569cd6; font-weight: 500;">nil</span>,
-  css: <span style="color: #569cd6; font-weight: 500;">nil</span>,        <span style="color: #6a9955;"># optional, only used with 'html'</span>
-  javascript: <span style="color: #569cd6; font-weight: 500;">nil</span>, <span style="color: #6a9955;"># optional, only used with 'html'</span>
-
-  file_name: <span style="color: #ce9178;">"pdf-generated"</span>,
-  options: { save_to_vault: <span style="color: #569cd6; font-weight: 500;">true</span> },  <span style="color: #6a9955;"># optional, default is false</span>
-  ai_options: { layout_repair: <span style="color: #569cd6; font-weight: 500;">true</span> } <span style="color: #6a9955;"># optional, default is false</span>
-}
-
-req = <span style="color: #dcdcaa;">Net::HTTP::Post</span>.<span style="color: #dcdcaa;">new</span>(uri)
-req[<span style="color: #ce9178;">"Authorization"</span>] = <span style="color: #ce9178;">"Bearer #{api_key}"</span>
-req[<span style="color: #ce9178;">"Content-Type"</span>] = <span style="color: #ce9178;">"application/json"</span>
-req.body = body.<span style="color: #dcdcaa;">to_json</span>
-
-res = <span style="color: #dcdcaa;">Net::HTTP</span>.<span style="color: #dcdcaa;">start</span>(uri.hostname, uri.port, use_ssl: <span style="color: #569cd6; font-weight: 500;">true</span>) <span style="color: #569cd6; font-weight: 500;">do</span> |http|
-  http.<span style="color: #dcdcaa;">request</span>(req)
-<span style="color: #569cd6; font-weight: 500;">end</span>
-
-<span style="color: #dcdcaa;">File</span>.<span style="color: #dcdcaa;">open</span>(<span style="color: #ce9178;">"pdf-generated.pdf"</span>, <span style="color: #ce9178;">"wb"</span>) { |f| f.<span style="color: #dcdcaa;">write</span>(res.body) }`,
-    java: `<span style="color: #569cd6; font-weight: 500;">import</span> java.net.http.*;
-<span style="color: #569cd6; font-weight: 500;">import</span> java.net.URI;
-<span style="color: #569cd6; font-weight: 500;">import</span> java.nio.file.*;
-<span style="color: #569cd6; font-weight: 500;">import</span> java.nio.charset.StandardCharsets;
+res = <span style="color: #dcdcaa;">Net::HTTP</span>.<span style="color: #dcdcaa;">start</span>(uri.hostname, uri.port, use_ssl: <span style="color: #569cd6; font-weight: 500;">true</span>) { |http| http.<span style="color: #dcdcaa;">request</span>(req) }
+<span style="color: #dcdcaa;">File</span>.<span style="color: #dcdcaa;">binwrite</span>(<span style="color: #ce9178;">"wikipedia.pdf"</span>, res.body)`,
+    java: `<span style="color: #569cd6; font-weight: 500;">import</span> java.io.*;
+<span style="color: #569cd6; font-weight: 500;">import</span> java.net.*;
 
 <span style="color: #569cd6; font-weight: 500;">public</span> <span style="color: #569cd6; font-weight: 500;">class</span> <span style="color: #dcdcaa;">PdfExample</span> {
     <span style="color: #569cd6; font-weight: 500;">public</span> <span style="color: #569cd6; font-weight: 500;">static</span> <span style="color: #569cd6; font-weight: 500;">void</span> <span style="color: #dcdcaa;">main</span>(<span style="color: #dcdcaa;">String</span>[] args) <span style="color: #569cd6; font-weight: 500;">throws</span> <span style="color: #dcdcaa;">Exception</span> {
-        <span style="color: #dcdcaa;">String</span> API_KEY = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>;
+        <span style="color: #dcdcaa;">URL</span> url = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">URL</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>);
+        <span style="color: #dcdcaa;">HttpURLConnection</span> conn = (<span style="color: #dcdcaa;">HttpURLConnection</span>) url.<span style="color: #dcdcaa;">openConnection</span>();
+        conn.<span style="color: #dcdcaa;">setRequestMethod</span>(<span style="color: #ce9178;">"POST"</span>);
+        conn.<span style="color: #dcdcaa;">setRequestProperty</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer sk_XXXXXXXXXX"</span>);
+        conn.<span style="color: #dcdcaa;">setRequestProperty</span>(<span style="color: #ce9178;">"Content-Type"</span>, <span style="color: #ce9178;">"application/json"</span>);
+        conn.<span style="color: #dcdcaa;">setDoOutput</span>(<span style="color: #569cd6; font-weight: 500;">true</span>);
 
-        <span style="color: #dcdcaa;">String</span> json = <span style="color: #ce9178;">"""
-        {
-          "url": "https://en.wikipedia.org/wiki/PDF",
-          "html": null,
-          "css": null,
-          "javascript": null,
-          "file_name": "pdf-generated",
-          "options": { "save_to_vault": true },
-          "ai_options": { "layout_repair": true }
+        <span style="color: #569cd6; font-weight: 500;">try</span> (<span style="color: #dcdcaa;">OutputStream</span> os = conn.<span style="color: #dcdcaa;">getOutputStream</span>()) {
+            os.<span style="color: #dcdcaa;">write</span>(<span style="color: #ce9178;">"{\"url\":\"https://en.wikipedia.org/wiki/PDF\"}"</span>.<span style="color: #dcdcaa;">getBytes</span>());
         }
-        """</span>;
 
-        <span style="color: #dcdcaa;">HttpRequest</span> request = <span style="color: #dcdcaa;">HttpRequest</span>.<span style="color: #dcdcaa;">newBuilder</span>()
-            .<span style="color: #dcdcaa;">uri</span>(<span style="color: #dcdcaa;">URI</span>.<span style="color: #dcdcaa;">create</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>))
-            .<span style="color: #dcdcaa;">header</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer "</span> + API_KEY)
-            .<span style="color: #dcdcaa;">header</span>(<span style="color: #ce9178;">"Content-Type"</span>, <span style="color: #ce9178;">"application/json"</span>)
-            .<span style="color: #dcdcaa;">POST</span>(<span style="color: #dcdcaa;">HttpRequest</span>.<span style="color: #dcdcaa;">BodyPublishers</span>.<span style="color: #dcdcaa;">ofString</span>(json, <span style="color: #dcdcaa;">StandardCharsets</span>.UTF_8))
-            .<span style="color: #dcdcaa;">build</span>();
-
-        <span style="color: #dcdcaa;">HttpClient</span> client = <span style="color: #dcdcaa;">HttpClient</span>.<span style="color: #dcdcaa;">newHttpClient</span>();
-        <span style="color: #dcdcaa;">HttpResponse</span>&lt;<span style="color: #569cd6; font-weight: 500;">byte</span>[]&gt; response = client.<span style="color: #dcdcaa;">send</span>(request, <span style="color: #dcdcaa;">HttpResponse</span>.<span style="color: #dcdcaa;">BodyHandlers</span>.<span style="color: #dcdcaa;">ofByteArray</span>());
-
-        <span style="color: #dcdcaa;">Files</span>.<span style="color: #dcdcaa;">write</span>(<span style="color: #dcdcaa;">Path</span>.<span style="color: #dcdcaa;">of</span>(<span style="color: #ce9178;">"pdf-generated.pdf"</span>), response.<span style="color: #dcdcaa;">body</span>());
+        <span style="color: #569cd6; font-weight: 500;">try</span> (<span style="color: #dcdcaa;">InputStream</span> in = conn.<span style="color: #dcdcaa;">getInputStream</span>();
+             <span style="color: #dcdcaa;">FileOutputStream</span> out = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">FileOutputStream</span>(<span style="color: #ce9178;">"wikipedia.pdf"</span>)) {
+            in.<span style="color: #dcdcaa;">transferTo</span>(out);
+        }
     }
 }`,
-    csharp: `<span style="color: #569cd6; font-weight: 500;">using</span> System.Net.Http;
-<span style="color: #569cd6; font-weight: 500;">using</span> System.Text;
-<span style="color: #569cd6; font-weight: 500;">using</span> System.Text.Json;
+    csharp: `<span style="color: #569cd6; font-weight: 500;">using</span> System.IO;
+<span style="color: #569cd6; font-weight: 500;">using</span> RestSharp;
 
-<span style="color: #569cd6; font-weight: 500;">class</span> <span style="color: #dcdcaa;">Program</span> {
-    <span style="color: #569cd6; font-weight: 500;">static</span> <span style="color: #569cd6; font-weight: 500;">async</span> <span style="color: #569cd6; font-weight: 500;">Task</span> <span style="color: #dcdcaa;">Main</span>() {
-        <span style="color: #569cd6; font-weight: 500;">var</span> apiKey = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>;
-        <span style="color: #569cd6; font-weight: 500;">var</span> client = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">HttpClient</span>();
+<span style="color: #dcdcaa;">var</span> client = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">RestClient</span>(<span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>);
+client.<span style="color: #dcdcaa;">AddDefaultHeader</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer sk_XXXXXXXXXX"</span>);
 
-        <span style="color: #569cd6; font-weight: 500;">var</span> payload = <span style="color: #569cd6; font-weight: 500;">new</span> {
-            <span style="color: #6a9955;">// Either 'url' or 'html' is required</span>
-            url = <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>,
-            html = (<span style="color: #569cd6; font-weight: 500;">string?</span>)<span style="color: #569cd6; font-weight: 500;">null</span>,
-            css = (<span style="color: #569cd6; font-weight: 500;">string?</span>)<span style="color: #569cd6; font-weight: 500;">null</span>,        <span style="color: #6a9955;">// optional, only used with 'html'</span>
-            javascript = (<span style="color: #569cd6; font-weight: 500;">string?</span>)<span style="color: #569cd6; font-weight: 500;">null</span>, <span style="color: #6a9955;">// optional, only used with 'html'</span>
+<span style="color: #dcdcaa;">var</span> request = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">RestRequest</span>(<span style="color: #dcdcaa;">Method</span>.POST);
+request.<span style="color: #dcdcaa;">AddJsonBody</span>(<span style="color: #569cd6; font-weight: 500;">new</span> { url = <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span> });
 
-            file_name = <span style="color: #ce9178;">"pdf-generated"</span>,
-            options = <span style="color: #569cd6; font-weight: 500;">new</span> { save_to_vault = <span style="color: #569cd6; font-weight: 500;">true</span> },  <span style="color: #6a9955;">// optional, default is false</span>
-            ai_options = <span style="color: #569cd6; font-weight: 500;">new</span> { layout_repair = <span style="color: #569cd6; font-weight: 500;">true</span> } <span style="color: #6a9955;">// optional, default is false</span>
-        };
-
-        <span style="color: #569cd6; font-weight: 500;">var</span> request = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">HttpRequestMessage</span>(<span style="color: #dcdcaa;">HttpMethod</span>.Post, <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>) {
-            Headers = { { <span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">$"Bearer {apiKey}"</span> } },
-            Content = <span style="color: #569cd6; font-weight: 500;">new</span> <span style="color: #dcdcaa;">StringContent</span>(<span style="color: #dcdcaa;">JsonSerializer</span>.<span style="color: #dcdcaa;">Serialize</span>(payload), <span style="color: #dcdcaa;">Encoding</span>.UTF8, <span style="color: #ce9178;">"application/json"</span>)
-        };
-
-        <span style="color: #569cd6; font-weight: 500;">var</span> response = <span style="color: #569cd6; font-weight: 500;">await</span> client.<span style="color: #dcdcaa;">SendAsync</span>(request);
-        <span style="color: #569cd6; font-weight: 500;">var</span> bytes = <span style="color: #569cd6; font-weight: 500;">await</span> response.Content.<span style="color: #dcdcaa;">ReadAsByteArrayAsync</span>();
-
-        <span style="color: #569cd6; font-weight: 500;">await</span> <span style="color: #dcdcaa;">File</span>.<span style="color: #dcdcaa;">WriteAllBytesAsync</span>(<span style="color: #ce9178;">"pdf-generated.pdf"</span>, bytes);
-    }
-}`,
+<span style="color: #dcdcaa;">var</span> response = client.<span style="color: #dcdcaa;">Execute</span>(request);
+<span style="color: #dcdcaa;">File</span>.<span style="color: #dcdcaa;">WriteAllBytes</span>(<span style="color: #ce9178;">"wikipedia.pdf"</span>, response.<span style="color: #dcdcaa;">RawBytes</span>);`,
     go: `<span style="color: #569cd6; font-weight: 500;">package</span> main
 
 <span style="color: #569cd6; font-weight: 500;">import</span> (
-    <span style="color: #ce9178;">"bytes"</span>
-    <span style="color: #ce9178;">"encoding/json"</span>
-    <span style="color: #ce9178;">"fmt"</span>
-    <span style="color: #ce9178;">"net/http"</span>
+	<span style="color: #ce9178;">"bytes"</span>
+	<span style="color: #ce9178;">"encoding/json"</span>
+	<span style="color: #ce9178;">"io"</span>
+	<span style="color: #ce9178;">"net/http"</span>
+	<span style="color: #ce9178;">"os"</span>
 )
 
-<span style="color: #6a9955;">// use your real api key</span>
-<span style="color: #569cd6; font-weight: 500;">const</span> apiKey = <span style="color: #ce9178;">"sk_XXXXXXXXXX"</span>
-
-<span style="color: #6a9955;">// json required fields: 'html' OR 'link'</span>
-<span style="color: #6a9955;">// json optional fields: 'css', 'javascript'</span>
-
 <span style="color: #569cd6; font-weight: 500;">func</span> <span style="color: #dcdcaa;">main</span>() {
-    data := <span style="color: #569cd6; font-weight: 500;">map</span>[<span style="color: #569cd6; font-weight: 500;">string</span>]<span style="color: #569cd6; font-weight: 500;">interface</span>{}{
-        <span style="color: #ce9178;">"html"</span>: <span style="color: #ce9178;">"&lt;h1&gt;Go PDF&lt;/h1&gt;&lt;p&gt;Generated with Go!&lt;/p&gt;"</span>,
-    }
-    jsonData, _ := json.<span style="color: #dcdcaa;">Marshal</span>(data)
+	body, _ := json.<span style="color: #dcdcaa;">Marshal</span>(<span style="color: #569cd6; font-weight: 500;">map</span>[<span style="color: #569cd6; font-weight: 500;">string</span>]<span style="color: #569cd6; font-weight: 500;">string</span>{<span style="color: #ce9178;">"url"</span>: <span style="color: #ce9178;">"https://en.wikipedia.org/wiki/PDF"</span>})
+	req, _ := http.<span style="color: #dcdcaa;">NewRequest</span>(<span style="color: #ce9178;">"POST"</span>, <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert/pdf"</span>, bytes.<span style="color: #dcdcaa;">NewBuffer</span>(body))
+	req.Header.<span style="color: #dcdcaa;">Set</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer sk_XXXXXXXXXX"</span>)
+	req.Header.<span style="color: #dcdcaa;">Set</span>(<span style="color: #ce9178;">"Content-Type"</span>, <span style="color: #ce9178;">"application/json"</span>)
 
-    req, _ := http.<span style="color: #dcdcaa;">NewRequest</span>(<span style="color: #ce9178;">"POST"</span>, <span style="color: #ce9178;">"https://api.picassopdf.com/v1/convert"</span>, 
-        bytes.<span style="color: #dcdcaa;">NewBuffer</span>(jsonData))
-    req.Header.<span style="color: #dcdcaa;">Set</span>(<span style="color: #ce9178;">"Authorization"</span>, <span style="color: #ce9178;">"Bearer "</span>+apiKey)
-    req.Header.<span style="color: #dcdcaa;">Set</span>(<span style="color: #ce9178;">"Content-Type"</span>, <span style="color: #ce9178;">"application/json"</span>)
+	resp, _ := http.<span style="color: #dcdcaa;">DefaultClient</span>.<span style="color: #dcdcaa;">Do</span>(req)
+	<span style="color: #569cd6; font-weight: 500;">defer</span> resp.Body.<span style="color: #dcdcaa;">Close</span>()
 
-    client := &http.Client{}
-    resp, _ := client.<span style="color: #dcdcaa;">Do</span>(req)
-    <span style="color: #569cd6; font-weight: 500;">defer</span> resp.Body.<span style="color: #dcdcaa;">Close</span>()
+	out, _ := os.<span style="color: #dcdcaa;">Create</span>(<span style="color: #ce9178;">"wikipedia.pdf"</span>)
+	<span style="color: #569cd6; font-weight: 500;">defer</span> out.<span style="color: #dcdcaa;">Close</span>()
+	io.<span style="color: #dcdcaa;">Copy</span>(out, resp.Body)
 }`,
   };
 
